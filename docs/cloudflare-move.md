@@ -1,6 +1,6 @@
 # Moving chaseteichmann.com to Cloudflare
 
-The site moves from GitHub Pages to a Cloudflare Worker that only serves static files (`wrangler.jsonc`), and DNS moves from AWS Route 53 to Cloudflare. That lets this repo go private without paying for GitHub Pro.
+The site moves from GitHub Pages to a Cloudflare Worker that only serves static files (`wrangler.toml`), and DNS moves from AWS Route 53 to Cloudflare. That lets this repo go private without paying for GitHub Pro.
 
 **Cost: $0 a month**, and about $0.50 a month less once the Route 53 zone is deleted. Everything here is on free plans: the Cloudflare Free zone, Universal SSL, the Workers Free plan (static file requests are free and unlimited), Workers Builds (3,000 build minutes a month on Free), Worker custom domains and Redirect Rules (10 on Free). If a screen offers an upgrade, a paid add-on (Argo, APO, Load Balancing, Workers Paid) or asks for a card, skip it: nothing below needs one. The domain stays registered at Squarespace and renews there as it does today.
 
@@ -25,7 +25,7 @@ There are no MX records, so email isn't affected. DNSSEC is off for the domain (
 
 Do these in order. Nothing in steps 1 to 4 changes what visitors see.
 
-1. **Merge the PR that adds `wrangler.jsonc`.**
+1. **Merge the PR that adds `wrangler.toml`.**
 2. **Add the zone.** Cloudflare dashboard (the account that already runs `chaseteichmann-booking`) → *Add a domain* → `chaseteichmann.com` → **Free** plan. Turn off *Proxy imported records* / any "proxy by default" option if offered.
 3. **Check the imported records against the table above.** The quick scan guesses common names, so it often misses the `_944239…` ACM record and can miss FishLog's record: add any missing ones by hand, with the exact names and values above. Then:
    - Set **every** record to **DNS only** (grey cloud), including the apex and `www` for now. The site keeps being served by GitHub Pages until step 6.
@@ -33,7 +33,7 @@ Do these in order. Nothing in steps 1 to 4 changes what visitors see.
    - Don't add any CAA records (AWS's certificate authority would then need its own entry).
    - Note the two nameservers Cloudflare assigns (`<name>.ns.cloudflare.com`).
 4. **Connect Workers Builds for the site.** *Workers & Pages* → *Create* → *Import a repository* → `chase-teichmann/chaseteichmann-portfolio`.
-   - Worker name: `chaseteichmann-site` (it must match `name` in `wrangler.jsonc`, or builds fail)
+   - Worker name: `chaseteichmann-site` (it must match `name` in `wrangler.toml`, or builds fail)
    - Production branch: `main`
    - Build command: `npm run build`
    - Deploy command: `npx wrangler deploy`

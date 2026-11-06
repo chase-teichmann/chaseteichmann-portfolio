@@ -1,0 +1,16 @@
+# The website as a Cloudflare Worker that only serves static files (no Worker code runs, and
+# static file requests are free on the Workers free plan). Cloudflare Workers Builds runs
+# `npm run build` then `npx wrangler deploy` on every push to main.
+#
+# This file must stay TOML: Wrangler looks for wrangler.json(c) in every parent folder before it
+# looks for wrangler.toml, so a JSON config here would override booking/wrangler.toml inside booking/.
+name = "chaseteichmann-site"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "./dist"
+# Astro writes /work/<slug>/index.html, so /work/<slug>/ serves that file and
+# /work/<slug> redirects to /work/<slug>/, as GitHub Pages does.
+html_handling = "auto-trailing-slash"
+# There's no custom 404 page: unknown paths get a plain 404.
+not_found_handling = "none"

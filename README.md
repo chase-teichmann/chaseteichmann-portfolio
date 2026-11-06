@@ -4,7 +4,7 @@ Chase Teichmann's portfolio, built as a small storefront: projects are products,
 
 | Folder | What it is | How it ships |
 |---|---|---|
-| `src/`, `public/` | The website (Astro, built to static HTML in `dist/`) | Cloudflare Workers Builds, as the static-files-only Worker `chaseteichmann-site` (`wrangler.jsonc`), on every push to `main`. Until the move in [`docs/cloudflare-move.md`](docs/cloudflare-move.md) is finished, GitHub Pages (`.github/workflows/pages.yml`) also still deploys it |
+| `src/`, `public/` | The website (Astro, built to static HTML in `dist/`) | Cloudflare Workers Builds, as the static-files-only Worker `chaseteichmann-site` (`wrangler.toml`), on every push to `main`. Until the move in [`docs/cloudflare-move.md`](docs/cloudflare-move.md) is finished, GitHub Pages (`.github/workflows/pages.yml`) also still deploys it |
 | `booking/` | The booking service (Cloudflare Worker) | Cloudflare Workers Builds, on every push to `main` that touches `booking/` |
 
 See [`booking/README.md`](booking/README.md) for how booking works and how to set it up again.
