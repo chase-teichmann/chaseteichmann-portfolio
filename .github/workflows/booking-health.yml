@@ -1,0 +1,56 @@
+name: Booking health
+
+# Every 6 hours, ask the booking Worker for open times, the same way the site does. If it fails
+# (for example, Google revoked the calendar sign-in), open an issue so GitHub emails Chase.
+# When it works again, close that issue.
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: booking-health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      ENDPOINT: https://chaseteichmann-booking.chaseteichmann-business.workers.dev
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TITLE: 'Booking is down: the site cannot load open times'
+    steps:
+      - name: Ask for open times
+        id: probe
+        run: |
+          set +e
+          body=$(curl -sS --max-time 30 -H 'Origin: https://chaseteichmann.com' -w '\n%{http_code}' "$ENDPOINT/availability?minutes=30")
+          code=$(printf '%s' "$body" | tail -n1)
+          json=$(printf '%s' "$body" | sed '$d')
+          echo "status=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" = "200" ] && printf '%s' "$json" | jq -e '.slots | type == "array"' >/dev/null; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            echo "Booking OK: $(printf '%s' "$json" | jq '.slots | length') open slots."
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "Booking failed with HTTP $code: $(printf '%s' "$json" | head -c 300)"
+          fi
+      - name: Open or update the issue
+        if: steps.probe.outputs.ok == 'false'
+        run: |
+          gh label create booking-down --color B60205 --description 'Booking health check failing' 2>/dev/null || true
+          msg="The booking Worker answered HTTP ${{ steps.probe.outputs.status }} at $(date -u '+%Y-%m-%d %H:%M UTC'), so checkout can't show open times. See booking/README.md. The most common cause is a revoked Google sign-in (get a new refresh token)."
+          n=$(gh issue list --label booking-down --state open --json number -q '.[0].number')
+          if [ -n "$n" ]; then gh issue comment "$n" --body "Still failing. $msg"
+          else gh issue create --title "$TITLE" --label booking-down --assignee "${{ github.repository_owner }}" --body "$msg"; fi
+      - name: Close the issue once it works again
+        if: steps.probe.outputs.ok == 'true'
+        run: |
+          for n in $(gh issue list --label booking-down --state open --json number -q '.[].number'); do
+            gh issue close "$n" --comment "Booking works again ($(date -u '+%Y-%m-%d %H:%M UTC'))."
+          done

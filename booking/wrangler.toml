@@ -7,6 +7,21 @@ compatibility_date = "2026-10-01"
 ALLOWED_ORIGINS = "https://chaseteichmann.com,https://www.chaseteichmann.com"
 # Calendars whose busy times block slots. Add your work calendar's address once it shares free/busy with your Gmail.
 BUSY_CALENDAR_IDS = "primary"
+# Most upcoming calls the site can book at once (a guard against someone filling the calendar).
+MAX_UPCOMING_BOOKINGS = "10"
+
+# Per-IP rate limits (Cloudflare Workers rate limiting; period is 10 or 60 seconds).
+[[ratelimits]]
+name = "AVAILABILITY_LIMIT"
+namespace_id = "1001"
+simple = { limit = 30, period = 60 }
+
+[[ratelimits]]
+name = "BOOK_LIMIT"
+namespace_id = "1002"
+simple = { limit = 3, period = 60 }
 
 # Secrets (set once with `npx wrangler secret put NAME`, never committed):
 #   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN
+# Optional secret (a secret, not a variable, so deploys keep it; it's a personal address):
+#   NOTIFY_EMAIL  where "New intro call" emails go. Needs the gmail.send scope on the refresh token.
