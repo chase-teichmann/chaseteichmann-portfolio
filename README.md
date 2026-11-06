@@ -20,6 +20,10 @@ npm run build     # writes dist/
 npm run preview   # serves dist/
 ```
 
+## Checks
+
+Every pull request runs `.github/workflows/ci.yml`: the site must build and the booking Worker's tests must pass. Dependabot (`.github/dependabot.yml`) opens weekly update PRs.
+
 ## Where things live
 
 - **Content** is data, not markup: `src/data/`.
@@ -32,6 +36,7 @@ npm run preview   # serves dist/
   - `project/`: project page sections (gallery, buy box, prose sections, related projects, webring).
   - `cart/`: cart button, cart drawer, checkout and confirmation.
   - `PrivacySection.astro`: the privacy page.
+- **Static files** in `public/`: `CNAME`, `robots.txt`, `og.png` (the link-preview image; its source and render script are in `scripts/og/`), and `sw.js`, which removes the old site's leftover service worker from returning visitors' browsers.
 - **Styles and scripts** are inlined into each page, unchanged: `src/styles/`, `src/scripts/`, wired up in `src/lib/assets.ts`.
 
 The site sets no cookies and loads no third-party scripts. The theme choice (Modern or Retro) is kept in the visitor's browser under the `ct-theme` localStorage key.

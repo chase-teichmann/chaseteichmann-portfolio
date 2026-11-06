@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og.png source</title>
+<!-- base.css (fonts and colour tokens) is inlined here by render.mjs -->
+<style id="base"></style>
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { background: var(--beige); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .wrap { position: absolute; inset: 56px 64px 64px 56px; }
+  .card { position: absolute; inset: 0; background: var(--paper); border: 4px solid var(--ink); box-shadow: 14px 14px 0 var(--ink); padding: 52px 60px; box-sizing: border-box; display: flex; flex-direction: column; }
+  .band { position: absolute; left: 0; right: 0; top: 0; height: 22px; background: var(--periwinkle); border-bottom: 4px solid var(--ink); }
+  .kicker { margin-top: 18px; font-family: var(--font-mono); font-weight: 600; font-size: 22px; letter-spacing: .08em; text-transform: uppercase; }
+  .name { margin: 18px 0 0; font-size: 92px; line-height: .95; font-weight: 900; font-stretch: 125%; letter-spacing: -.02em; }
+  .headline { margin: 26px 0 0; max-width: 760px; font-size: 36px; line-height: 1.2; font-weight: 600; text-wrap: balance; }
+  .foot { margin-top: auto; display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-weight: 500; font-size: 22px; padding-top: 28px; }
+  .og-chip { padding: 8px 18px; border: 3px solid var(--ink); border-radius: 999px; background: var(--beige); }
+  .url { margin-left: auto; font-weight: 600; }
+  .og-sticker { position: absolute; right: 70px; top: 96px; transform: rotate(5deg); background: var(--sage); border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 18px 26px; text-align: center; font-family: var(--font-mono); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .og-sticker b { display: block; font-size: 34px; letter-spacing: 0; }
+  .og-sticker span { font-size: 17px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="band"></div>
+      <div class="kicker">Senior full stack engineer</div>
+      <h1 class="name">Chase<br>Teichmann</h1>
+      <p class="headline">I helped build the returns product a competitor bought.</p>
+      <div class="foot">
+        <span class="og-chip">TypeScript</span><span class="og-chip">Node.js</span><span class="og-chip">PostgreSQL</span><span class="og-chip">AWS</span>
+        <span class="url">chaseteichmann.com</span>
+      </div>
+    </div>
+    <div class="og-sticker"><b>$0.00</b><span>Free intro call</span></div>
+  </div>
+</body>
+</html>

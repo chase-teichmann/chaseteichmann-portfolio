@@ -1,9 +1,11 @@
 ---
+import store from '../../data/store.json';
 // Items, call length, the protection add-on and the (always $0.00) total. store.js fills the numbers.
 interface Props { variant: 'drawer' | 'summary' }
 const { variant } = Astro.props;
 const d = variant === 'drawer'
   ? { count: 'data-drawer-total', call: 'data-drawer-call', grand: 'Subtotal' }
   : { count: 'data-summary-count', call: 'data-summary-call', grand: 'Total' };
+const minutes = store.call.baseMinutes;
 ---
-<dl class="totals"> <div><dt>Items</dt><dd {...{ [d.count]: '' }}>0</dd></div> <div><dt>Call length</dt><dd {...{ [d.call]: '' }}>15 min</dd></div> <div data-protect-line><dt>Return shipping protection</dt><dd>$0.00</dd></div> <div class="totals__grand"><dt>{d.grand}</dt><dd><span class="money" data-money aria-hidden="true">$0.00</span><span class="visually-hidden">$0.00</span></dd></div> </dl>
+<dl class="totals"> <div><dt>Items</dt><dd {...{ [d.count]: '' }}>0</dd></div> <div><dt>Call length</dt><dd {...{ [d.call]: '' }}>{minutes} min</dd></div> <div data-protect-line><dt>Return shipping protection</dt><dd>$0.00</dd></div> <div class="totals__grand"><dt>{d.grand}</dt><dd><span class="money" data-money aria-hidden="true">$0.00</span><span class="visually-hidden">$0.00</span></dd></div> </dl>
