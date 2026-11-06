@@ -40,7 +40,7 @@ jobs:
       - run: npm run build
       # public/CNAME is copied into dist/, so the custom domain stays set.
       - run: test "$(cat dist/CNAME)" = "chaseteichmann.com"
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
