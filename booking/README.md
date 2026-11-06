@@ -15,7 +15,7 @@ Hours, notice and horizon live in `src/rules.js`.
 |---|---|
 | Code | this folder, in `chase-teichmann/chaseteichmann-portfolio` |
 | Deploys | Cloudflare **Workers Builds**, connected to this repo. Root directory `booking`, deploy command `npx wrangler deploy`. Every push to `main` that touches `booking/` redeploys. |
-| Secrets | Cloudflare dashboard → Workers & Pages → `chaseteichmann-booking` → Settings → Variables and Secrets: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REFRESH_TOKEN`. A deploy never overwrites them. |
+| Secrets | Cloudflare dashboard → Workers & Pages → `chaseteichmann-booking` → Settings → **Runtime variables and secrets (Production)**: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REFRESH_TOKEN`. Not Build variables. A deploy never overwrites them. |
 | Google access | Google Cloud project `chaseteichmann-booking`: Calendar API enabled, consent screen **In production**, and a Web OAuth client whose redirect URI is `https://developers.google.com/oauthplayground` |
 | Site hook | `data-booking-endpoint` on the checkout form in `site/index.html`, set to the Worker URL. If it's empty, checkout runs in preview mode. |
 
