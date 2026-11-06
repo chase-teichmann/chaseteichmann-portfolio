@@ -4,7 +4,7 @@ Chase Teichmann's portfolio, built as a small storefront: projects are products,
 
 | Folder | What it is | How it ships |
 |---|---|---|
-| `src/`, `public/` | The website (Astro, built to static HTML in `dist/`) | GitHub Pages, via `.github/workflows/pages.yml` on every push to `main` that touches the site |
+| `src/`, `public/` | The website (Astro, built to static HTML in `dist/`) | Cloudflare Workers Builds, as the static-files-only Worker `chaseteichmann-site` (`wrangler.toml`), on every push to `main`. Until the move in [`docs/cloudflare-move.md`](docs/cloudflare-move.md) is finished, GitHub Pages (`.github/workflows/pages.yml`) also still deploys it |
 | `booking/` | The booking service (Cloudflare Worker) | Cloudflare Workers Builds, on every push to `main` that touches `booking/` |
 
 See [`booking/README.md`](booking/README.md) for how booking works and how to set it up again.
@@ -18,11 +18,14 @@ npm ci
 npm run dev       # http://localhost:4321
 npm run build     # writes dist/
 npm run preview   # serves dist/
+npx wrangler dev  # serves dist/ the way Cloudflare does (run npm run build first)
 ```
+
+After a DNS change, `scripts/verify-cloudflare.sh` checks the live domain, redirects, static files, FishLog's records and booking CORS.
 
 ## Checks
 
-Every pull request runs `.github/workflows/ci.yml`: the site must build and the booking Worker's tests must pass. Dependabot (`.github/dependabot.yml`) opens weekly update PRs.
+Every pull request runs `.github/workflows/ci.yml`: the site must build, its Worker config must pass a `wrangler deploy --dry-run`, and the booking Worker's tests must pass. Dependabot (`.github/dependabot.yml`) opens weekly update PRs.
 
 ## Where things live
 

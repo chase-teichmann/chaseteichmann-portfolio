@@ -22,6 +22,7 @@ jobs:
       - run: test "$(cat dist/CNAME)" = "chaseteichmann.com" && test -f dist/og.png && test -f dist/sw.js
       # Standing rule: the fish subdomain never appears on the personal site.
       - run: '! grep -rq "fish.chaseteichmann" dist'
+      - run: npx wrangler deploy --dry-run --outdir .wrangler/dry-run
   booking:
     runs-on: ubuntu-latest
     defaults:
