@@ -1,0 +1,1 @@
+addEventListener("load",()=>{if(location.hash!=="#request")return;const t=document.querySelector('.header__cta[data-action="request"]');t&&setTimeout(()=>{document.querySelector('[data-action="dismiss-added"]')?.click(),t.click();try{history.replaceState(history.state,"",location.pathname+location.search)}catch{}},250)});

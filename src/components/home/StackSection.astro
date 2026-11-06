@@ -1,0 +1,31 @@
+---
+// "Shop by stack": every tool, how many projects used it, and a one-click "add them all".
+// The chips and panels below are the no-JavaScript version; stack-lab.js draws the interactive
+// shelf into #stack-lab from src/data/stack-lab.json.
+import ProjectNumber from '../ui/ProjectNumber.astro';
+import stack from '../../data/stack.json';
+import stackLab from '../../data/stack-lab.json';
+import { linksFor } from '../../lib/site';
+import { scripts } from '../../lib/assets';
+import { projectById } from '../../lib/projects';
+
+const l = linksFor(0);
+const plural = (n: number) => `${n} ${n === 1 ? 'project' : 'projects'}`;
+---
+<section class="section ground-sage" id="stack" aria-labelledby="stack-title" data-astro-cid-rlzglfcb> <div class="container" data-astro-cid-rlzglfcb>  <h2 class="section-title display" id="stack-title" data-reveal="title" data-astro-cid-rlzglfcb><span class="screen-only" data-astro-cid-rlzglfcb>{stack.title}</span><span class="print-only" data-astro-cid-rlzglfcb aria-hidden="true">{stack.printTitle}</span></h2>  <div id="stack-lab"></div><script type="application/json" id="stack-lab-data" set:html={JSON.stringify(stackLab)}></script><div class="groups" data-stack data-astro-cid-rlzglfcb> {
+  stack.groups.map((group, gi) => (
+    <div class="group" data-reveal="drop" style={`--i: ${gi}`} data-astro-cid-rlzglfcb> <h3 class="mono group__label" data-astro-cid-rlzglfcb>{group.label}</h3> <ul class="group__items" data-astro-cid-rlzglfcb> {
+      group.tools.map((t) => (
+        <li data-astro-cid-rlzglfcb><button class="chip tech" type="button" aria-expanded="false" aria-controls={`tech-${t.id}`} data-tech={t.id} data-astro-cid-rlzglfcb> {t.name}<span class="tech__count" aria-hidden="true" data-astro-cid-rlzglfcb>{t.projects.length}</span><span class="visually-hidden" data-astro-cid-rlzglfcb>, {plural(t.projects.length)}</span></button></li>
+      ))
+    } </ul> {
+      group.tools.map((t) => (
+        <div class="tech-panel" id={`tech-${t.id}`} data-tech-panel={t.id} hidden data-astro-cid-rlzglfcb> <p class="mono tech-panel__head" data-astro-cid-rlzglfcb> {t.name} · in {plural(t.projects.length)} </p>  <ul class="tech-panel__list" data-astro-cid-rlzglfcb> {
+          t.projects.map(projectById).map((p) => (
+            <li data-astro-cid-rlzglfcb> <a href={l.project(p.slug)} data-action="read" data-id={p.id} class="tech-panel__link" data-astro-cid-rlzglfcb> <ProjectNumber project={p} class="tech-panel__num" /> <span data-astro-cid-rlzglfcb>{p.name}</span> </a> </li>
+          ))
+        } </ul> <button class="btn tech-panel__add" type="button" data-action="add-many" data-ids={t.addIds.join(',')} data-astro-cid-rlzglfcb> <span data-add-many-label data-astro-cid-rlzglfcb>{t.addAllCount ? `Add all ${t.addAllCount} to cart` : 'Add to cart'}</span> </button> {t.addAllCount ? '' : ' '}</div>
+      ))
+    } </div>
+  ))
+} </div> </div> </section> <script type="module" set:html={scripts.stack.code}></script>

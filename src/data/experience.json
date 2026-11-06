@@ -1,0 +1,40 @@
+{
+  "title": "Experience",
+  "jobs": [
+    {
+      "id": "actifai",
+      "company": "actifai",
+      "period": "Jul 2026 – Present",
+      "title": "Senior Full Stack Engineer",
+      "progression": null,
+      "lead": "On a 12-person team at a 40-person company that builds sales tools for broadband, cable, and telecom providers, including about a third of North America’s 25 largest.",
+      "pointsHtml": [
+        "<strong>Integrations.</strong> Own the integration that submits telecom orders into the providers’ billing system, where order state lives on both sides. Live for 3 providers, with a runbook for the next.",
+        "<strong>Forward-deployed.</strong> Meet with telecom providers and their integration partners through go-live, gather requirements, and work across departments to ship them.",
+        "<strong>How I work.</strong> Prompt engineering across the full stack. I orchestrate Claude Code agents in T3 Code and Warp, track tickets through Linear’s MCP server, and use an internal MCP server to search our Obsidian knowledge base and query the database safely.",
+        "<strong>Team.</strong> Review code, take on-call, and lead the weekly icebreaker at our sprint retrospective."
+      ]
+    },
+    {
+      "id": "returnlogic",
+      "company": "returnlogic",
+      "period": "Jun 2019 – Jun 2026",
+      "title": "Intern to Senior Full Stack Engineer",
+      "progression": "Intern from summer 2019 until I graduated in 2020, then Full-Stack Software Engineer. Senior from 2024.",
+      "lead": "One of four engineers at a 30-person company, from 7 retailers to more than 250 served over the years, through its 2026 acquisition by a reverse-logistics competitor.",
+      "pointsHtml": [
+        "<strong>Product.</strong> Designed and built the returns product’s shopper portal, return calculations, bundles, auto authorization, and automated processing, plus exchanges and warranties.",
+        "<strong>Revenue.</strong> Built nearly all of <a href=\"work/returnguard-shipping-protection/index.html\">ReturnGuard</a>, the feature the company pivoted its business model around in 2025, and automated billing on Recurly in 2020.",
+        "<strong>Reliability.</strong> With one other engineer, moved 130+ Shopify stores from webhooks to polling within a week over Christmas 2022, and built an AI fraud evaluator that keeps a person in the loop.",
+        "<strong>Data.</strong> Planned table relationships and built indexes across the product, and was a major contributor to the 2020 move from raw SQL to Sequelize.",
+        "<strong>Team.</strong> Mentored and onboarded engineers, reviewed code, took on-call, and was the daily bridge between product, customer support, and engineering."
+      ]
+    }
+  ],
+  "education": {
+    "period": "2016 – 2020",
+    "degree": "B.S. Computer Science",
+    "school": "York College of Pennsylvania",
+    "detail": "Minors in Marketing and Mathematics"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "seo": {
+    "title": "Chase Teichmann · Senior Full Stack Engineer",
+    "description": "I helped build the returns product a competitor bought, from 7 to 250+ retailers. Now at Actifai, connecting telecom orders to billing."
+  },
+  "person": {
+    "@type": "Person",
+    "@id": "https://chaseteichmann.com/#person",
+    "name": "Chase Teichmann",
+    "url": "https://chaseteichmann.com",
+    "jobTitle": "Senior Full Stack Engineer",
+    "description": "Senior full stack engineer. Helped build the returns product a competitor bought at ReturnLogic; now builds telecom billing integrations at Actifai.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "MD",
+      "addressCountry": "US"
+    },
+    "worksFor": [
+      {
+        "@type": "Role",
+        "roleName": "Senior Full Stack Engineer",
+        "startDate": "2026-07",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Actifai"
+        }
+      },
+      {
+        "@type": "Role",
+        "roleName": "Intern to Senior Full Stack Engineer",
+        "startDate": "2019-06",
+        "endDate": "2026-06",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "ReturnLogic"
+        }
+      }
+    ],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "York College of Pennsylvania"
+    },
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "degree",
+      "name": "B.S. Computer Science, minors in Marketing and Mathematics",
+      "recognizedBy": {
+        "@type": "CollegeOrUniversity",
+        "name": "York College of Pennsylvania"
+      }
+    },
+    "knowsAbout": [
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "AWS",
+      "NestJS",
+      "Angular",
+      "Vue 3",
+      "React",
+      "Shopify",
+      "Recurly",
+      "OpenAI",
+      "Datadog",
+      "REST APIs",
+      "E-commerce returns",
+      "Billing automation",
+      "Telecom order integrations"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/chase-teichmann609/"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+---
+// Tiny gridded swatch on the cover thumbnail button, in the cover's colour.
+interface Props { color: string; scoped?: boolean }
+const { color, scoped = false } = Astro.props;
+const inner = `<rect x="1.5" y="1.5" width="33" height="27" style="fill:var(--${color});stroke:var(--ink);stroke-width:2.5"></rect><path d="M12,1.5 V28.5 M24,1.5 V28.5 M1.5,10.5 H34.5 M1.5,19.5 H34.5" style="stroke:var(--ink);stroke-opacity:.3;stroke-width:1"></path>`;
+---
+{scoped
+  ? <svg class="pdp__thumb-glyph" viewBox="0 0 36 30" aria-hidden="true" data-astro-cid-by4zwojz set:html={inner}></svg>
+  : <svg class="pdp__thumb-glyph" viewBox="0 0 36 30" aria-hidden="true" set:html={inner}></svg>}

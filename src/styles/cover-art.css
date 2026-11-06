@@ -1,0 +1,13 @@
+
+.cv-grid line{stroke:var(--ink);stroke-opacity:.08;stroke-width:1}
+.cv-sh{fill:var(--ink)}
+.cv{stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.cv3{stroke-width:3}.cvt{stroke-width:1.5}.cvd{stroke-dasharray:4 4}
+.fp{fill:var(--paper)}.fb{fill:var(--butter)}.fs{fill:var(--sage)}.fw{fill:var(--periwinkle)}
+.fl{fill:var(--lavender)}.fc{fill:var(--coral)}.fi{fill:var(--ink)}.fn{fill:none}
+.cv-bar{fill:var(--ink)}.cv-bar-l{fill:var(--ink);fill-opacity:.3}
+.cv-lead{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cv-road{fill:none;stroke:var(--ink);stroke-width:20}
+.cv-road-line{fill:none;stroke:var(--paper);stroke-width:2;stroke-dasharray:8 8}
+.cv-mono{fill:var(--ink);font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.06em;text-anchor:middle}
+.cv-mono-l{text-anchor:start}

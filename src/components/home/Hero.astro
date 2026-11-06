@@ -1,0 +1,14 @@
+---
+// Top of the home page: who I am, where I've worked, and the featured project. Copy: src/data/hero.json.
+import CompanyLockup from '../ui/CompanyLockup.astro';
+import ProjectCard from './ProjectCard.astro';
+import hero from '../../data/hero.json';
+import { site } from '../../lib/site';
+import { projectById, type CompanyKey } from '../../lib/projects';
+const featured = projectById(hero.featured);
+---
+<section class="hero ground-beige" id="top" data-astro-cid-bbe6dxrz> <div class="container" data-astro-cid-bbe6dxrz> <div class="grid hero__grid" data-astro-cid-bbe6dxrz> <p class="print-only hero__print-id" data-astro-cid-bbe6dxrz> <strong data-astro-cid-bbe6dxrz>{site.name}</strong> {hero.printId} </p> <p class="hero__kicker mono" data-astro-cid-bbe6dxrz>{hero.kicker}<span class="hero__stack"><span aria-hidden="true" data-astro-cid-bbe6dxrz> · </span><span class="visually-hidden" data-astro-cid-bbe6dxrz>, </span>{hero.stack}</span><span class="hero__where">{hero.where}</span></p> <h1 class="hero__headline display" data-astro-cid-bbe6dxrz>{hero.headline}</h1> <div class="hero__copy" data-astro-cid-bbe6dxrz> <p class="hero__subline" data-astro-cid-bbe6dxrz>{hero.subline}</p> </div> <div class="hero__actions" data-astro-cid-bbe6dxrz> <a class="btn btn--primary" href="#work" data-astro-cid-bbe6dxrz>Browse projects</a> <a class="btn" target="_blank" href={site.linkedin} data-action="request" data-astro-cid-bbe6dxrz rel="noopener">Request an intro</a> </div><div class="hero__worked"><p class="hero__worked-label">Worked at</p><ul class="brands__list" data-astro-cid-syh6xvgc> {
+  hero.workedAt.map((w, i) => (
+    <li class="brands__item" style={`--i: ${i}`} data-astro-cid-syh6xvgc><a class="brands__link" href={`#${w.anchor}`}> <CompanyLockup company={w.company as CompanyKey} height={30} /> <span class="mono brands__years" data-astro-cid-syh6xvgc>{w.years}</span> <span class="visually-hidden"> (experience)</span></a></li>
+  ))
+} </ul></div><div class="hero__feature" aria-label="Featured project"><p class="hero__feature-tag">Featured</p><ProjectCard project={featured} featured /></div> </div> </div> </section>

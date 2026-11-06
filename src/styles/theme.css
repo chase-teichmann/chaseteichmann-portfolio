@@ -1,0 +1,233 @@
+/* =====================================================================
+   Theme layer. A theme only restyles: same markup, same content.
+   Print always stays the résumé (everything here is screen-only).
+   ===================================================================== */
+@media screen{
+
+/* ---------- the switch, modern look: a small button in the header ---------- */
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:0 10px;border:var(--b-sm) solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--font-mono);font-size:var(--t-12);font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.theme-btn:hover{background:var(--butter)}
+.theme-btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.theme-btn__label{white-space:nowrap}
+.theme-btn__short{display:none}
+@media (max-width:374px){.theme-btn__short{display:none!important}.theme-btn{padding:0}}
+@media (max-width:420px){.header .cart-btn .cart-btn__label{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.header .header__inner{column-gap:8px}}
+@media (max-width:1279px){.theme-btn{padding:0 8px}.theme-btn__short{display:inline}.theme-btn__label{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+.themebar__icon{position:relative;flex:none;width:18px;height:14px;border:2px solid currentColor;border-radius:3px;background:repeating-linear-gradient(0deg,currentColor 0 1px,transparent 1px 3px);background-clip:content-box;padding:2px;box-sizing:border-box}
+.themebar__icon:after{content:"";position:absolute;left:50%;bottom:-5px;width:8px;height:2px;margin-left:-4px;background:currentColor}
+@media (max-width:480px){html body .header .header__inner>.header__nav ul{gap:0}html body .header .header__inner>.header__nav a{padding-inline:5px;font-size:11px;letter-spacing:.04em}
+html[data-theme=retro] body .header .header__inner>.header__nav a{padding-inline:3px;font-size:14px;letter-spacing:normal}}
+@media (max-width:359px){html body .header .header__inner>.header__nav a{padding-inline:3px;letter-spacing:.02em}html[data-theme=retro] body .header .header__inner>.header__nav a{padding-inline:1px;font-size:12px}}
+/* ---------- the switch animation: a CRT powering off, then on ---------- */
+html.tt-run::view-transition{background:#000}
+html.tt-run::view-transition-group(root){animation:none}
+html.tt-run::view-transition-old(root){animation:tt-off .34s cubic-bezier(.6,0,.8,.3) both;transform-origin:50% 50%}
+html.tt-run::view-transition-new(root){animation:tt-on .5s cubic-bezier(.2,.9,.3,1) .32s both;transform-origin:50% 50%}
+@keyframes tt-off{0%{transform:none;filter:none}55%{transform:scale(1,.006);filter:brightness(2.6)}100%{transform:scale(0,.006);filter:brightness(5)}}
+@keyframes tt-on{0%{transform:scale(0,.006);filter:brightness(5)}35%{transform:scale(1,.006);filter:brightness(2.6)}100%{transform:none;filter:none}}
+/* browsers without view transitions: a quick black veil with the same line */
+.tt-veil{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#000;opacity:0;pointer-events:none;animation:tt-veil-in .18s ease-in forwards}
+.tt-veil:after{content:"";width:100%;height:2px;background:#fff;box-shadow:0 0 18px 4px rgba(255,255,255,.7)}
+.tt-veil.is-out{animation:tt-veil-out .32s ease-out forwards}
+@keyframes tt-veil-in{to{opacity:1}}
+@keyframes tt-veil-out{from{opacity:1}to{opacity:0}}
+/* arriving in 1997: one pass of scanlines rolls down the screen */
+html.tt-arrive body:after{content:"";position:fixed;inset:0;z-index:2147483646;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);animation:tt-scan .9s ease-out both}
+@keyframes tt-scan{0%{opacity:1;clip-path:inset(0 0 100% 0)}50%{opacity:1;clip-path:inset(0)}100%{opacity:0;clip-path:inset(0)}}
+
+/* =====================================================================
+   1997: Netscape grey, Times, blue links, bevelled buttons, a teal desktop
+   ===================================================================== */
+html[data-theme=retro]{
+  --ink:#000;--ink-2:#000;--paper:#c0c0c0;--beige:#dfdfdf;--periwinkle:#99ccff;--lavender:#cc99ff;--sage:#99cc99;--butter:#ffff66;--coral:#ff9966;
+  --orange:#ff9900;--tomato:#ff3300;--blue:#0000ee;--violet:#800080;--green:#008000;--error:#cc0000;--hatch:#a0a0a0;--placeholder:#404040;
+  --font-sans:"Times New Roman",Times,serif;--font-mono:"Courier New",Courier,monospace;--wide:100%;
+  --sh-sm:none;--sh:none;--sh-lg:none;--b:2px;--b-sm:2px;--b-lg:2px;
+  --ui:Tahoma,Verdana,"Segoe UI",Geneva,sans-serif;
+  --out:inset -1px -1px #000,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #dfdfdf;
+  --in:inset -1px -1px #fff,inset 1px 1px #000,inset -2px -2px #dfdfdf,inset 2px 2px #808080;
+  --navy:linear-gradient(90deg,#000080,#1084d0);
+  scrollbar-color:#c0c0c0 #dfdfdf;
+}
+html[data-theme=retro] body{background:#008080 radial-gradient(rgba(0,0,0,.14) 1px,transparent 1.2px) 0 0/4px 4px;color:#000;-webkit-font-smoothing:auto;font-size:1.0625rem}
+html[data-theme=retro] ::selection{background:#000080;color:#fff}
+
+/* the page is one browser window on the desktop */
+html[data-theme=retro] body>.header,
+html[data-theme=retro] body>main,
+html[data-theme=retro] body>footer{width:min(100% - 24px,980px);margin-inline:auto;background:#c0c0c0}
+html[data-theme=retro] body>main{box-shadow:inset 2px 0 #fff,inset -2px 0 #808080}
+html[data-theme=retro] body>footer{box-shadow:inset 2px 0 #fff,inset -2px 0 #808080,inset 0 -2px #808080;margin-bottom:24px}
+html[data-theme=retro] [class*=ground-],html[data-theme=retro] .hero.ground-beige{background:transparent}
+html[data-theme=retro] main .section+.section,html[data-theme=retro] body>footer{border-top:2px groove #fff}
+
+/* the switch, 1997 look */
+html[data-theme=retro] body .theme-btn{border:0;border-radius:0;background:#c0c0c0;color:#000;box-shadow:var(--out);font-family:var(--ui);font-size:13px;font-weight:400;letter-spacing:0;text-transform:none}
+html[data-theme=retro] body .theme-btn:active{box-shadow:var(--in)}
+html[data-theme=retro] body .theme-btn:focus-visible{outline:1px dotted #000;outline-offset:-5px}
+html[data-theme=retro] .theme-btn .themebar__icon{border-radius:0;width:16px;height:12px;background:linear-gradient(135deg,#ff0000 0 25%,#00a000 0 50%,#0000ff 0 75%,#ffcc00 0) content-box;padding:1px;border:1px solid #000}
+html[data-theme=retro] .theme-btn .themebar__icon:after{display:none}
+html[data-theme=retro] .themebar{background:#c0c0c0;color:#000;box-shadow:inset 0 1px #fff,inset 0 -1px #808080}
+html[data-theme=retro] .themebar__btn{min-height:28px;margin:4px 0;padding:0 12px;background:#c0c0c0;box-shadow:var(--out);font-family:var(--ui);font-size:13px;letter-spacing:0;text-transform:none}
+html[data-theme=retro] .themebar__btn:active{box-shadow:var(--in)}
+html[data-theme=retro] .themebar__btn:focus-visible{outline:1px dotted #000;outline-offset:-5px}
+html[data-theme=retro] .themebar__icon{border-radius:0;width:16px;height:12px;background:linear-gradient(135deg,#ff0000 0 25%,#00a000 0 50%,#0000ff 0 75%,#ffcc00 0) content-box;padding:1px;border:1px solid #000}
+html[data-theme=retro] .themebar__icon:after{display:none}
+
+
+/* header: title bar + toolbar */
+html[data-theme=retro] body>.header{position:sticky;border:0;background:#c0c0c0;box-shadow:inset 2px 0 #fff,inset -2px 0 #808080,inset 0 -2px #808080}
+html[data-theme=retro] .header__name{font-family:var(--font-sans);font-weight:700;font-size:1.25rem;color:#000080}
+html[data-theme=retro] body .header .header__nav a{font-family:var(--font-sans);font-size:1rem;font-weight:400;letter-spacing:0;text-transform:none;color:#0000ee;text-decoration:underline}
+html[data-theme=retro] .header__progress{display:none}
+
+/* type */
+html[data-theme=retro] .display,html[data-theme=retro] h1,html[data-theme=retro] h2,html[data-theme=retro] h3{font-family:"Times New Roman",Times,serif;font-stretch:normal;letter-spacing:0;text-transform:none}
+html[data-theme=retro] .display{font-weight:700;line-height:1.05}
+html[data-theme=retro] h2.display,html[data-theme=retro] .section-title{color:#000080}
+html[data-theme=retro] .hero__headline,html[data-theme=retro] .footer__title,html[data-theme=retro] .sent__title,html[data-theme=retro] .project h1{background:linear-gradient(180deg,#0000cc 0%,#9900cc 50%,#cc0066 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:1px #000;filter:drop-shadow(4px 4px 0 #808080);font-family:"Arial Black","Arial Bold",Gadget,Arial,sans-serif;font-style:normal;font-weight:900;line-height:1.1;transform:perspective(520px) rotateX(14deg);transform-origin:50% 100%}
+html[data-theme=retro] .mono,html[data-theme=retro] .hero__kicker,html[data-theme=retro] .metric-label{font-family:var(--font-mono);letter-spacing:0}
+html[data-theme=retro] a:not(.btn):not(.header__name):not(.card__media):not(.skip-link){color:#0000ee;text-decoration:underline}
+html[data-theme=retro] a:not(.btn):not(.header__name):not(.card__media):not(.skip-link):visited{color:#551a8b}
+html[data-theme=retro] .metric-value{font-family:var(--font-mono);color:#990000;font-weight:700}
+html[data-theme=retro] p,html[data-theme=retro] li,html[data-theme=retro] dd{font-family:var(--font-sans)}
+
+/* buttons: raised, pressed on click */
+html[data-theme=retro] body .btn,html[data-theme=retro] body .icon-btn,html[data-theme=retro] body .cart-btn,html[data-theme=retro] body .co-more,html[data-theme=retro] body .co-sumbar{border:0;border-radius:0;background:#c0c0c0;color:#000;box-shadow:var(--out);font-family:var(--ui);font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;text-decoration:none;transform:none;transition:none}
+html[data-theme=retro] body .btn--primary,html[data-theme=retro] body .request__submit{font-weight:700;box-shadow:0 0 0 1px #000,var(--out)}
+html[data-theme=retro] body .btn:hover,html[data-theme=retro] body .cart-btn:hover{background:#c0c0c0;transform:none;box-shadow:var(--out)}
+html[data-theme=retro] body .btn--primary:hover{box-shadow:0 0 0 1px #000,var(--out)}
+html[data-theme=retro] body .btn:active,html[data-theme=retro] body .cart-btn:active,html[data-theme=retro] body .icon-btn:active{box-shadow:var(--in);transform:none}
+html[data-theme=retro] body .btn[aria-pressed=true]{box-shadow:var(--in);background:#dfdfdf}
+html[data-theme=retro] body .btn:focus-visible,html[data-theme=retro] body .cart-btn:focus-visible,html[data-theme=retro] body .icon-btn:focus-visible{outline:1px dotted #000;outline-offset:-5px}
+html[data-theme=retro] body .cart-btn__badge{border-radius:0;background:#ff0000;color:#fff;border:1px solid #000;font-family:var(--ui)}
+
+/* windows: cards, panels, drawer, checkout */
+html[data-theme=retro] body .card,html[data-theme=retro] body .row,html[data-theme=retro] body .nf__label,html[data-theme=retro] body .drawer,html[data-theme=retro] body .request,html[data-theme=retro] body .sent,html[data-theme=retro] body .co-card,html[data-theme=retro] body .request__summary,html[data-theme=retro] body .pdp__top,html[data-theme=retro] body .pdp__details details,html[data-theme=retro] body .related__item,html[data-theme=retro] body .added-pop,html[data-theme=retro] body .reader__bar,html[data-theme=retro] body .project__sheet{border:0;border-radius:0;background:#c0c0c0;box-shadow:var(--out)}
+html[data-theme=retro] body .card:hover{transform:none;box-shadow:var(--out)}
+html[data-theme=retro] body .card__media,html[data-theme=retro] body .pdp__stage,html[data-theme=retro] body .pdp__thumb{background:#fff;box-shadow:var(--in);border:0}
+html[data-theme=retro] body .card__body{border-top:0}
+html[data-theme=retro] body .card__badge,html[data-theme=retro] body .chip{border:0;border-radius:0;background:#000080;color:#fff;font:700 11px/1.6 var(--ui);letter-spacing:.02em;text-transform:none}
+html[data-theme=retro] body .card__name{font-size:1.375rem}
+html[data-theme=retro] body .card__sticker{border-radius:0;background:#ffff00;color:#cc0000;font-family:var(--ui);font-weight:700}
+html[data-theme=retro] body .hero__feature-tag{background:#cc0000;color:#fff;font-family:var(--ui);font-size:12px;letter-spacing:0;text-transform:none;transform:rotate(-4deg);box-shadow:2px 2px 0 #000}
+html[data-theme=retro] body .hero__feature .card{box-shadow:0 0 0 1px #000,var(--out)}
+html[data-theme=retro] body .drawer__head,html[data-theme=retro] body .summary__head{background:var(--navy);color:#fff;border:0}
+html[data-theme=retro] body .drawer__head *,html[data-theme=retro] body .summary__head *{color:#fff}
+html[data-theme=retro] body .drawer__count{background:transparent;border:0;color:#fff}
+html[data-theme=retro] body .drawer__title{font:700 15px/1.4 var(--ui)}
+html[data-theme=retro] body .drawer__close{min-width:22px;min-height:20px;color:#000!important}
+
+/* form fields: sunken white wells */
+html[data-theme=retro] body .field input,html[data-theme=retro] body .field textarea,html[data-theme=retro] body input[type=email],html[data-theme=retro] body input[type=text]{border:0;border-radius:0;background:#fff;color:#000;box-shadow:var(--in);font-family:var(--font-sans)}
+html[data-theme=retro] body .field input:focus,html[data-theme=retro] body .field textarea:focus{outline:1px dotted #000;outline-offset:2px;box-shadow:var(--in)}
+html[data-theme=retro] body .co .slots__times{border:0;box-shadow:var(--in);background:#fff}
+html[data-theme=retro] body .co .slot-time__face{background:#fff;font-family:var(--font-sans)}
+html[data-theme=retro] body .co .slot-time input:checked+.slot-time__face{background:#000080;color:#fff;box-shadow:none}
+html[data-theme=retro] body .co .slot-time input:checked+.slot-time__face:before{background:#fff;box-shadow:inset 0 0 0 4px #000080}
+html[data-theme=retro] body .co .slot-day__face{border:0;box-shadow:var(--out);background:#c0c0c0;font-family:var(--ui)}
+html[data-theme=retro] body .co .slot-day input:checked+.slot-day__face{box-shadow:var(--in);background:#dfdfdf;color:#000}
+html[data-theme=retro] body .co-free,html[data-theme=retro] body .co-tag{border:0;background:#ffffcc;color:#000;box-shadow:var(--in)}
+html[data-theme=retro] body .co-sec{border-top:2px groove #fff}
+
+/* experience: dates on a title-bar strip */
+html[data-theme=retro] body .row__period{background:var(--navy);color:#fff}
+html[data-theme=retro] body .row__role,html[data-theme=retro] body .row__summary{background:transparent;border:0}
+html[data-theme=retro] body .row__points li:before{background:#000080}
+
+/* stack facts reads as a printed label in a window */
+html[data-theme=retro] body .nf__label{background:#fff;box-shadow:0 0 0 2px #c0c0c0,0 0 0 4px #808080}
+html[data-theme=retro] body .nf__row[aria-expanded=true]{background:#000080;color:#fff}
+html[data-theme=retro] body .nf__row[aria-expanded=true] .nf__plus{border-color:#fff}
+html[data-theme=retro] body .nf__row[aria-expanded=true] .nf__plus svg{stroke:#fff}
+
+/* tiles keep their web-safe colours, lose the offset shadow */
+html[data-theme=retro] body .proj-num,html[data-theme=retro] body .lab-num{border:1px solid #000;box-shadow:inset 1px 1px #fff,inset -1px -1px #808080}
+
+/* footer: the 90s small print */
+html[data-theme=retro] body>footer .container:after{content:"Best viewed in Netscape Navigator 4.0 at 800 × 600";display:inline-block;margin-top:var(--s-5);padding:4px 10px;background:#000;color:#00ff00;font:700 12px/1.4 var(--font-mono);box-shadow:0 0 0 2px #808080}
+
+/* ---------- pass 2: 1997 scale, plain labels, a real browser window ---------- */
+html[data-theme=retro]{--t-display:2.5rem;--t-72:2.5rem;--t-48:2rem;--t-32:1.5rem;--t-24:1.25rem;--s-7:1.75rem;--s-8:2.25rem;--s-9:3rem;--section-pad:2.25rem;--font-mono:Arial,Helvetica,sans-serif}
+html[data-theme=retro] body *:not(svg):not(svg *){letter-spacing:normal!important;text-transform:none!important}
+html[data-theme=retro] .hero .hero__grid>.hero__headline{font-size:2.6rem}
+html[data-theme=retro] .hero .hero__subline{font-size:1.0625rem}
+html[data-theme=retro] body .nf__title{font-size:2rem}
+html[data-theme=retro] body .metric-value{font-family:"Courier New",Courier,monospace}
+html[data-theme=retro] body .mono,html[data-theme=retro] body .metric-label,html[data-theme=retro] body .hero__kicker,html[data-theme=retro] body .hero__note,html[data-theme=retro] body .hero__worked-label{font-weight:700}
+html[data-theme=retro] body .header .header__nav a{font-family:var(--font-sans);font-size:1rem;font-weight:400;padding-inline:6px}
+html[data-theme=retro] body .card__media{margin:6px 6px 0}
+/* 2: the covers lose their modern hard shadow and grid, and render chunky like a GIF */
+html[data-theme=retro] .mapart .cv-sh,html[data-theme=retro] .mapart .cv-grid{display:none}
+html[data-theme=retro] .mapart svg{shape-rendering:crispEdges}
+/* 9: NEW!, blinking three times and then holding still */
+html[data-theme=retro] body .hero__feature-tag{font-size:0!important;padding:3px 9px}
+html[data-theme=retro] body .hero__feature-tag:after{content:"NEW!";font:900 14px/1 "Arial Black",Arial,sans-serif;animation:retro-blink 1s steps(1) 3}
+@keyframes retro-blink{50%{visibility:hidden}}
+/* 10: the checkout as a 90s order form: grooved fieldsets */
+html[data-theme=retro] body .co-sec,html[data-theme=retro] body .co-sec:first-of-type{margin-top:12px;padding:12px 14px;border:2px groove #fff}
+html[data-theme=retro] body .co-h,html[data-theme=retro] body .co .slots__legend{font:700 14px/1.3 var(--ui)}
+html[data-theme=retro] body .request__title{font-size:1.75rem}
+/* rainbow rules between sections */
+html[data-theme=retro] body main .section+.section{border-top:0;background:linear-gradient(90deg,#f00,#f90,#ff0,#0c0,#09f,#00f,#90f) top/100% 4px no-repeat}
+html[data-theme=retro] body>footer.section{border-top:0;background:#c0c0c0 linear-gradient(90deg,#f00,#f90,#ff0,#0c0,#09f,#00f,#90f) top/100% 4px no-repeat}
+html[data-theme=retro] body>.webring{width:min(100% - 24px,980px);background:#c0c0c0;box-shadow:inset 2px 0 #fff,inset -2px 0 #808080}
+/* hourglass while the switch runs */
+html.tt-run,html.tt-run *{cursor:wait!important}
+/* retro-only parts: browser chrome, status bar, webring, guestbook */
+.retro-chrome,.retro-status,.retro-only{display:none}
+html[data-theme=retro] .retro-chrome,html[data-theme=retro] .retro-status{display:block;width:min(100% - 24px,980px);margin-inline:auto;background:#c0c0c0;box-shadow:inset 2px 0 #fff,inset -2px 0 #808080;font:12px/1.4 var(--ui);color:#000}
+html[data-theme=retro] .retro-chrome{margin-top:14px;box-shadow:inset 2px 2px #fff,inset -2px 0 #808080}
+html[data-theme=retro] .retro-only{display:block}
+html[data-theme=retro] li.retro-only{display:list-item}
+.rc-title{display:flex;align-items:center;justify-content:space-between;margin:3px 3px 0;padding:2px 2px 2px 8px;background:var(--navy,#000080);color:#fff;font-weight:700}
+.rc-title__text{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.rc-ctl{display:flex;align-items:center;gap:2px}
+.rc-ctl i,.rc-close{display:grid;place-items:center;width:20px;height:18px;padding:0;border:0;background:#c0c0c0;color:#000;font:700 11px/1 var(--ui);font-style:normal;box-shadow:var(--out)}
+.rc-close{width:24px;height:24px;margin-left:2px;font-size:14px;cursor:pointer}
+.rc-close:active,.rc-tool:active{box-shadow:var(--in)}
+.rc-menu{display:flex;flex-wrap:wrap;gap:0;padding:2px 4px;border-bottom:1px solid #808080}
+.rc-m{position:relative}
+.rc-m__btn{min-height:24px;padding:2px 9px;border:0;background:none;color:#000;font:12px/1 var(--ui);cursor:pointer}
+.rc-m__btn:hover,.rc-m__btn[aria-expanded=true]{background:#000080;color:#fff}
+.rc-m__list{position:absolute;top:100%;left:0;z-index:80;min-width:200px;max-height:70vh;overflow:auto;margin:0;padding:3px;list-style:none;background:#c0c0c0;box-shadow:var(--out),2px 2px 0 rgba(0,0,0,.5)}
+.rc-m__list[hidden]{display:none}
+html[data-theme=retro] .retro-chrome .rc-m__list a,.rc-m__list button{display:block;width:100%;min-height:24px;padding:4px 22px;border:0;background:none;color:#000;font:12px/1.3 var(--ui);text-align:left;text-decoration:none;cursor:pointer}
+html[data-theme=retro] .retro-chrome .rc-m__list a:hover,html[data-theme=retro] .retro-chrome .rc-m__list a:focus,.rc-m__list button:hover,.rc-m__list button:focus{background:#000080;color:#fff;outline:0}
+.rc-m__list hr{margin:3px 2px;border:0;border-top:1px solid #808080;border-bottom:1px solid #fff}
+.rc-tools{display:flex;align-items:stretch;gap:3px;padding:4px 8px;border-top:1px solid #fff;border-bottom:1px solid #808080}
+html[data-theme=retro] .retro-chrome .rc-tool{display:grid;justify-items:center;align-content:center;min-width:56px;min-height:40px;padding:2px 6px;border:0;background:#c0c0c0;color:#000;box-shadow:var(--out);font:11px/1.2 var(--ui);text-decoration:none;cursor:pointer}
+.rc-tool b{font-size:16px;line-height:1.1;color:#000080}
+.rc-n{display:grid;place-items:center;width:44px;margin-left:auto;background:#000080;color:#fff;font:900 26px/1 "Times New Roman",serif;box-shadow:var(--in)}
+.rc-loc{display:flex;align-items:center;gap:8px;padding:5px 10px;border-top:1px solid #fff}
+.rc-loc label{font:12px var(--ui)}
+.rc-url{flex:1;min-width:0;height:24px;padding:2px 6px;border:0;border-radius:0;background:#fff;color:#000;box-shadow:var(--in);font:13px/1.3 "Courier New",monospace}
+.retro-chrome :focus-visible{outline:1px dotted #000;outline-offset:-4px}
+.rc-m__btn:focus-visible{outline:1px dotted #fff}
+html[data-theme=retro] .retro-status{display:flex;gap:4px;margin-bottom:24px;padding:3px;box-shadow:inset 2px 0 #fff,inset -2px -2px #808080}
+.retro-status span{padding:1px 8px;box-shadow:var(--in)}
+.retro-status span:first-child{flex:1}
+html[data-theme=retro] body>footer{margin-bottom:0}
+.webring{margin:0 auto;padding:var(--s-4) 0 var(--s-5);text-align:center;font:15px/1.5 "Times New Roman",serif}
+.webring span{margin:0 10px;font-weight:700}
+@media (max-width:640px){html[data-theme=retro] body>.webring{width:calc(100% - 12px)}html[data-theme=retro] .retro-chrome .rc-tool{min-width:0;flex:1}.rc-n{display:none}html[data-theme=retro] .retro-chrome,html[data-theme=retro] .retro-status{width:calc(100% - 12px)}}
+
+html[data-theme=retro] .placeholder-banner{width:min(100% - 24px,980px);margin-inline:auto}
+html[data-theme=retro] body .related__name{display:inline-block;min-height:24px;line-height:24px}
+html[data-theme=retro] body main .section{border-top:0}
+html[data-theme=retro] body .header .header__inner{padding-block:6px}
+html[data-theme=retro] .retro-chrome a,html[data-theme=retro] .retro-chrome a:visited{color:#000!important;text-decoration:none!important}
+html[data-theme=retro] .retro-chrome .rc-m__list a:hover,html[data-theme=retro] .retro-chrome .rc-m__list a:focus{color:#fff!important}
+/* chunky grey scrollbars */
+html[data-theme=retro] ::-webkit-scrollbar{width:16px;height:16px;background:#dfdfdf}
+html[data-theme=retro] ::-webkit-scrollbar-thumb{background:#c0c0c0;box-shadow:var(--out)}
+}
+
+@media screen and (max-width:640px){
+  html[data-theme=retro] body>.header,html[data-theme=retro] body>main,html[data-theme=retro] body>footer{width:calc(100% - 12px)}
+}
+@media (prefers-reduced-motion:reduce){
+  html[data-theme=retro] body .hero__feature-tag:after{animation:none}
+  html.tt-arrive body:after{display:none}
+}
+@media print{.theme-btn,.themebar,.retro-chrome,.retro-status,.retro-only,.retro-defs,.webring{display:none!important}}

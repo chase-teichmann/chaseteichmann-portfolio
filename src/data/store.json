@@ -1,0 +1,14 @@
+{
+  "workTitle": "Selected work",
+  "call": {
+    "baseMinutes": 15,
+    "perProjectMinutes": 10,
+    "maxMinutes": 60
+  },
+  "projectPage": {
+    "addNote": "“Add to cart” takes you to the store with this project in your cart.",
+    "addOnNoteHtml": "<strong>A cart add-on:</strong> it was a checkout feature, so here it lives in the cart.",
+    "messageLabel": "Message me on LinkedIn",
+    "moreTitle": "More projects"
+  }
+}

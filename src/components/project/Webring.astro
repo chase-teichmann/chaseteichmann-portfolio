@@ -1,0 +1,8 @@
+---
+// Previous/next project links, shown only in the Retro theme.
+import { site } from '../../lib/site';
+import { webring, type Project } from '../../lib/projects';
+interface Props { project: Project }
+const { prev, next } = webring(Astro.props.project);
+---
+<nav class="webring retro-only" aria-label="Project webring"><a href={`../${prev.slug}/index.html`}>« Previous</a><span>{site.retro.webringTitle}</span><a href={`../${next.slug}/index.html`}>Next »</a></nav>

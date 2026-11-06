@@ -1,0 +1,58 @@
+{
+  "id": "addresses",
+  "slug": "address-validation-autocomplete-geolocation",
+  "number": "08",
+  "name": "Territory maps, autocomplete, and geolocation",
+  "bookmark": "Territory maps, autocomplete, and geolocation",
+  "summary": "At Actifai I helped build territory management for the door-to-door sales app, so each team gets its own area, and I work on the location and address features around it.",
+  "category": "Maps",
+  "period": "2026",
+  "sortYear": 2026,
+  "addOn": false,
+  "tile": "lavender",
+  "company": "actifai",
+  "companyLabel": "Actifai",
+  "role": "Territory drawing, assignment, and rep view (with teammates), the location-tracking fix, and shop autocomplete",
+  "stack": [
+    "Google Places",
+    "TypeScript",
+    "Node.js"
+  ],
+  "metric": null,
+  "seo": {
+    "title": "Territory maps, autocomplete, and geolocation · Chase Teichmann",
+    "description": "At Actifai I helped build territory management for the door-to-door sales app, so each team gets its own area, and I work on the location and address features around it.",
+    "about": [
+      "Google Places",
+      "EasyPost",
+      "TypeScript",
+      "Node.js"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": null,
+      "primary": true,
+      "kind": "map",
+      "file": "address-validation-autocomplete-geolocation-map.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "territories",
+      "label": "Territories",
+      "html": "<p>Actifai’s door-to-door sales app puts addresses on a map for reps to work, but managers had no way to hand an area to a team.</p><p>With teammates, I built both sides of it: the drawing tools managers use to outline clusters of addresses, assigning each territory to reps by user group, and the view where reps see their own territory. Now each team gets its own area.</p>"
+    },
+    {
+      "key": "tracking",
+      "label": "Location tracking",
+      "html": "<p>Rep positions jumped around on the map, and the app’s location permissions weren’t handled correctly. I fixed both. The app now asks for location at the right moment and handles a rep who says no.</p>"
+    },
+    {
+      "key": "autocomplete",
+      "label": "Address autocomplete",
+      "html": "<p>Every service order in Actifai’s online shop needs an address. Google Places autocomplete gets customers to a valid service address with less typing, so fewer orders come in with bad addresses.</p>"
+    }
+  ],
+  "compactBrand": true
+}

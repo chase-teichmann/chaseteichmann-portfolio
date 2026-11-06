@@ -1,0 +1,9 @@
+---
+// Order confirmation: the stamped receipt shown after booking.
+import CheckoutSteps from './CheckoutSteps.astro';
+import checkout from '../../data/checkout.json';
+const r = checkout.receipt;
+---
+<div class="sent js-only" data-panel="sent" role="region" aria-labelledby="sent-title"> <div class="reader__bar"> <span></span> <CheckoutSteps current="confirmation" /> </div> <div class="grid sent__layout"> <div class="sent__main receipt"> <p class="stamp" data-stamp aria-hidden="true">{r.stamp}</p> <p class="mono sent__ref" data-sent-ref></p> <h3 class="sent__title" id="sent-title" tabindex="-1" data-sent-title>{r.title}</h3> <p class="sent__when" data-sent-when></p> <p class="sent__note" data-sent-note>{r.note}</p> <p class="sent__preview mono" data-sent-preview hidden>{'\n'}{r.preview}{'\n'}</p> <h4 class="mono sent__subhead">{r.nextHeading}</h4> <ol class="timeline-next"> {
+  r.next.map((n, i) => <>{i > 0 ? ' ' : ''}<li data-step={n.step}><strong>{n.title}</strong><span {...{ [n.data]: '' }}>{n.text}</span></li></>)
+} </ol> <h4 class="mono sent__subhead">{r.itemsHeading}</h4> <ol class="lines lines--static" data-sent-lines></ol> <p class="request__summary-empty" data-sent-empty hidden>{checkout.emptyCart}</p> <p class="sent__protect" data-sent-protect><span class="sent__shield" aria-hidden="true"></span>{r.protect}</p> <div class="sent__actions"> <button class="btn btn--primary" type="button" data-action="reset">Keep shopping</button> </div> </div> <div class="sent__composition" data-composition aria-hidden="true"></div> </div> </div>

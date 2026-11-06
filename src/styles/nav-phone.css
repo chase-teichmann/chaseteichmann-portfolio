@@ -1,0 +1,7 @@
+/* below desktop the primary nav becomes a second header row, so Experience and Stack stay one tap away */
+@media screen and (max-width:1023px){
+  .header .header__inner{flex-wrap:wrap;row-gap:0}
+  .header .header__inner>.header__nav{display:block;order:9;flex:1 0 100%;min-width:0;margin:0;padding:0}
+  .header .header__inner>.header__nav ul{display:flex;justify-content:space-between;gap:var(--s-3);margin:0;padding:0 0 4px;overflow-x:auto;list-style:none;scrollbar-width:none}
+  .header .header__inner>.header__nav a{min-height:36px;font-size:var(--t-12);white-space:nowrap}
+}

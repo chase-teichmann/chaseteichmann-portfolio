@@ -1,0 +1,80 @@
+{
+  "id": "fraud",
+  "slug": "returns-fraud-evaluator",
+  "number": "05",
+  "name": "Returns fraud evaluator",
+  "bookmark": "Returns fraud evaluator",
+  "summary": "I built an AI fraud evaluator that holds suspicious returns for a person to review, instead of letting automation approve them.",
+  "category": "AI",
+  "period": "2025",
+  "sortYear": 2025,
+  "addOn": false,
+  "tile": "lavender",
+  "company": "returnlogic",
+  "companyLabel": "ReturnLogic",
+  "role": "Built the evaluator",
+  "stack": [
+    "OpenAI",
+    "TypeScript",
+    "Node.js",
+    "PostgreSQL",
+    "AngularJS",
+    "Sequelize",
+    "Jest",
+    "Docker",
+    "ECS",
+    "Fargate"
+  ],
+  "metric": null,
+  "seo": {
+    "title": "Returns fraud evaluator · Chase Teichmann",
+    "description": "I built an AI fraud evaluator that holds suspicious returns for a person to review, instead of letting automation approve them.",
+    "about": [
+      "OpenAI",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "Rules score each return, unclear cases go to an LLM, and flagged returns wait for staff.",
+      "desc": "Illustration: a magnifying glass over a conveyor of return slips. Three slips marked with the same item share a HOLD sticker, and a later slip passes with a green check.",
+      "caption": "Rules score each return, unclear cases go to an LLM, and flagged returns wait for staff.",
+      "file": "returns-fraud-evaluator-cover.svg",
+      "thumbColor": "lavender"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "returns-fraud-evaluator-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "risk",
+      "label": "The risk",
+      "html": "<p>Retailers on ReturnLogic could authorize and process returns automatically, which is also the path a fraudulent return takes. Fraud leaves patterns in a shopper’s return history: the same item sent back again and again, the same return type or reason every time, a burst of returns in a short window.</p>"
+    },
+    {
+      "key": "judged",
+      "label": "How a return is judged",
+      "html": "<ol class=\"steps\"><li><span class=\"steps__k\">Score</span><span class=\"steps__t\">Rules</span><span class=\"steps__d\">Rules score the return’s fraud indicators. Clear-cut returns are settled here.</span></li><li><span class=\"steps__k\">Judge</span><span class=\"steps__t\">OpenAI</span><span class=\"steps__d\">When the rules can’t decide, OpenAI decides whether to flag the return and writes its reasoning.</span></li><li><span class=\"steps__k\">Hold</span><span class=\"steps__t\">The automation</span><span class=\"steps__d\">A flagged return is held back from automatic authorization and processing. It isn’t denied.</span></li><li><span class=\"steps__k\">Decide</span><span class=\"steps__t\">Staff</span><span class=\"steps__d\">Staff see the flag and the reasoning on the return and make the final call.</span></li></ol>"
+    },
+    {
+      "key": "caught",
+      "label": "What testing caught",
+      "html": "<p>A provider abstraction let us A/B test prompts and swap providers without a rewrite. The test picked the prompt we shipped and exposed three guardrail gaps, which we closed.</p><ul class=\"cards\"><li><span class=\"cards__t\">Flagging on thin evidence</span><span class=\"cards__d\">The model flagged returns the rule scores didn’t support.</span></li><li><span class=\"cards__t\">Inconsistent verdicts</span><span class=\"cards__d\">The same return history could get different answers.</span></li><li><span class=\"cards__t\">Shopper text steering the model</span><span class=\"cards__d\">Return reasons and notes that shoppers write could sway the verdict.</span></li></ul>"
+    },
+    {
+      "key": "cost",
+      "label": "Cost",
+      "html": "<p>Each evaluation got cheaper three ways: a shorter prompt, varied reasoning effort on one primary model, and calling the model only when the rules can’t decide.</p>"
+    }
+  ]
+}

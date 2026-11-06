@@ -1,0 +1,1 @@
+.protect.is-off{grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:var(--s-2) var(--s-3);background:transparent;box-shadow:none;border-style:dashed}.protect.is-off .protect__shield,.protect.is-off .protect__note,.protect.is-off .protect__more,.protect.is-off .protect__price{display:none}.protect.is-off .protect__label{font-weight:600}

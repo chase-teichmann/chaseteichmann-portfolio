@@ -1,0 +1,16 @@
+---
+import { site, linksFor, type Depth } from '../../lib/site';
+
+interface Props { depth: Depth; requestHref?: string }
+const { depth, requestHref } = Astro.props;
+const l = linksFor(depth);
+---
+<footer class="section ground-butter footer" id="contact" aria-labelledby="contact-title" data-astro-cid-sz7xmlte> <div class="container" data-astro-cid-sz7xmlte>  <h2 class="footer__title display" id="contact-title" data-reveal="title" data-astro-cid-sz7xmlte>{site.footer.title}</h2> <p class="footer__lede" data-astro-cid-sz7xmlte>{site.footer.lede}</p> <ul class="footer__links" data-reveal="pop" data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte> {
+  depth === 0
+    ? <a class="btn btn--primary" target="_blank" href={site.linkedin} data-action="request" data-astro-cid-sz7xmlte rel="noopener">Request an intro</a>
+    : <a class="btn btn--primary" href={requestHref} data-action="request" data-astro-cid-sz7xmlte>Request an intro</a>
+} </li> <li data-astro-cid-sz7xmlte><a class="btn" target="_blank" href={site.linkedin} rel="me noopener" data-astro-cid-sz7xmlte>LinkedIn</a></li> <li class="retro-only">{
+  depth === 0
+    ? <a class="btn" href="#request" data-action="request">Sign my guestbook</a>
+    : <a class="btn" href={l.section('request')}>Sign my guestbook</a>
+}</li></ul> <p class="footer__legal mono" style="margin-top:var(--s-6);font-size:var(--t-14)"><a href={l.privacy}>Privacy</a></p> </div> </footer>

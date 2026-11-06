@@ -1,0 +1,10 @@
+---
+// A company's logo with its name (the name is visual only; the logo's alt text carries it).
+import { companies } from '../../lib/companies';
+import type { CompanyKey } from '../../lib/projects';
+
+interface Props { company: CompanyKey; height: number }
+const { company, height } = Astro.props;
+const c = companies[company];
+---
+<span class="company-lockup" style={`--logo-h: ${height}px`} data-astro-cid-jtrlp7ow><img class="company-logo" src={c.src} width={c.widthAt(height)} height={height} alt={c.name} loading="lazy" decoding="async" data-astro-cid-jtrlp7ow><span class="company-lockup__name" aria-hidden="true" data-astro-cid-jtrlp7ow>{c.name}</span></span>

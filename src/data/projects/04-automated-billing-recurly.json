@@ -1,0 +1,79 @@
+{
+  "id": "billing",
+  "slug": "automated-billing-recurly",
+  "number": "04",
+  "name": "Automated billing on Recurly",
+  "bookmark": "Automated billing on Recurly",
+  "summary": "I automated retailer billing on Recurly, taking about ten minutes per retailer, per cycle, off our VP of Operations’ desk.",
+  "category": "Billing",
+  "period": "2020",
+  "sortYear": 2020,
+  "addOn": false,
+  "tile": "butter",
+  "company": "returnlogic",
+  "companyLabel": "ReturnLogic",
+  "role": "Built the billing automation and the in-app billing section",
+  "stack": [
+    "TypeScript",
+    "Node.js",
+    "Recurly",
+    "PostgreSQL",
+    "AngularJS",
+    "Sequelize",
+    "Jest",
+    "Docker",
+    "ECS",
+    "Fargate"
+  ],
+  "metric": {
+    "value": "10",
+    "unit": "min",
+    "label": "Per retailer, per billing cycle, automated"
+  },
+  "seo": {
+    "title": "Automated billing on Recurly · Chase Teichmann",
+    "description": "I automated ReturnLogic’s billing on Recurly. It had cost our VP of Operations about ten minutes per retailer every cycle; after it, adding retailers stopped adding work.",
+    "about": [
+      "TypeScript",
+      "Node.js",
+      "Recurly",
+      "PostgreSQL"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "A scheduled job bills every retailer each cycle, with no one running it by hand.",
+      "desc": "Illustration: a long receipt with a torn edge and a round recurring-arrow badge, with a sticker reading auto-billed every cycle.",
+      "caption": "A scheduled job bills every retailer each cycle, with no one running it by hand.",
+      "file": "automated-billing-recurly-cover.svg",
+      "thumbColor": "butter"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "automated-billing-recurly-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "swap",
+      "label": "By hand vs. automated",
+      "html": "<div class=\"compare\"><div><span class=\"compare__h\">By hand, every weekly and monthly cycle</span><ol><li>Run the usage queries</li><li>Enter each retailer’s charges into Recurly</li><li>Download the invoice</li><li>Email it with the usage report</li></ol><span class=\"compare__f\">Nearly 7 hours a month at 40 retailers.</span></div><div class=\"compare--after\"><span class=\"compare__h\">Automated</span><ol><li>A scheduled job compiles each retailer’s usage report</li><li>Posts the charges to Recurly</li><li>Emails the invoice</li><li>Retailers find every report and invoice in the app</li></ol><span class=\"compare__f\">No manual work, however many retailers.</span></div></div>"
+    },
+    {
+      "key": "bill",
+      "label": "What a bill covered",
+      "html": "<p>Each return (RMA) at that retailer’s own price, shipping labels for retailers on our managed shipping integration, and any add-on features they used.</p>"
+    },
+    {
+      "key": "rerun",
+      "label": "Safe to re-run",
+      "html": "<p>Every posted charge was recorded in Postgres, so re-running a failed cycle skipped what had already posted instead of charging a retailer twice.</p>"
+    }
+  ]
+}

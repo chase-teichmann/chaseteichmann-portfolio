@@ -1,0 +1,9 @@
+---
+// A company's logo on its own (decorative: the name is next to it).
+import { companies } from '../../lib/companies';
+import type { CompanyKey } from '../../lib/projects';
+interface Props { company: CompanyKey; height: number }
+const { company, height } = Astro.props;
+const c = companies[company];
+---
+<img class="company-logo" src={c.src} width={c.widthAt(height)} height={height} alt="" loading="lazy" decoding="async" data-astro-cid-jtrlp7ow>

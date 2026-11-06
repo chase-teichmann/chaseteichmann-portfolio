@@ -1,0 +1,16 @@
+---
+// "More projects" list at the bottom of a project page.
+import ProjectNumber from '../ui/ProjectNumber.astro';
+import store from '../../data/store.json';
+import { linksFor } from '../../lib/site';
+import { pageRelated, metaLine, type Project } from '../../lib/projects';
+
+interface Props { project: Project }
+const { project } = Astro.props;
+const l = linksFor(2);
+---
+<nav class="project__more" aria-labelledby="more-title" data-astro-cid-by4zwojz> <h2 class="pdp__related-title display" id="more-title" data-astro-cid-by4zwojz>{store.projectPage.moreTitle}</h2> <ul class="related" data-astro-cid-by4zwojz> {
+  pageRelated(project).map((p) => (
+    <li class="related__item" data-astro-cid-by4zwojz> <ProjectNumber project={p} class="related__thumb" /> <span class="related__text" data-astro-cid-by4zwojz> <a href={`${l.up}work/${p.slug}/index.html`} class="related__name" data-astro-cid-by4zwojz>{p.name}</a> <span class="mono" data-astro-cid-by4zwojz>{metaLine(p)}</span> </span> </li>
+  ))
+} </ul> <p class="project__back" data-astro-cid-by4zwojz><a class="btn" href={l.section('work')} data-astro-cid-by4zwojz><span aria-hidden="true" data-astro-cid-by4zwojz>←</span> All projects</a></p> </nav>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectPage from '../../../components/project/ProjectPage.astro';
+import { site } from '../../../lib/site';
+import { projects, type Project } from '../../../lib/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project: p } = Astro.props as { project: Project };
+const path = `/work/${p.slug}/`;
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: p.name,
+  description: p.summary,
+  url: `${site.url}${path}`,
+  author: site.articleAuthor,
+  about: p.seo.about,
+  isPartOf: site.isPartOf,
+});
+// Pages with a cover image get the cover styles and the gallery switcher.
+const hasCover = p.gallery.length > 1;
+---
+<BaseLayout depth={2} title={p.seo.title} description={p.seo.description} path={path} ogType="article" jsonLd={jsonLd} styles={hasCover ? ['base', 'page', 'headerSafeArea', 'coverArt', 'navPhone', 'body', 'theme'] : ['base', 'page', 'headerSafeArea', 'navPhone', 'body', 'theme']} scripts={hasCover ? ['gallery', 'theme'] : ['theme']} requestHref={p.addOn ? '../../index.html#request' : `../../index.html?add=${p.id}#request`}><ProjectPage project={p} /></BaseLayout>{' '}

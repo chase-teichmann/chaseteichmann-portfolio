@@ -1,0 +1,21 @@
+---
+// "Selected work": the store. Shelf of project cards, the product view (studies), checkout and
+// the confirmation, all driven by store.js. Without JavaScript only the shelf and the studies show.
+import ProjectCard from './ProjectCard.astro';
+import Study from './Study.astro';
+import Checkout from '../cart/Checkout.astro';
+import Receipt from '../cart/Receipt.astro';
+import store from '../../data/store.json';
+import { spacedJson } from '../../lib/site';
+import { scripts } from '../../lib/assets';
+import { projects, shelfProjects } from '../../lib/projects';
+
+const regular = projects.filter((p) => !p.addOn);
+const addOns = projects.filter((p) => p.addOn);
+const cartData = spacedJson({
+  projects: projects.map(({ id, name, tile, period, category, sortYear, addOn }) => ({ id, name, tile, period, category, sortYear, addOn })),
+  call: store.call,
+});
+const c = (text: string) => `<!-- ${text} -->`;
+---
+<section class="section work ground-beige" id="work" aria-labelledby="work-title" data-cart data-view="shelf"> <div class="container work__inner"> <div class="work__head">  <h2 class="section-title display" id="work-title" data-reveal="title">{store.workTitle}</h2> </div> <Fragment set:html={c('PRODUCT GRID')} /> <div class="work__shelf" data-panel="shelf">  <ul class="shelf" aria-label="Projects" data-shelf> {shelfProjects.map((p, i) => <ProjectCard project={p} index={i} />)} </ul> <p class="shelf-empty" data-shelf-empty hidden>{'\n'}No projects in this category.{'\n'}<button class="btn" type="button" data-action="filter" data-filter="">Show all</button> </p> </div> <Fragment set:html={c('PRODUCT PAGE (case studies; plain stacked list without JS)')} /> <div class="reader" id="reader" data-panel="product" role="region" aria-label="Project details"> <div class="reader__bar js-only"> <nav class="crumbs" aria-label="Breadcrumb"> <ol> <li><button type="button" class="crumbs__link" data-action="close">Work</button></li> <li class="mono" data-crumb-category></li> <li aria-current="page" data-crumb-name></li> </ol> </nav> <p class="mono reader__pos" data-reader-pos></p> <div class="reader__nav"> <button class="icon-btn" type="button" data-action="prev" aria-label="Previous project"><span aria-hidden="true">←</span></button> <button class="icon-btn" type="button" data-action="next" aria-label="Next project"><span aria-hidden="true">→</span></button> </div> </div> <div class="reader__studies"> {regular.map((p) => <Study project={p} />)} {addOns.map((p) => <Study project={p} />)} </div> </div> <Fragment set:html={c('CHECKOUT')} /> <Checkout /> <Fragment set:html={c('CONFIRMATION')} /> <Receipt /> </div> <p class="visually-hidden" aria-live="polite" data-live></p> <script type="application/json" data-cart-data set:html={cartData}></script> </section> <script type="module" set:html={scripts.store.code}></script>

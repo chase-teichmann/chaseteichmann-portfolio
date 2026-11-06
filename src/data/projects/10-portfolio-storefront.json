@@ -1,0 +1,74 @@
+{
+  "id": "this-site",
+  "slug": "portfolio-storefront",
+  "number": "10",
+  "name": "This site",
+  "bookmark": "This site",
+  "summary": "A portfolio built as a store, with real booking on Google Calendar.",
+  "category": "Web",
+  "period": "2026",
+  "sortYear": 2026,
+  "addOn": false,
+  "tile": "sage",
+  "company": null,
+  "companyLabel": "Personal project",
+  "role": "Product, design, and engineering",
+  "stack": [
+    "TypeScript",
+    "Astro",
+    "Cloudflare Workers",
+    "Playwright"
+  ],
+  "metric": {
+    "value": "~19",
+    "unit": "KB",
+    "label": "JavaScript, gzipped"
+  },
+  "seo": {
+    "title": "This site: a portfolio built as a store · Chase Teichmann",
+    "description": "A portfolio built as a store, with real booking on Google Calendar.",
+    "about": [
+      "TypeScript",
+      "Astro",
+      "Cloudflare Workers",
+      "Playwright"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "Everything is static except the store in the browser and the booking server behind it.",
+      "desc": "Illustration: a browser window showing a store of project cards, two added to the cart, and the cart drawer open with those two projects, a picked time slot, a $0.00 total and a book a call button.",
+      "caption": "Everything is static except the store in the browser and the booking server behind it.",
+      "file": "portfolio-storefront-cover.svg",
+      "thumbColor": "lavender"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "portfolio-storefront-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "built",
+      "label": "How it’s built",
+      "html": "<p>No framework runtime and no third-party widgets: static Astro pages with one interactive island. The store’s state is a pure, unit-tested reducer in plain TypeScript, and the cart lives in the URL, so a cart can be shared as a link.</p><p>Checkout books a real call: a small Cloudflare Worker reads my Google Calendar free/busy and sends the invite with a Meet link. Everything renders as plain HTML first, so the site works without JavaScript and prints as a résumé.</p>"
+    },
+    {
+      "key": "themes",
+      "label": "Two designs",
+      "html": "<p>The same markup carries two designs. A theme layer of design tokens and component rules switches the whole site to a 1990s version with a CRT-style transition, remembers the choice, and never prints.</p>",
+      "retroEgg": true
+    },
+    {
+      "key": "scores",
+      "label": "Scores",
+      "html": "<p>Lighthouse mobile scores 100 for accessibility and best practices on every page; performance is 96–97 on project pages and about 70 on the landing page. axe finds no WCAG 2.2 AA violations in any state.</p><ul class=\"study__metrics\" aria-label=\"Outcomes\"><li class=\"tile-sage\"><span class=\"metric-value metric-value--lg\">100</span><span class=\"mono metric-label\">Lighthouse accessibility</span></li></ul>"
+    }
+  ]
+}

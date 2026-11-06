@@ -1,0 +1,25 @@
+---
+// The "buy box" beside the gallery on a project page: company, category, headline result, specs,
+// and the add-to-cart action (which hands off to the store on the home page).
+import CompanyLockup from '../ui/CompanyLockup.astro';
+import store from '../../data/store.json';
+import { site, linksFor, scopeHtml } from '../../lib/site';
+import type { Project } from '../../lib/projects';
+
+interface Props { project: Project }
+const { project: p } = Astro.props;
+const l = linksFor(2);
+const cid = 'data-astro-cid-by4zwojz';
+const specs = [
+  ['Company', p.companyLabel],
+  ['Role', p.role],
+  ['Period', p.period],
+  ['Stack', p.stack.join(' · ')],
+];
+const gap = p.compactBrand ? ' ' : '  ';
+---
+<div class="pdp__buy" data-astro-cid-by4zwojz> <p class="pdp__eyebrow" data-astro-cid-by4zwojz> {p.company && <CompanyLockup company={p.company} height={24} />}{p.company ? gap : '  '}<span class="chip" data-astro-cid-by4zwojz>{p.category}</span> </p> <h1 class="study__title display" id="project-title" data-astro-cid-by4zwojz>{p.name}</h1> <p class="study__summary" data-astro-cid-by4zwojz>{p.summary}</p> {p.metric && <p class="pdp__price" data-astro-cid-by4zwojz> <span class="metric-value metric-value--lg" data-astro-cid-by4zwojz>{p.metric.value}{p.metric.unit && <span class="metric-unit" data-astro-cid-by4zwojz>{p.metric.unit}</span>}</span> <span class="mono metric-label" data-astro-cid-by4zwojz>{p.metric.label}</span> </p>} <dl class="pdp__specs" data-astro-cid-by4zwojz> {specs.map(([dt, dd], i) => <>{i > 0 ? ' ' : ''}<div data-astro-cid-by4zwojz><dt class="mono" data-astro-cid-by4zwojz>{dt}</dt><dd data-astro-cid-by4zwojz>{dd}</dd></div></>)} </dl>  <div class="pdp__actions" data-astro-cid-by4zwojz> {
+  p.addOn
+    ? <a class="btn btn--primary btn--block" href={l.section('work')} data-astro-cid-by4zwojz>Back to the store</a>
+    : <a class="btn btn--primary btn--block" href={`${l.home}?add=${p.id}#work`} data-project-add data-astro-cid-by4zwojz>Add to cart</a>
+} <a class="btn btn--block" target="_blank" href={site.linkedin} rel="noopener" data-astro-cid-by4zwojz>{store.projectPage.messageLabel}</a> </div> <p class="pdp__note" data-astro-cid-by4zwojz>{p.addOn ? <Fragment set:html={scopeHtml(store.projectPage.addOnNoteHtml, cid)} /> : store.projectPage.addNote}</p>  </div>

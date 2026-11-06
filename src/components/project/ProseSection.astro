@@ -1,0 +1,11 @@
+---
+// A labelled block of prose on a project page or the privacy page.
+import { scopeHtml } from '../../lib/site';
+import { sectionHtml } from '../../lib/retro-egg';
+
+interface Props { id: string; label: string; html: string; retroEgg?: boolean }
+const { id, label } = Astro.props;
+const html = sectionHtml(Astro.props);
+const cid = 'data-astro-cid-by4zwojz';
+---
+<section data-astro-cid-by4zwojz aria-labelledby={`h-${id}`}><h2 data-astro-cid-by4zwojz class="mono project__label" id={`h-${id}`}>{label}</h2><div data-astro-cid-by4zwojz set:html={scopeHtml(html, cid)}></div></section>

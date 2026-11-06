@@ -1,0 +1,74 @@
+{
+  "id": "warranties",
+  "slug": "third-party-warranties",
+  "number": "07",
+  "name": "Third-party warranties",
+  "bookmark": "Third-party warranties",
+  "summary": "I built warranty claims into the same workflow as returns and exchanges, including claims for orders placed on Amazon, Walmart, or Best Buy.",
+  "category": "Product",
+  "period": "2021",
+  "sortYear": 2021,
+  "addOn": false,
+  "tile": "sage",
+  "company": "returnlogic",
+  "companyLabel": "ReturnLogic",
+  "role": "Built the whole feature",
+  "stack": [
+    "TypeScript",
+    "Node.js",
+    "Angular",
+    "PostgreSQL",
+    "Sequelize",
+    "Jest",
+    "Docker",
+    "ECS",
+    "Fargate"
+  ],
+  "metric": null,
+  "seo": {
+    "title": "Third-party warranties · Chase Teichmann",
+    "description": "I built warranty claims into the same workflow as returns and exchanges, including claims for orders placed on Amazon, Walmart, or Best Buy.",
+    "about": [
+      "TypeScript",
+      "Node.js",
+      "Angular",
+      "PostgreSQL"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "Warranty claims from the retailer’s own store or a marketplace land in the same portal, then split on stock.",
+      "desc": "Illustration: a warranty claim window where the shopper picks which storefront the order came from, with the item under warranty and two outcomes, an exact replacement when it is in stock or a catalog pick or a message to the retailer when it is not, and a shield seal on the corner.",
+      "caption": "Warranty claims from the retailer’s own store or a marketplace land in the same portal, then split on stock.",
+      "file": "third-party-warranties-cover.svg",
+      "thumbColor": "sage"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "third-party-warranties-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "vs",
+      "label": "Not just another return",
+      "html": "<p>Warranty claims run through the same portal as returns and exchanges, but three things work differently.</p><table class=\"vs\"><thead><tr><th scope=\"col\"><span class=\"visually-hidden\">Aspect</span></th><th scope=\"col\">Return</th><th scope=\"col\">Warranty claim</th></tr></thead><tbody><tr><th scope=\"row\">Outcome</th><td>Refund, gift card, or exchange</td><td class=\"vs--hi\">A replacement</td></tr><tr><th scope=\"row\">Proof of purchase</th><td>The retailer’s own order</td><td class=\"vs--hi\">Any order, including Amazon, Walmart, or Best Buy: the shopper enters the order number or uploads a receipt, and staff verify it</td></tr><tr><th scope=\"row\">Time limit</th><td>The return window</td><td class=\"vs--hi\">The warranty period</td></tr></tbody></table>"
+    },
+    {
+      "key": "stock",
+      "label": "After a claim",
+      "html": "<p>Each retailer sets a separate workflow for each case.</p><ul class=\"cards\"><li><span class=\"cards__t\">In stock: Exact replacement</span><span class=\"cards__d\">Checked against the store’s live inventory.</span></li><li><span class=\"cards__t\">Out of stock: A choice</span><span class=\"cards__d\">A replacement from the full catalog, or a way to contact the retailer.</span></li></ul>"
+    },
+    {
+      "key": "who",
+      "label": "Who used it",
+      "html": "<p>Mostly enterprise customers selling consumer products, who until then had handled warranty claims outside ReturnLogic.</p>"
+    }
+  ]
+}

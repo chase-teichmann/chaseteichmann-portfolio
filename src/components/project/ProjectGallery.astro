@@ -1,0 +1,25 @@
+---
+// A project's images: the cover (or map) and its "how it works" diagram, with thumbnails to switch
+// between them. Used on the project page ("page") and in the store's product view ("study").
+import ProjectArt from '../art/ProjectArt.astro';
+import ThumbGlyph from './ThumbGlyph.astro';
+import type { Project } from '../../lib/projects';
+
+interface Props { project: Project; variant: 'page' | 'study' }
+const { project: p, variant } = Astro.props;
+const idBase = `${variant}-${p.id}`;
+const hasThumbs = p.gallery.length > 1;
+const [first, second] = p.gallery;
+---
+{variant === 'page'
+  ? <div class="pdp__gallery pdp__gallery--diagram" data-astro-cid-by4zwojz> <div class="pdp__stage pdp__stage--diagram" data-astro-cid-by4zwojz> {
+      p.gallery.map((s) => (
+        <div class="pdp__shot study__diagram" data-astro-cid-by4zwojz data-shot={s.shot ?? undefined}><ProjectArt art={s} idBase={idBase} />{s.primary ? ' ' : ''}</div>
+      ))
+    } </div>{hasThumbs && <Fragment> <div class="pdp__thumbs js-only" role="group" aria-label="Project images" data-astro-cid-by4zwojz><button class="pdp__thumb" type="button" data-action="shot" data-shot={first.shot} aria-pressed="true" data-astro-cid-by4zwojz><ThumbGlyph color={first.thumbColor!} scoped /><span class="visually-hidden" data-astro-cid-by4zwojz>Cover image</span></button><button class="pdp__thumb pdp__thumb--diagram" type="button" data-action="shot" data-shot={second.shot} aria-pressed="false" data-astro-cid-by4zwojz><span class="mono" data-astro-cid-by4zwojz>How it works</span></button></div></Fragment>} </div>
+  : <div class="pdp__gallery"> <div class="pdp__stage pdp__stage--diagram"> {
+      p.gallery.map((s) => (
+        <div class="pdp__shot study__diagram" data-shot={s.shot ?? undefined}>{s.primary ? ' ' : ''}<ProjectArt art={s} idBase={idBase} />{s.primary ? '  ' : ''}</div>
+      ))
+    } </div>{hasThumbs && <Fragment> <div class="pdp__thumbs js-only" role="group" aria-label="Project images"><button class="pdp__thumb" type="button" data-action="shot" data-shot={first.shot} aria-pressed="true"><ThumbGlyph color={first.thumbColor!} /><span class="visually-hidden">Cover image</span></button><button class="pdp__thumb pdp__thumb--diagram" type="button" data-action="shot" data-shot={second.shot} aria-pressed="false"><span class="mono">How it works</span></button></div></Fragment>} </div>
+}
