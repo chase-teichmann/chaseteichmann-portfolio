@@ -2,8 +2,15 @@
 //   GET  /availability?minutes=30  → { slots: [ISO start, …] }  Chase's open times, minus his busy calendar.
 //   POST /book                     → { start, end, meetLink }   Re-checks the slot, then creates the event
 //                                    with a Google Meet link; Google emails the invite to the visitor.
-// The Worker reads free/busy only, never event details. It signs in to Google as Chase with a refresh token
-// stored as an encrypted Cloudflare secret, and it only answers requests from the site's own origins.
+// The Worker reads free/busy, plus the events it created itself (to limit repeat bookings). It signs in to
+// Google as Chase with a refresh token stored as an encrypted Cloudflare secret, and it only answers
+// requests from the site's own origins.
+//
+// Abuse limits, because the Origin check stops other websites but not scripts:
+//   - per-IP rate limits (Cloudflare rate-limiting bindings AVAILABILITY_LIMIT and BOOK_LIMIT),
+//   - a hidden "website" field that people never fill in,
+//   - one upcoming call per email address, and at most MAX_UPCOMING_BOOKINGS upcoming site bookings.
+// When NOTIFY_EMAIL is set, Chase also gets an email for each new booking (time and calendar link only).
 import { RULES, slots } from './rules.js';
 import { PROJECTS } from './projects.js';
 
@@ -11,6 +18,8 @@ const GOOGLE_TOKEN = 'https://oauth2.googleapis.com/token';
 const CAL = 'https://www.googleapis.com/calendar/v3';
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const DAY = 86_400_000;
+const GMAIL_SEND = 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send';
+const SOURCE = 'chaseteichmann.com'; // tag on events this Worker creates
 
 let cachedToken = null; // { value, expires }
 
@@ -28,8 +37,10 @@ export default {
     // Browsers always send Origin on cross-site requests; anything else isn't the site.
     if (!allowed.includes(origin)) return json(403, { error: 'origin_not_allowed' });
 
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
     try {
       if (request.method === 'GET' && url.pathname === '/availability') {
+        if (!(await allow(env.AVAILABILITY_LIMIT, ip))) return json(429, { error: 'rate_limited' });
         const minutes = Number(url.searchParams.get('minutes') || RULES.callMinutes);
         if (minutes !== RULES.callMinutes) return json(400, { error: 'invalid_minutes' });
         const now = Date.now();
@@ -38,13 +49,22 @@ export default {
       }
 
       if (request.method === 'POST' && url.pathname === '/book') {
+        if (!(await allow(env.BOOK_LIMIT, ip))) return json(429, { error: 'rate_limited' });
         const input = await readBooking(request);
         if (input.error) return json(400, { error: input.error });
+        const upcoming = await siteBookings(env, input.email);
+        if (upcoming.byEmail > 0) return json(429, { error: 'already_booked' });
+        if (upcoming.total >= maxUpcoming(env)) return json(429, { error: 'booking_limit' });
         const now = Date.now();
         const busy = await freeBusy(env, now, now + (RULES.horizonDays + 1) * DAY);
         const open = slots({ now, minutes: RULES.callMinutes, busy });
         if (!open.includes(input.start)) return json(409, { error: 'slot_taken' });
         const event = await createEvent(env, input);
+        if (env.NOTIFY_EMAIL) {
+          const note = notifyChase(env, event).catch((err) => console.error('notify failed:', err && err.message));
+          if (ctx && ctx.waitUntil) ctx.waitUntil(note);
+          else await note;
+        }
         return json(200, { start: event.start.dateTime, end: event.end.dateTime, meetLink: event.hangoutLink || null });
       }
 
@@ -71,11 +91,58 @@ async function readBooking(request) {
     start: Date.parse(body.start),
     minutes: Number(body.minutes),
   };
+  // Hidden from people; bots that fill every field fill this one too.
+  if (s(body.website, 200) || s(body._gotcha, 200)) return { error: 'rejected' };
   if (!EMAIL.test(out.email)) return { error: 'invalid_email' };
   if (!out.company) return { error: 'invalid_company' };
   if (!Number.isFinite(out.start)) return { error: 'invalid_start' };
   if (out.minutes !== RULES.callMinutes) return { error: 'invalid_minutes' };
   return out;
+}
+
+// Rate-limit binding check. Missing binding (local dev, tests) means no limit.
+async function allow(limiter, key) {
+  if (!limiter || typeof limiter.limit !== 'function') return true;
+  const { success } = await limiter.limit({ key });
+  return success;
+}
+
+const maxUpcoming = (env) => {
+  const n = Number(env.MAX_UPCOMING_BOOKINGS);
+  return Number.isFinite(n) && n > 0 ? n : 10;
+};
+
+// Upcoming events this Worker created: how many in total, and how many for this email address.
+async function siteBookings(env, email) {
+  const cal = encodeURIComponent(env.CALENDAR_ID || 'primary');
+  const q = new URLSearchParams({ timeMin: new Date().toISOString(), singleEvents: 'true', maxResults: '250', fields: 'items(attendees(email),extendedProperties)' });
+  q.append('privateExtendedProperty', `source=${SOURCE}`);
+  const data = await google(env, `/calendars/${cal}/events?${q}`);
+  const items = data.items || [];
+  const who = email.toLowerCase();
+  const byEmail = items.filter((ev) => (ev.attendees || []).some((a) => (a.email || '').toLowerCase() === who)).length;
+  return { total: items.length, byEmail };
+}
+
+// Emails Chase that a call was booked: the time and a link to the event, nothing about the visitor
+// (their details stay on the calendar event, as the privacy page says). Sent from his own Gmail.
+const b64 = (text) => btoa(String.fromCharCode(...new TextEncoder().encode(text)));
+
+async function notifyChase(env, event) {
+  const when = new Intl.DateTimeFormat('en-US', { timeZone: RULES.timeZone, weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(new Date(event.start.dateTime));
+  const lines = [`Someone booked an intro call from chaseteichmann.com for ${when}.`, '', `Details: ${event.htmlLink || 'see your Google Calendar'}`];
+  const message = [
+    `To: ${env.NOTIFY_EMAIL}`,
+    `Subject: =?UTF-8?B?${b64(`New intro call: ${when}`)}?=`,
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Transfer-Encoding: 8bit',
+    '',
+    lines.join('\r\n'),
+  ].join('\r\n');
+  const raw = b64(message).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const res = await fetch(GMAIL_SEND, { method: 'POST', headers: { Authorization: `Bearer ${await accessToken(env)}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ raw }) });
+  if (!res.ok) throw new Error(`Gmail send → ${res.status}`);
 }
 
 async function accessToken(env) {
@@ -137,10 +204,11 @@ async function createEvent(env, b) {
       attendees: [{ email: b.email, displayName: b.name || undefined }],
       conferenceData: { createRequest: { requestId: crypto.randomUUID(), conferenceSolutionKey: { type: 'hangoutsMeet' } } },
       guestsCanModify: false,
+      extendedProperties: { private: { source: SOURCE } },
       reminders: { useDefault: true },
     }),
   });
 }
 
 // Exposed for tests.
-export const _internal = { readBooking, resetToken: () => { cachedToken = null; } };
+export const _internal = { readBooking, notifyChase, resetToken: () => { cachedToken = null; } };
