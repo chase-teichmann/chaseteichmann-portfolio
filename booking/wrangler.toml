@@ -1,0 +1,12 @@
+name = "chaseteichmann-booking"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Sites allowed to call the Worker (comma-separated, no trailing slash).
+ALLOWED_ORIGINS = "https://chaseteichmann.com,https://www.chaseteichmann.com"
+# Calendars whose busy times block slots. Add your work calendar's address once it shares free/busy with your Gmail.
+BUSY_CALENDAR_IDS = "primary"
+
+# Secrets (set once with `npx wrangler secret put NAME`, never committed):
+#   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN
