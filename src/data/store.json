@@ -1,5 +1,10 @@
 {
   "workTitle": "Selected work",
+  "workIntro": {
+    "tag": "How it works",
+    "text": "Add the projects you’d like to talk through, and checkout books a free intro call.",
+    "emphasis": "No payment, just a conversation."
+  },
   "call": {
     "baseMinutes": 15,
     "perProjectMinutes": 10,

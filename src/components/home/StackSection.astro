@@ -1,18 +1,19 @@
 ---
 // "Shop by stack": every tool, how many projects used it, and a one-click "add them all".
 // The chips and panels below are the no-JavaScript version; stack-lab.js draws the interactive
-// shelf into #stack-lab from src/data/stack-lab.json.
+// shelf into #stack-lab from src/data/stack-lab.json. "Years in production" is worked out in the
+// visitor's browser from careerStart in src/data/site.json, so it never goes stale.
 import ProjectNumber from '../ui/ProjectNumber.astro';
 import stack from '../../data/stack.json';
 import stackLab from '../../data/stack-lab.json';
-import { linksFor } from '../../lib/site';
+import { site, linksFor } from '../../lib/site';
 import { scripts } from '../../lib/assets';
 import { projectById } from '../../lib/projects';
 
 const l = linksFor(0);
 const plural = (n: number) => `${n} ${n === 1 ? 'project' : 'projects'}`;
 ---
-<section class="section ground-sage" id="stack" aria-labelledby="stack-title" data-astro-cid-rlzglfcb> <div class="container" data-astro-cid-rlzglfcb>  <h2 class="section-title display" id="stack-title" data-reveal="title" data-astro-cid-rlzglfcb><span class="screen-only" data-astro-cid-rlzglfcb>{stack.title}</span><span class="print-only" data-astro-cid-rlzglfcb aria-hidden="true">{stack.printTitle}</span></h2>  <div id="stack-lab"></div><script type="application/json" id="stack-lab-data" set:html={JSON.stringify(stackLab)}></script><div class="groups" data-stack data-astro-cid-rlzglfcb> {
+<section class="section ground-sage" id="stack" aria-labelledby="stack-title" data-astro-cid-rlzglfcb> <div class="container" data-astro-cid-rlzglfcb>  <h2 class="section-title display" id="stack-title" data-reveal="title" data-astro-cid-rlzglfcb><span class="screen-only" data-astro-cid-rlzglfcb>{stack.title}</span><span class="print-only" data-astro-cid-rlzglfcb aria-hidden="true">{stack.printTitle}</span></h2>  <div id="stack-lab"></div><script type="application/json" id="stack-lab-data" set:html={JSON.stringify({ ...stackLab, careerStart: site.careerStart })}></script><div class="groups" data-stack data-astro-cid-rlzglfcb> {
   stack.groups.map((group, gi) => (
     <div class="group" data-reveal="drop" style={`--i: ${gi}`} data-astro-cid-rlzglfcb> <h3 class="mono group__label" data-astro-cid-rlzglfcb>{group.label}</h3> <ul class="group__items" data-astro-cid-rlzglfcb> {
       group.tools.map((t) => (

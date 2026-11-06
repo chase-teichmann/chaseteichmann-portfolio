@@ -1,0 +1,11 @@
+.store-note{display:flex;align-items:flex-start;gap:var(--s-3);max-width:46rem;margin:var(--s-5) 0 0;padding:var(--s-3) var(--s-4) var(--s-3) var(--s-3);border:var(--b-sm) solid var(--ink);background:var(--paper);box-shadow:var(--sh-sm);font-size:var(--t-18);font-weight:500;line-height:1.45;text-wrap:pretty}
+.store-note__tag{flex:none;margin-top:.2em;padding:2px var(--s-2);border:1.5px solid var(--ink);background:var(--butter);font-size:var(--t-12);font-weight:700;letter-spacing:.06em;line-height:1.4;text-transform:uppercase;white-space:nowrap}
+.store-note--sage .store-note__tag{background:var(--sage)}
+.store-note__text strong{font-weight:700;background:linear-gradient(transparent 60%,var(--butter) 60%,var(--butter) 96%,transparent 96%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.request__form .store-note{margin:0 0 var(--s-6);font-size:var(--t-16);box-shadow:none;background:var(--beige)}
+.co .request__title:has(+ .store-note){margin-bottom:var(--s-4)}
+@media (max-width:47.99rem){.store-note{flex-direction:column;gap:var(--s-2);font-size:var(--t-16)}.store-note__tag{margin-top:0}}
+html[data-theme=retro] body .store-note{gap:8px;padding:6px 10px;border:1px solid #000;background:#ffffe1;box-shadow:none;font:400 15px/1.45 var(--ui);color:#000}
+html[data-theme=retro] body .store-note__tag{margin-top:1px;border:0;background:#000080;color:#fff;font:700 11px/1.6 var(--ui);letter-spacing:.02em;text-transform:none}
+html[data-theme=retro] body .store-note__text strong{background:none;font-weight:700}
+@media print{.store-note{display:none!important}}

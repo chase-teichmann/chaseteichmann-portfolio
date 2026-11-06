@@ -1,0 +1,11 @@
+---
+// A short, plain-spoken note that explains what the store really does (it books an intro call;
+// nothing is sold). Used under "Selected work" and at the top of checkout.
+interface Props {
+  tag: string;
+  tone?: 'butter' | 'sage';
+  class?: string;
+}
+const { tag, tone = 'butter', class: extra } = Astro.props;
+---
+<p class:list={['store-note', `store-note--${tone}`, extra]}><span class="store-note__tag mono" aria-hidden="true">{tag}</span><span class="store-note__text"><slot /></span></p>

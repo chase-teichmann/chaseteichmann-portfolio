@@ -15,6 +15,7 @@ import navPhone from '../styles/nav-phone.css?raw';
 import polish from '../styles/polish.css?raw';
 import bodyCss from '../styles/body.css?raw';
 import themeCss from '../styles/theme.css?raw';
+import storeNote from '../styles/store-note.css?raw';
 
 import themeInit from '../scripts/theme-init.js?raw';
 import jsClass from '../scripts/js-class.js?raw';
@@ -47,6 +48,7 @@ export const styles = {
   polish: { id: 'polish-css', code: polish },
   body: { id: 'body-css', code: bodyCss },
   theme: { id: 'theme-css', code: themeCss },
+  storeNote: { id: 'store-note-css', code: storeNote },
 } satisfies Record<string, Inline>;
 
 export const scripts = {
