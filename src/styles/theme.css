@@ -9,6 +9,7 @@
 .theme-btn:hover{background:var(--butter)}
 .theme-btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .theme-btn__label{white-space:nowrap}
+.nav-theme__link [data-theme-label],html[data-theme=retro] .nav-theme__link [data-theme-label]{font-style:italic}
 .theme-btn__short{display:none}
 @media (max-width:374px){.theme-btn__short{display:none!important}.theme-btn{padding:0}}
 @media (max-width:420px){.header .cart-btn .cart-btn__label{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.header .header__inner{column-gap:8px}}
@@ -36,7 +37,7 @@ html.tt-arrive body:after{content:"";position:fixed;inset:0;z-index:2147483646;p
 @keyframes tt-scan{0%{opacity:1;clip-path:inset(0 0 100% 0)}50%{opacity:1;clip-path:inset(0)}100%{opacity:0;clip-path:inset(0)}}
 
 /* =====================================================================
-   1997: Netscape grey, Times, blue links, bevelled buttons, a teal desktop
+   1997: browser grey, Times, blue links, bevelled buttons, a teal desktop
    ===================================================================== */
 html[data-theme=retro]{
   --ink:#000;--ink-2:#000;--paper:#c0c0c0;--beige:#dfdfdf;--periwinkle:#99ccff;--lavender:#cc99ff;--sage:#99cc99;--butter:#ffff66;--coral:#ff9966;
@@ -145,7 +146,7 @@ html[data-theme=retro] body .nf__row[aria-expanded=true] .nf__plus svg{stroke:#f
 html[data-theme=retro] body .proj-num,html[data-theme=retro] body .lab-num{border:1px solid #000;box-shadow:inset 1px 1px #fff,inset -1px -1px #808080}
 
 /* footer: the 90s small print */
-html[data-theme=retro] body>footer .container:after{content:"Best viewed in Netscape Navigator 4.0 at 800 × 600";display:inline-block;margin-top:var(--s-5);padding:4px 10px;background:#000;color:#00ff00;font:700 12px/1.4 var(--font-mono);box-shadow:0 0 0 2px #808080}
+html[data-theme=retro] body>footer .container:after{content:"Best viewed at 800 × 600";display:inline-block;margin-top:var(--s-5);padding:4px 10px;background:#000;color:#00ff00;font:700 12px/1.4 var(--font-mono);box-shadow:0 0 0 2px #808080}
 
 /* ---------- pass 2: 1997 scale, plain labels, a real browser window ---------- */
 html[data-theme=retro]{--t-display:2.5rem;--t-72:2.5rem;--t-48:2rem;--t-32:1.5rem;--t-24:1.25rem;--s-7:1.75rem;--s-8:2.25rem;--s-9:3rem;--section-pad:2.25rem;--font-mono:Arial,Helvetica,sans-serif}
@@ -198,7 +199,6 @@ html[data-theme=retro] .retro-chrome .rc-m__list a:hover,html[data-theme=retro] 
 .rc-tools{display:flex;align-items:stretch;gap:3px;padding:4px 8px;border-top:1px solid #fff;border-bottom:1px solid #808080}
 html[data-theme=retro] .retro-chrome .rc-tool{display:grid;justify-items:center;align-content:center;min-width:56px;min-height:40px;padding:2px 6px;border:0;background:#c0c0c0;color:#000;box-shadow:var(--out);font:11px/1.2 var(--ui);text-decoration:none;cursor:pointer}
 .rc-tool b{font-size:16px;line-height:1.1;color:#000080}
-.rc-n{display:grid;place-items:center;width:44px;margin-left:auto;background:#000080;color:#fff;font:900 26px/1 "Times New Roman",serif;box-shadow:var(--in)}
 .rc-loc{display:flex;align-items:center;gap:8px;padding:5px 10px;border-top:1px solid #fff}
 .rc-loc label{font:12px var(--ui)}
 .rc-url{flex:1;min-width:0;height:24px;padding:2px 6px;border:0;border-radius:0;background:#fff;color:#000;box-shadow:var(--in);font:13px/1.3 "Courier New",monospace}
@@ -210,7 +210,7 @@ html[data-theme=retro] .retro-status{display:flex;gap:4px;margin-bottom:24px;pad
 html[data-theme=retro] body>footer{margin-bottom:0}
 .webring{margin:0 auto;padding:var(--s-4) 0 var(--s-5);text-align:center;font:15px/1.5 "Times New Roman",serif}
 .webring span{margin:0 10px;font-weight:700}
-@media (max-width:640px){html[data-theme=retro] body>.webring{width:calc(100% - 12px)}html[data-theme=retro] .retro-chrome .rc-tool{min-width:0;flex:1}.rc-n{display:none}html[data-theme=retro] .retro-chrome,html[data-theme=retro] .retro-status{width:calc(100% - 12px)}}
+@media (max-width:640px){html[data-theme=retro] body>.webring{width:calc(100% - 12px)}html[data-theme=retro] .retro-chrome .rc-tool{min-width:0;flex:1}html[data-theme=retro] .retro-chrome,html[data-theme=retro] .retro-status{width:calc(100% - 12px)}}
 
 html[data-theme=retro] .placeholder-banner{width:min(100% - 24px,980px);margin-inline:auto}
 html[data-theme=retro] body .related__name{display:inline-block;min-height:24px;line-height:24px}
