@@ -37,9 +37,9 @@ When `NOTIFY_EMAIL` is set, each new booking also sends you an email from your o
 To turn it on (once):
 
 1. In Google Cloud → **APIs & Services → Library**, enable the **Gmail API**. Without it, sending fails with a 403 even when the token has the scope.
-2. In Google Cloud → **Google Auth Platform → Data access**, add the scope `https://www.googleapis.com/auth/gmail.send.self`. It can only send to the account that signed in, so a leaked token can't email anyone else.
+2. In Google Cloud → **Google Auth Platform → Data access**, add the scope `https://www.googleapis.com/auth/gmail.send`. Google has no narrower "send only to myself" scope; `gmail.send` is the smallest one that can send mail.
 3. Get a new refresh token (below) with all three scopes, and replace `GOOGLE_REFRESH_TOKEN` in Cloudflare.
-4. In Cloudflare → the Worker → **Settings → Runtime variables and secrets (Production)**, add `NOTIFY_EMAIL` as a **secret** (a plain variable would be erased by the next deploy) set to the same Gmail address that signs in for the token. `gmail.send.self` can't send anywhere else.
+4. In Cloudflare → the Worker → **Settings → Runtime variables and secrets (Production)**, add `NOTIFY_EMAIL` as a **secret** (a plain variable would be erased by the next deploy) set to the address that should get the emails (usually the same Gmail).
 
 Until then bookings work as before, without the email. If sending fails, the booking still goes through and the error shows in the logs.
 
@@ -53,8 +53,8 @@ You need a new token if Google revokes the old one. In the logs, that shows up a
 
 1. Open <https://developers.google.com/oauthplayground>, then the gear icon. Tick **Use your own OAuth credentials** and paste the client ID and secret.
 2. In **Input your own scopes**, enter:
-   `https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.freebusy https://www.googleapis.com/auth/gmail.send.self`
-   (Leave out `gmail.send.self` if you don't want booking emails.)
+   `https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.freebusy https://www.googleapis.com/auth/gmail.send`
+   (Leave out `gmail.send` if you don't want booking emails.)
 3. Select **Authorize APIs**. Sign in with the Gmail account whose calendar takes bookings, then allow every permission. On the "unverified app" warning, choose Advanced, then Go to the app.
 4. Select **Exchange authorization code for tokens**. Copy the refresh token into the `GOOGLE_REFRESH_TOKEN` secret in Cloudflare.
 
@@ -73,7 +73,7 @@ You need a new token if Google revokes the old one. In the logs, that shows up a
 |---|---|
 | Checkout can't load open times (503) | Check the logs. `invalid_grant` means the refresh token was revoked, or the consent screen was left in Testing. Get a new token (above). |
 | Times load, but booking fails | The token is missing `calendar.events`. Get a new token and allow every permission. |
-| Bookings work but no email arrives | `NOTIFY_EMAIL` isn't set as a secret, the Gmail API isn't enabled, `NOTIFY_EMAIL` isn't the Gmail address that signed in, or the token lacks `gmail.send.self` (the logs show `notify failed: Gmail send → 403`). |
+| Bookings work but no email arrives | `NOTIFY_EMAIL` isn't set as a secret, the Gmail API isn't enabled, or the token lacks `gmail.send` (the logs show `notify failed: Gmail send → 403`). |
 | A visitor sees "You already have a call booked" | They have an upcoming call already. They can change it from their calendar invite. |
 | The browser console shows a CORS error | The page's address isn't in `ALLOWED_ORIGINS`. |
 | A visitor didn't get the invite | Check the event for their address. The invite comes from the Gmail account, so it can land in spam. |
