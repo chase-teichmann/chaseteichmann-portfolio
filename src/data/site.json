@@ -1,0 +1,77 @@
+{
+  "name": "Chase Teichmann",
+  "url": "https://chaseteichmann.com",
+  "linkedin": "https://www.linkedin.com/in/chase-teichmann609/",
+  "bookingEndpoint": "https://chaseteichmann-booking.chaseteichmann-business.workers.dev",
+  "themeColor": "#afc3f5",
+  "ogImage": {
+    "url": "https://chaseteichmann.com/og.png",
+    "width": 1200,
+    "height": 630
+  },
+  "nav": [
+    {
+      "label": "Home",
+      "anchor": "top"
+    },
+    {
+      "label": "Work",
+      "anchor": "work"
+    },
+    {
+      "label": "Experience",
+      "anchor": "experience"
+    },
+    {
+      "label": "Stack",
+      "anchor": "stack"
+    },
+    {
+      "label": "Contact",
+      "anchor": "contact"
+    }
+  ],
+  "retro": {
+    "windowTitle": "Chase Teichmann’s Home Page - Netscape",
+    "location": "http://www.chaseteichmann.com/",
+    "webringTitle": "Chase’s Project Webring"
+  },
+  "footer": {
+    "title": "Let’s talk.",
+    "lede": "Pick a time for a 30-minute intro call. Add projects first to put them on the agenda."
+  },
+  "articleAuthor": {
+    "@type": "Person",
+    "@id": "https://chaseteichmann.com/#person",
+    "name": "Chase Teichmann",
+    "url": "https://chaseteichmann.com",
+    "jobTitle": "Senior Full Stack Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Actifai"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "York College of Pennsylvania"
+    },
+    "knowsAbout": [
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "AWS",
+      "E-commerce",
+      "Returns",
+      "Billing",
+      "Shopify"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/chase-teichmann609/"
+    ]
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": "https://chaseteichmann.com",
+    "name": "Chase Teichmann"
+  },
+  "lastModified": "2026-11-05"
+}

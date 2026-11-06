@@ -1,0 +1,76 @@
+{
+  "id": "ingestion",
+  "slug": "shopify-webhooks-to-polling",
+  "number": "02",
+  "name": "Shopify webhooks to polling, Christmas week",
+  "bookmark": "Shopify webhooks to polling",
+  "summary": "Shopify warned our merchants that our webhooks would stop working, and its support gave conflicting answers. Another engineer and I moved 130+ stores to polling without waiting for an answer. No data lost.",
+  "category": "Data",
+  "period": "2022",
+  "sortYear": 2022,
+  "addOn": false,
+  "tile": "sage",
+  "company": "returnlogic",
+  "companyLabel": "ReturnLogic",
+  "role": "Built with one other engineer: half of engineering",
+  "stack": [
+    "AWS Lambda",
+    "SQS",
+    "Shopify REST API",
+    "TypeScript",
+    "Node.js",
+    "PostgreSQL"
+  ],
+  "metric": {
+    "value": "130+",
+    "unit": null,
+    "label": "Stores moved to polling"
+  },
+  "seo": {
+    "title": "Shopify webhooks to polling, Christmas week · Chase Teichmann",
+    "description": "Christmas week 2022: Shopify warned our webhooks would stop working and support gave conflicting answers. Another engineer and I moved 130+ stores to polling.",
+    "about": [
+      "AWS Lambda",
+      "SQS",
+      "Shopify REST API",
+      "TypeScript",
+      "Node.js"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "Lambda pollers check every store every 30 minutes.",
+      "desc": "Illustration: a polling radar console whose sweep checks store blips, with a 30-minute dial, a polling switch turned on, a webhook switch on standby, and a log printout of checks.",
+      "caption": "Lambda pollers check every store every 30 minutes.",
+      "file": "shopify-webhooks-to-polling-cover.svg",
+      "thumbColor": "sage"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "shopify-webhooks-to-polling-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "happened",
+      "label": "What happened",
+      "html": "<p>ReturnLogic ran as a private Shopify app and took in each merchant’s data through webhooks. We had registered them without a version, which Shopify’s docs said meant “latest.”</p><p>In Christmas week 2022, right as peak returns season began, Shopify flagged that version as deprecated.</p>"
+    },
+    {
+      "key": "built",
+      "label": "What we built",
+      "html": "<p>Lambda functions on a 30-minute schedule pulled products, orders, customers, collections, and inventory from Shopify’s REST API and fed them through SQS into our existing ETL, so nothing downstream changed.</p><p>Each poll asked for records updated since the last one for that store and resource, with a small overlap, throttled and backing off on Shopify’s 429 responses. Records were upserted by Shopify ID, so the overlap, and data arriving through both webhooks and polling, merged instead of duplicating. Thirty minutes was fresh enough: returns start days after an order.</p><p>Another engineer and I split it by layer: I built the Lambda pollers, and the other engineer handled the path through SQS into the ETL. We switched every store over at once.</p>"
+    },
+    {
+      "key": "outcome",
+      "label": "Outcome",
+      "html": "<p>No outage, and record counts matched Shopify’s through the peak returns week. The deprecation turned out to be a non-issue.</p><ul class=\"study__metrics\" aria-label=\"Outcomes\"><li class=\"tile-periwinkle\"><span class=\"metric-value metric-value--lg\">&lt;1<span class=\"metric-unit\">wk</span></span><span class=\"mono metric-label\">From Shopify’s email to all stores polling</span></li></ul>"
+    }
+  ]
+}

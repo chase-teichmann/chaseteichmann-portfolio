@@ -1,0 +1,38 @@
+{
+  "title": "Privacy",
+  "seoTitle": "Privacy · Chase Teichmann",
+  "description": "What chaseteichmann.com collects when you book a call, and what it doesn’t.",
+  "updated": "November 5, 2026",
+  "sections": [
+    {
+      "key": "short",
+      "label": "In short",
+      "html": "<p>This site has no analytics, no ads, no cookies, and no third-party trackers. It only collects what you type when you book a call.</p>"
+    },
+    {
+      "key": "booking",
+      "label": "Booking a call",
+      "html": "<p>When you book, your email, company, and the time you picked are sent to the booking service. So are your name, role, and note if you add them, and the projects in your cart. The service checks that the time is still open, then creates the event on my Google Calendar with a Google Meet link. Google emails you the invite.</p><p>Your details are kept only on that calendar event, which I use to prepare for the call. They aren’t stored anywhere else, shared, or used for anything else.</p>"
+    },
+    {
+      "key": "calendar",
+      "label": "My calendar",
+      "html": "<p>To show open times, the booking service reads my calendar’s free and busy times only. It never sees what my other events are or who is on them.</p>"
+    },
+    {
+      "key": "browser",
+      "label": "Your browser",
+      "html": "<p>Your cart is kept in the page address, so you can share it as a link. If you switch between the Modern and Retro designs, your choice is saved in your own browser and never sent anywhere.</p>"
+    },
+    {
+      "key": "services",
+      "label": "Services used",
+      "html": "<p>The site is hosted on GitHub Pages. Booking runs on Cloudflare Workers and uses the Google Calendar API. Each of them may keep standard technical logs, such as IP addresses, under their own privacy policies.</p>"
+    },
+    {
+      "key": "delete",
+      "label": "Removing your details",
+      "html": "<p>To have your booking removed, reply to your calendar invite and I’ll delete the event.</p>"
+    }
+  ]
+}

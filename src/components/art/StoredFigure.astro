@@ -1,0 +1,14 @@
+---
+// Map illustrations and "how it works" diagrams, stored as finished figures in src/data/art/.
+// Placeholders: __ID__ (the figure's unique id prefix); in map figures, __COMPACT__ and __CAPTION__
+// (the card-sized variant, whose caption is for screen readers only).
+import { artFile, type Shot } from '../../lib/projects';
+
+interface Props { art: Shot; idBase: string; compact?: boolean }
+const { art, idBase, compact = false } = Astro.props;
+const html = artFile(art.file)
+  .replaceAll('__ID__', idBase)
+  .replaceAll('__COMPACT__', compact ? ' mapart--compact' : '')
+  .replaceAll('__CAPTION__', compact ? ' visually-hidden' : '');
+---
+<Fragment set:html={html} />

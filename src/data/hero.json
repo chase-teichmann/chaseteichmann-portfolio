@@ -1,0 +1,13 @@
+{
+  "printId": "· Maryland, open to hybrid in Baltimore/DC · chaseteichmann.com · linkedin.com/in/chase-teichmann609/",
+  "kicker": "Senior full stack engineer",
+  "stack": "TypeScript · Node.js · PostgreSQL · AWS",
+  "where": "Maryland-based, open to hybrid in the Baltimore/DC area",
+  "headline": "I helped build the returns product a competitor bought.",
+  "subline": "I was one of four engineers at ReturnLogic. Now I build telecom billing integrations at Actifai, whose clients include about a third of North America’s 25 largest telecom companies.",
+  "workedAt": [
+    { "company": "returnlogic", "years": "2019 – 2026", "anchor": "xp-returnlogic" },
+    { "company": "actifai", "years": "2026 – present", "anchor": "xp-actifai" }
+  ],
+  "featured": "returns-features"
+}

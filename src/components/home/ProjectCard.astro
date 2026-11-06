@@ -1,0 +1,22 @@
+---
+// A project on the shelf, like a product card in a store. The featured variant sits in the hero.
+import ProjectArt from '../art/ProjectArt.astro';
+import CompanyLockup from '../ui/CompanyLockup.astro';
+import { linksFor } from '../../lib/site';
+import type { Project } from '../../lib/projects';
+
+interface Props { project: Project; index?: number; featured?: boolean }
+const { project: p, index = 0, featured = false } = Astro.props;
+const href = linksFor(0).project(p.slug);
+const art = p.gallery[0];
+const isMap = art.kind === 'map';
+const gap = p.compactBrand ? ' ' : '  ';
+const mediaComment = '<!-- Product image: links to the product page (duplicate of the title link, so hidden from AT and tab order). -->';
+const priceComment = '<!-- Where a store shows the price, the work shows its headline result. -->';
+const Heading = featured ? 'h2' : 'h3';
+const Tag = featured ? 'div' : 'li';
+const attrs = featured
+  ? { class: 'card card--featured', 'data-feature': p.id, 'data-category': p.category }
+  : { class: 'card', 'data-card': p.id, 'data-category': p.category, 'data-reveal': 'land', style: `--i: ${index % 4}` };
+---
+<Tag {...attrs}> <Fragment set:html={mediaComment} /> <a class={`card__media${isMap ? ' card__media--map' : ''}`} href={href} data-action="read" data-id={p.id} tabindex="-1" aria-hidden="true"> <ProjectArt art={art} idBase={`${featured ? 'hero' : 'card'}-${p.id}`} compact />  <span class="card__badge mono">{p.category}</span> <span class="sticker card__sticker js-only">In cart</span> </a> <div class="card__body"> <p class="card__brand"> <span class="card__brands"> {p.company ? <CompanyLockup company={p.company} height={20} /> : <span class="mono card__brand-text">{p.companyLabel}</span>}{gap}</span> <span class="mono card__period">{p.period}</span> </p> <Heading class="card__name"> <a href={href} data-action="read" data-id={p.id}>{p.name}</a> </Heading> <p class="card__summary">{p.cardSummary ?? p.summary}</p> <Fragment set:html={priceComment} /> {p.metric && <Fragment><p class="card__price"> <span class="metric-value" data-countup>{p.metric.value}{p.metric.unit && <span class="metric-unit">{p.metric.unit}</span>}</span> <span class="mono metric-label">{p.metric.label}</span> </p> </Fragment>}{featured ? ' ' : ''}<div class="card__actions"> <a class="btn btn--primary" href={href} data-action="read" data-id={p.id}>{'\n'}View project<span class="visually-hidden">: {p.name}</span> </a> <button class="btn js-only" type="button" data-action="toggle" data-id={p.id} aria-pressed="false"> <span class="toggle-face"><span class="toggle-check" aria-hidden="true"></span><span data-toggle-label>Add to cart</span></span><span class="visually-hidden">: {p.name}</span> </button> </div> </div> </Tag>

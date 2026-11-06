@@ -1,0 +1,15 @@
+---
+// A project's cover illustration. The drawing itself is an SVG fragment in src/data/art/.
+import { artFile, type Shot } from '../../lib/projects';
+
+interface Props {
+  art: Shot;
+  /** Unique id prefix, e.g. "card-billing". */
+  idBase: string;
+  /** Smaller version used on cards, with the caption kept for screen readers only. */
+  compact?: boolean;
+}
+const { art, idBase, compact = false } = Astro.props;
+const id = `${idBase}-cover`;
+---
+<figure class={`mapart${compact ? ' mapart--compact' : ''} cover`} aria-labelledby={`${id}-cap`} data-astro-cid-k5k6ndxn><svg viewBox={art.viewBox} class="mapart__svg" role="img" aria-labelledby={`${id}-t ${id}-d`} data-astro-cid-k5k6ndxn><title id={`${id}-t`}>{art.title}</title><desc id={`${id}-d`}>{art.desc}</desc><Fragment set:html={artFile(art.file)} /></svg><figcaption class={`mapart__caption${compact ? ' visually-hidden' : ''}`} id={`${id}-cap`} data-astro-cid-k5k6ndxn>{art.caption}</figcaption></figure>

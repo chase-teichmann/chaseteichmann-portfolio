@@ -1,0 +1,13 @@
+---
+// Work history and education. Copy: src/data/experience.json.
+import CompanyLogo from '../ui/CompanyLogo.astro';
+import experience from '../../data/experience.json';
+import { companies } from '../../lib/companies';
+import type { CompanyKey } from '../../lib/projects';
+const edu = experience.education;
+---
+<section class="section ground-lavender" id="experience" aria-labelledby="experience-title" data-astro-cid-xpq65ryk> <div class="container" data-astro-cid-xpq65ryk>  <h2 class="section-title display" id="experience-title" data-reveal="title" data-astro-cid-xpq65ryk>{experience.title}</h2> <ol class="timeline" data-astro-cid-xpq65ryk> {
+  experience.jobs.map((job, i) => (
+    <li class="row" id={`xp-${job.id}`} data-reveal="slide" style={`--i: ${i}`} data-astro-cid-xpq65ryk> <p class="mono row__period" data-astro-cid-xpq65ryk>{job.period}</p> <div class="row__role" data-astro-cid-xpq65ryk> <h3 class="row__title" data-astro-cid-xpq65ryk>{job.title}</h3> <p class="row__company" data-astro-cid-xpq65ryk> <CompanyLogo company={job.company as CompanyKey} height={18} /> <span data-astro-cid-xpq65ryk>{companies[job.company as CompanyKey].name}</span> </p> {job.progression && <p class="row__progression" data-astro-cid-xpq65ryk>{job.progression}</p>} </div> <div class="row__summary" data-astro-cid-xpq65ryk><p class="row__lead" data-astro-cid-xpq65ryk>{job.lead}</p><ul class="row__points" data-astro-cid-xpq65ryk>{job.pointsHtml.map((h) => <li set:html={h}></li>)}</ul></div> </li>
+  ))
+} <li class="row" data-reveal="slide" style={`--i: ${experience.jobs.length}`} data-astro-cid-xpq65ryk> <p class="mono row__period" data-astro-cid-xpq65ryk>{edu.period}</p> <div class="row__role" data-astro-cid-xpq65ryk> <h3 class="row__title" data-astro-cid-xpq65ryk>{edu.degree}</h3> <p class="row__company" data-astro-cid-xpq65ryk>{edu.school}</p> </div> <p class="row__summary" data-astro-cid-xpq65ryk>{edu.detail}</p> </li> </ol> </div> </section>

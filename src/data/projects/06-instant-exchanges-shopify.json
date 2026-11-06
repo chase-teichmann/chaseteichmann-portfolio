@@ -1,0 +1,74 @@
+{
+  "id": "exchanges",
+  "slug": "instant-exchanges-shopify",
+  "number": "06",
+  "name": "Instant exchanges through Shopify",
+  "bookmark": "Instant exchanges through Shopify",
+  "summary": "Exchanges become real Shopify orders, paid with a one-time discount worth the shopper’s return credit, so they never pay full price up front.",
+  "category": "Checkout",
+  "period": "2023",
+  "sortYear": 2023,
+  "addOn": false,
+  "tile": "periwinkle",
+  "company": "returnlogic",
+  "companyLabel": "ReturnLogic",
+  "role": "Built the whole feature",
+  "stack": [
+    "Shopify",
+    "TypeScript",
+    "Node.js",
+    "Angular",
+    "Sequelize",
+    "Jest",
+    "Docker",
+    "ECS",
+    "Fargate"
+  ],
+  "metric": null,
+  "seo": {
+    "title": "Instant exchanges through Shopify · Chase Teichmann",
+    "description": "Exchanges become real Shopify orders: a cart with a one-time discount worth the return credit, minus fees, then back to return tracking after checkout.",
+    "about": [
+      "Shopify",
+      "TypeScript",
+      "Node.js",
+      "Angular"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "An exchange becomes a real Shopify order, with the return credit and its fees inside a one-time code.",
+      "desc": "Illustration: a returned parcel slides off to the left while a new parcel drops into a shopping cart, with two chasing swap arrows around a one-time coupon code.",
+      "caption": "An exchange becomes a real Shopify order, with the return credit and its fees inside a one-time code.",
+      "file": "instant-exchanges-shopify-cover.svg",
+      "thumbColor": "coral"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "instant-exchanges-shopify-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "swap",
+      "label": "A $50 item for a $60 one",
+      "html": "<p>Retailer feedback said shoppers hated the old way, and our cart-abandonment data showed high-value carts left behind.</p><div class=\"compare\"><div><span class=\"compare__h\">Before</span><ol><li>Pay $60 for the new item up front</li><li>Ship the $50 item back</li><li>Wait for it to arrive</li><li>Get a $50 refund</li></ol><span class=\"compare__f\">Two purchases, with the full $60 paid first.</span></div><div class=\"compare--after\"><span class=\"compare__h\">After</span><ol><li>Get a Shopify cart with the $60 item and a one-time code worth the $50 credit, minus fees</li><li>Pay $10, plus any fees, at checkout</li><li>Land back on the return’s tracking</li><li>The new item ships as soon as the return is received</li></ol><span class=\"compare__f\">One order, and only the difference paid.</span></div></div>"
+    },
+    {
+      "key": "how",
+      "label": "How it works",
+      "html": "<p>When a shopper picks an exchange, ReturnLogic generates a Shopify cart and a one-time discount code worth their return credit, minus return shipping, restocking, and any other retailer fees. They check out on the retailer’s own Shopify store, so taxes, inventory, and payment all stay in Shopify, and an embedded script sends them back to their return’s tracking in ReturnLogic.</p>"
+    },
+    {
+      "key": "code",
+      "label": "The code",
+      "html": "<p>Each code works once, only for that shopper, and expires. When the new item costs less than the credit, each retailer chooses what happens to the difference.</p>"
+    }
+  ]
+}

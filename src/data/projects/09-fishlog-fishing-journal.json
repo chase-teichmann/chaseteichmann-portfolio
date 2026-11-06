@@ -1,0 +1,84 @@
+{
+  "id": "fishlog",
+  "slug": "fishlog-fishing-journal",
+  "number": "09",
+  "name": "FishLog: a fishing journal for Maryland",
+  "bookmark": "FishLog",
+  "summary": "My friends and I log every catch on a map, with the weather at that place and hour saved automatically.",
+  "category": "Maps",
+  "period": "2026",
+  "sortYear": 2026,
+  "addOn": false,
+  "tile": "sage",
+  "company": null,
+  "companyLabel": "Personal project",
+  "role": "Solo project",
+  "stack": [
+    "React",
+    "Leaflet",
+    "OpenStreetMap",
+    "Python",
+    "AWS Chalice",
+    "Lambda",
+    "MySQL",
+    "S3",
+    "Open-Meteo"
+  ],
+  "metric": {
+    "value": "30",
+    "unit": null,
+    "label": "Species with Maryland size and creel limits"
+  },
+  "seo": {
+    "title": "FishLog: a fishing journal for Maryland · Chase Teichmann",
+    "description": "My friends and I log every catch on a map, with the weather at that place and hour saved automatically.",
+    "about": [
+      "React",
+      "Leaflet",
+      "OpenStreetMap",
+      "Python",
+      "AWS Chalice",
+      "Lambda",
+      "MySQL",
+      "S3",
+      "Open-Meteo"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": true,
+      "kind": "map",
+      "file": "fishlog-fishing-journal-map.html",
+      "thumbColor": "periwinkle"
+    },
+    {
+      "shot": "flow",
+      "primary": false,
+      "kind": "flow",
+      "file": "fishlog-fishing-journal-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "why",
+      "label": "Why I built it",
+      "html": "<p>I’m an avid fisherman, and I wanted one place where my friends and I could log our catches, track the conditions we caught them in, and compete.</p>"
+    },
+    {
+      "key": "does",
+      "label": "What it does",
+      "html": "<ul class=\"cards\"><li><span class=\"cards__t\">Journal</span><span class=\"cards__d\">Catches, spots, and gear, with the temperature, wind, and moon phase saved for each catch.</span></li><li><span class=\"cards__t\">Regulations</span><span class=\"cards__d\">Size and creel limits for 30 Maryland species, shown next to each one and imported automatically from Maryland DNR.</span></li><li><span class=\"cards__t\">Leaderboard</span><span class=\"cards__d\">Biggest fish per species, most catches, and most species, with filters.</span></li><li><span class=\"cards__t\">Profiles</span><span class=\"cards__d\">A public profile for each angler.</span></li></ul>"
+    },
+    {
+      "key": "built",
+      "label": "How it’s built",
+      "html": "<p>React and React Leaflet over OpenStreetMap tiles on the front end; a Python API on AWS Chalice (Lambda and API Gateway) with MySQL on RDS.</p><p>The weather is saved with the catch, so the log never depends on a weather API later. Geocoding (OpenStreetMap’s Nominatim) and weather (Open-Meteo) need no API keys. Photos go from the browser straight to S3 through presigned URLs, so the API never streams image bytes, and iPhone HEIC photos are converted to JPEG in a Lambda.</p>"
+    },
+    {
+      "key": "hard",
+      "label": "The hard part",
+      "html": "<p>Keeping the map, the catch list, and the filters in agreement. Change a filter or move the map, and all three have to update together.</p>"
+    }
+  ]
+}

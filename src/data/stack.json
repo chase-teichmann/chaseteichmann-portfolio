@@ -1,0 +1,590 @@
+{
+  "title": "Shop by stack",
+  "printTitle": "Stack",
+  "groups": [
+    {
+      "label": "Core",
+      "tools": [
+        {
+          "id": "core-typescript",
+          "name": "TypeScript",
+          "projects": [
+            "returns-features",
+            "ingestion",
+            "order-integration",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties",
+            "addresses",
+            "this-site"
+          ],
+          "addIds": [
+            "ingestion",
+            "returns-features",
+            "billing",
+            "exchanges",
+            "order-integration",
+            "fraud",
+            "addresses",
+            "warranties",
+            "this-site"
+          ],
+          "addAllCount": 9
+        },
+        {
+          "id": "core-node-js",
+          "name": "Node.js",
+          "projects": [
+            "returns-features",
+            "ingestion",
+            "order-integration",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties",
+            "addresses"
+          ],
+          "addIds": [
+            "returns-features",
+            "ingestion",
+            "order-integration",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties",
+            "addresses"
+          ],
+          "addAllCount": 7
+        },
+        {
+          "id": "core-postgresql",
+          "name": "PostgreSQL",
+          "projects": [
+            "returns-features",
+            "ingestion",
+            "order-integration",
+            "billing",
+            "fraud",
+            "warranties"
+          ],
+          "addIds": [
+            "returns-features",
+            "ingestion",
+            "order-integration",
+            "billing",
+            "fraud",
+            "warranties"
+          ],
+          "addAllCount": 5
+        },
+        {
+          "id": "core-aws",
+          "name": "AWS",
+          "projects": [
+            "returns-features",
+            "ingestion",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties",
+            "fishlog"
+          ],
+          "addIds": [
+            "returns-features",
+            "ingestion",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties",
+            "fishlog"
+          ],
+          "addAllCount": 3
+        }
+      ]
+    },
+    {
+      "label": "Back end",
+      "tools": [
+        {
+          "id": "back-end-nestjs",
+          "name": "NestJS",
+          "projects": [
+            "order-integration"
+          ],
+          "addIds": [
+            "order-integration"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "back-end-bun",
+          "name": "Bun",
+          "projects": [
+            "order-integration"
+          ],
+          "addIds": [
+            "order-integration"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "back-end-python",
+          "name": "Python",
+          "projects": [
+            "fishlog"
+          ],
+          "addIds": [
+            "fishlog"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "back-end-mysql",
+          "name": "MySQL",
+          "projects": [
+            "fishlog"
+          ],
+          "addIds": [
+            "fishlog"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "back-end-tsoa",
+          "name": "TSOA",
+          "projects": [
+            "returns-features"
+          ],
+          "addIds": [
+            "returns-features"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "back-end-rest",
+          "name": "REST",
+          "projects": [
+            "returns-features",
+            "ingestion",
+            "order-integration"
+          ],
+          "addIds": [
+            "returns-features",
+            "ingestion",
+            "order-integration"
+          ],
+          "addAllCount": 2
+        }
+      ]
+    },
+    {
+      "label": "AWS",
+      "tools": [
+        {
+          "id": "aws-lambda",
+          "name": "Lambda",
+          "projects": [
+            "ingestion",
+            "fishlog"
+          ],
+          "addIds": [
+            "ingestion",
+            "fishlog"
+          ],
+          "addAllCount": 2
+        },
+        {
+          "id": "aws-sqs",
+          "name": "SQS",
+          "projects": [
+            "ingestion"
+          ],
+          "addIds": [
+            "ingestion"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "aws-ecs",
+          "name": "ECS",
+          "projects": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addIds": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "aws-fargate",
+          "name": "Fargate",
+          "projects": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addIds": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "aws-s3",
+          "name": "S3",
+          "projects": [
+            "returns-features",
+            "fishlog"
+          ],
+          "addIds": [
+            "returns-features",
+            "fishlog"
+          ],
+          "addAllCount": 2
+        },
+        {
+          "id": "aws-cloudfront",
+          "name": "CloudFront",
+          "projects": [
+            "returns-features"
+          ],
+          "addIds": [
+            "returns-features"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "aws-route-53",
+          "name": "Route 53",
+          "projects": [
+            "returns-features"
+          ],
+          "addIds": [
+            "returns-features"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "aws-cloudwatch",
+          "name": "CloudWatch",
+          "projects": [
+            "returns-features"
+          ],
+          "addIds": [
+            "returns-features"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "aws-chalice",
+          "name": "Chalice",
+          "projects": [
+            "fishlog"
+          ],
+          "addIds": [
+            "fishlog"
+          ],
+          "addAllCount": null
+        }
+      ]
+    },
+    {
+      "label": "Front end",
+      "tools": [
+        {
+          "id": "front-end-vue-3",
+          "name": "Vue 3",
+          "projects": [
+            "order-integration"
+          ],
+          "addIds": [
+            "order-integration"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "front-end-nuxt",
+          "name": "Nuxt",
+          "projects": [
+            "order-integration"
+          ],
+          "addIds": [
+            "order-integration"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "front-end-angular",
+          "name": "Angular",
+          "projects": [
+            "returns-features",
+            "exchanges",
+            "warranties"
+          ],
+          "addIds": [
+            "returns-features",
+            "exchanges",
+            "warranties"
+          ],
+          "addAllCount": 3
+        },
+        {
+          "id": "front-end-angularjs",
+          "name": "AngularJS",
+          "projects": [
+            "returns-features",
+            "billing",
+            "fraud"
+          ],
+          "addIds": [
+            "returns-features",
+            "billing",
+            "fraud"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "front-end-react",
+          "name": "React",
+          "projects": [
+            "fishlog"
+          ],
+          "addIds": [
+            "fishlog"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "front-end-leaflet",
+          "name": "Leaflet",
+          "projects": [
+            "fishlog"
+          ],
+          "addIds": [
+            "fishlog"
+          ],
+          "addAllCount": null
+        }
+      ]
+    },
+    {
+      "label": "Integrations",
+      "tools": [
+        {
+          "id": "integrations-shopify",
+          "name": "Shopify",
+          "projects": [
+            "returns-features",
+            "ingestion",
+            "exchanges"
+          ],
+          "addIds": [
+            "ingestion",
+            "returns-features",
+            "exchanges"
+          ],
+          "addAllCount": 3
+        },
+        {
+          "id": "integrations-bigcommerce",
+          "name": "BigCommerce",
+          "projects": [
+            "returns-features"
+          ],
+          "addIds": [
+            "returns-features"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "integrations-recurly",
+          "name": "Recurly",
+          "projects": [
+            "billing"
+          ],
+          "addIds": [
+            "billing"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "integrations-openai",
+          "name": "OpenAI",
+          "projects": [
+            "fraud"
+          ],
+          "addIds": [
+            "fraud"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "integrations-google-places",
+          "name": "Google Places",
+          "projects": [
+            "addresses"
+          ],
+          "addIds": [
+            "addresses"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "integrations-openstreetmap",
+          "name": "OpenStreetMap",
+          "projects": [
+            "fishlog"
+          ],
+          "addIds": [
+            "fishlog"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "integrations-easypost",
+          "name": "EasyPost",
+          "projects": [
+            "returns-features",
+            "addresses"
+          ],
+          "addIds": [
+            "returns-features",
+            "addresses"
+          ],
+          "addAllCount": 2
+        },
+        {
+          "id": "integrations-open-meteo",
+          "name": "Open-Meteo",
+          "projects": [
+            "fishlog"
+          ],
+          "addIds": [
+            "fishlog"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "integrations-datadog",
+          "name": "Datadog",
+          "projects": [
+            "order-integration"
+          ],
+          "addIds": [
+            "order-integration"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "integrations-launchdarkly",
+          "name": "LaunchDarkly",
+          "projects": [
+            "returns-features"
+          ],
+          "addIds": [
+            "returns-features"
+          ],
+          "addAllCount": null
+        }
+      ]
+    },
+    {
+      "label": "Tooling",
+      "tools": [
+        {
+          "id": "tooling-docker",
+          "name": "Docker",
+          "projects": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addIds": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "tooling-jest",
+          "name": "Jest",
+          "projects": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addIds": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "tooling-playwright",
+          "name": "Playwright",
+          "projects": [
+            "this-site"
+          ],
+          "addIds": [
+            "this-site"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "tooling-sequelize",
+          "name": "Sequelize",
+          "projects": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addIds": [
+            "returns-features",
+            "billing",
+            "fraud",
+            "exchanges",
+            "warranties"
+          ],
+          "addAllCount": null
+        },
+        {
+          "id": "tooling-kong",
+          "name": "Kong",
+          "projects": [
+            "returns-features"
+          ],
+          "addIds": [
+            "returns-features"
+          ],
+          "addAllCount": null
+        }
+      ]
+    }
+  ]
+}

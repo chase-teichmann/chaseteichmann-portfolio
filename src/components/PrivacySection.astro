@@ -1,0 +1,8 @@
+---
+// The privacy page: what booking collects and where it goes. Copy lives in src/data/privacy.json.
+import ProseSection from './project/ProseSection.astro';
+import privacy from '../data/privacy.json';
+import { linksFor } from '../lib/site';
+const l = linksFor(1);
+---
+<main id="main" data-astro-cid-by4zwojz> <article class="section ground-beige project" aria-labelledby="project-title" data-astro-cid-by4zwojz> <div class="container" data-astro-cid-by4zwojz> <nav class="crumbs project__crumbs" aria-label="Breadcrumb" data-astro-cid-by4zwojz> <ol data-astro-cid-by4zwojz> <li data-astro-cid-by4zwojz><a class="crumbs__link" href={l.home} data-astro-cid-by4zwojz>Home</a></li> <li aria-current="page" data-astro-cid-by4zwojz>{privacy.title}</li> </ol> </nav> <div class="project__sheet" data-astro-cid-by4zwojz> <h1 class="study__title display" id="project-title" data-astro-cid-by4zwojz>{privacy.title}</h1> <p class="mono" data-astro-cid-by4zwojz style="margin-top:var(--s-3)">Updated {privacy.updated}</p> <div class="project__body" data-astro-cid-by4zwojz> {privacy.sections.map((s, i) => <>{i > 0 ? ' ' : ''}<ProseSection id={s.key} label={s.label} html={s.html} /></>)} </div> <p class="project__back" data-astro-cid-by4zwojz><a class="btn" href={l.home} data-astro-cid-by4zwojz><span aria-hidden="true" data-astro-cid-by4zwojz>←</span> Back to the store</a></p> </div> </div> </article> </main>

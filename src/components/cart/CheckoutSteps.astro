@@ -1,0 +1,10 @@
+---
+// Cart → Time & details → Confirmation breadcrumb. The current step is highlighted.
+interface Props { current: 'details' | 'confirmation' }
+const { current } = Astro.props;
+---
+<nav aria-label="Checkout steps"> <ol class="trail mono"> {
+  current === 'details'
+    ? <Fragment><li><button type="button" data-action="open-cart">Cart</button></li> <li aria-current="step"><span>Time &amp; details</span></li> <li><span>Confirmation</span></li></Fragment>
+    : <Fragment><li><span>Cart</span></li> <li><span>Time &amp; details</span></li> <li aria-current="step"><span>Confirmation</span></li></Fragment>
+} </ol> </nav>

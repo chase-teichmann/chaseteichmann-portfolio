@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import WorkSection from '../components/home/WorkSection.astro';
+import Experience from '../components/home/Experience.astro';
+import StackSection from '../components/home/StackSection.astro';
+import CartDrawer from '../components/cart/CartDrawer.astro';
+import home from '../data/home.json';
+import { personJsonLd } from '../lib/person';
+
+const styles = ['base', 'home', 'headerSafeArea', 'coverArt', 'protectOff', 'xpPoints', 'stackLab', 'checkout', 'ship', 'hero', 'navPhone', 'polish', 'body', 'theme'] as const;
+const scripts = ['gallery', 'requestHash', 'stackLab', 'checkout', 'ship', 'hero', 'theme'] as const;
+---
+<BaseLayout depth={0} title={home.seo.title} description={home.seo.description} path="/" ogType="profile" jsonLd={personJsonLd()} styles={[...styles]} scripts={[...scripts]}><main id="main"> <Hero />    <WorkSection /> <Experience />  <StackSection />  </main><CartDrawer slot="overlays" /></BaseLayout>

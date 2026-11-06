@@ -1,0 +1,19 @@
+---
+// Checkout: pick a time and add your details. checkout.js loads open slots from the booking
+// Worker (data-booking-endpoint) and books the call; nothing is charged, the total is $0.00.
+import CheckoutSteps from './CheckoutSteps.astro';
+import Totals from './Totals.astro';
+import checkout from '../../data/checkout.json';
+import { site, escText } from '../../lib/site';
+
+type InputAttrs = astroHTML.JSX.InputHTMLAttributes;
+---
+<div class="request js-only" data-panel="request" role="region" aria-labelledby="request-title"> <div class="reader__bar"> <button class="btn" type="button" data-action="close"><span aria-hidden="true">←</span> Keep shopping</button> <CheckoutSteps current="details" /> </div> <div class="grid request__layout"> <form class="request__form" novalidate data-request-form data-booking-endpoint={site.bookingEndpoint}> <h3 class="request__title" id="request-title" tabindex="-1">{checkout.title}</h3> <p class="request__lede">{checkout.lede}</p> <fieldset class="slots" data-slots aria-describedby="slot-tz slot-error"> <legend class="slots__legend">{checkout.slotLegend} <span class="mono slots__length" data-slot-length></span></legend> <p class="mono slots__tz" id="slot-tz" data-slot-tz></p> <div class="slots__status" data-slot-status role="status" hidden> <p data-slot-status-text></p> <button class="btn" type="button" data-slot-retry hidden>Try again</button> </div> <div class="slots__days" data-slot-days role="radiogroup" aria-label="Day"></div> <div class="slots__times" data-slot-times role="radiogroup" aria-label="Time" hidden></div> <p class="field__error" id="slot-error" data-slot-error></p> </fieldset> <h4 class="mono request__sub">{checkout.detailsHeading}</h4> {
+  checkout.fields.map((f, i) => (
+    <>{i > 0 ? ' ' : ''}<div class="field"> <label for={`f-${f.id}`}><Fragment set:html={escText(f.label)} />{f.optional && <Fragment> <span class="field__opt">(optional)</span></Fragment>}</label> {
+      f.textarea
+        ? <textarea id={`f-${f.id}`} name={f.id} rows={f.textarea.rows}></textarea>
+        : <Fragment><input id={`f-${f.id}`} name={f.id} {...(f.input as InputAttrs)} aria-describedby={`f-${f.id}-err`}> <p class="field__error" id={`f-${f.id}-err`} data-error={f.id}></p></Fragment>
+    } </div></>
+  ))
+} <div class="hp" aria-hidden="true"> <label for="f-website">{checkout.honeypot.label}</label> <input id="f-website" name={checkout.honeypot.name} tabindex="-1" autocomplete="off"> </div> <div class="request__error" data-request-error role="alert" hidden> <p data-request-error-msg set:html={escText(checkout.errorMessage)}></p> <p>{'\n'}Your details are still here. Try again, or message me on <a target="_blank" href={site.linkedin} rel="noopener">LinkedIn</a>.{'\n'}</p> </div> <button class="btn btn--primary btn--block request__submit" type="submit" data-submit> <span data-submit-label>{checkout.submitLabel}</span> </button> <p class="request__fine">{checkout.fineprint}</p> </form> <section class="request__summary" aria-labelledby="summary-title"> <div class="summary__head"> <h4 class="mono" id="summary-title">{checkout.summaryTitle}</h4> <button class="summary__edit mono" type="button" data-action="open-cart">Edit</button> </div> <ol class="lines lines--static" data-summary-lines></ol> <p class="request__summary-empty" data-summary-empty>{'\n'}{checkout.emptyCart}{'\n'}</p> <Totals variant="summary" /> </section> </div> </div>

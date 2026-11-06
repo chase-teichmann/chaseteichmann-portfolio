@@ -1,0 +1,7 @@
+---
+// A project's number on its colour tile, e.g. "02".
+import { numberTile, type Project } from '../../lib/projects';
+interface Props { project: Project; class: string }
+const { project, class: extra } = Astro.props;
+---
+<span class={`proj-num tile-${numberTile(project)} ${extra}`} aria-hidden="true">{project.number}</span>

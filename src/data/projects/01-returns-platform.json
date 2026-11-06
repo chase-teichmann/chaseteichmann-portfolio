@@ -1,0 +1,112 @@
+{
+  "id": "returns-features",
+  "slug": "returns-platform",
+  "number": "01",
+  "name": "The returns product",
+  "bookmark": "The returns product",
+  "summary": "ReturnLogic’s entire product: a returns portal each retailer could shape to its own policy. I designed and built its core, plus exchanges and warranties end to end.",
+  "category": "Product",
+  "period": "2019 – 2026",
+  "sortYear": 2026,
+  "addOn": false,
+  "tile": "periwinkle",
+  "company": "returnlogic",
+  "companyLabel": "ReturnLogic",
+  "role": "Designed and built the portal, calculations, bundles, auto authorization, and processing",
+  "stack": [
+    "TypeScript",
+    "Node.js",
+    "Angular",
+    "PostgreSQL",
+    "AngularJS",
+    "Sequelize",
+    "TSOA",
+    "REST",
+    "Kong",
+    "Shopify",
+    "BigCommerce",
+    "EasyPost",
+    "LaunchDarkly",
+    "Docker",
+    "ECS",
+    "Fargate",
+    "S3",
+    "CloudFront",
+    "Route 53",
+    "CloudWatch",
+    "Jest"
+  ],
+  "metric": {
+    "value": "250+",
+    "unit": null,
+    "label": "Retailers served over the years, up from 7"
+  },
+  "seo": {
+    "title": "The returns product · Chase Teichmann",
+    "description": "ReturnLogic’s entire product: a returns portal each retailer could shape to its own policy. I designed and built its core, plus exchanges and warranties end to end.",
+    "about": [
+      "TypeScript",
+      "Node.js",
+      "Angular",
+      "PostgreSQL",
+      "AngularJS",
+      "Sequelize",
+      "TSOA",
+      "REST",
+      "Kong",
+      "Shopify",
+      "BigCommerce",
+      "EasyPost",
+      "LaunchDarkly",
+      "Docker",
+      "ECS",
+      "Fargate",
+      "S3",
+      "CloudFront",
+      "Route 53",
+      "CloudWatch",
+      "Jest"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "The returns product a competitor bought.",
+      "desc": "Illustration: a returns portal window with a shopper’s order, two items picked for return, reason chips, a choice of refund, exchange or store credit, and a cursor clicking start return, with a sticker reading 2M+ returns processed.",
+      "caption": "The returns product a competitor bought.",
+      "file": "returns-platform-cover.svg",
+      "thumbColor": "periwinkle"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "returns-platform-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "brief",
+      "label": "The brief",
+      "html": "<p>Every retailer runs returns differently, with its own windows, fees, and outcomes. ReturnLogic’s portal had to fit each retailer’s policy instead of making the retailer bend to the software.</p>"
+    },
+    {
+      "key": "flow",
+      "label": "A return, start to finish",
+      "html": "<ol class=\"steps\"><li><span class=\"steps__k\">Start</span><span class=\"steps__t\">Shopper portal</span><span class=\"steps__d\">Where a shopper starts a return. Each retailer could customize all of it: design, text, flow, and step order.</span></li><li><span class=\"steps__k\">Price</span><span class=\"steps__t\">Return calculations</span><span class=\"steps__d\">What the shopper gets back after fees, accounting for discounts and promos, tax and shipping, and the price difference on exchanges. Bundles come back whole or item by item, as the retailer chooses.</span></li><li><span class=\"steps__k\">Approve</span><span class=\"steps__t\">Auto authorization</span><span class=\"steps__d\">A return that meets the retailer’s rules is approved and gets its shipping label, through EasyPost or the retailer’s own carrier account.</span></li><li><span class=\"steps__k\">Close</span><span class=\"steps__t\">Automated processing</span><span class=\"steps__d\">The refund, gift card, or exchange item goes out and the return is closed, with no one touching it.</span></li></ol><p class=\"steps__foot\">I built every step. Teammates built the return rules engine and return analytics; I contributed to analytics.</p>"
+    },
+    {
+      "key": "hard",
+      "label": "The hard part",
+      "html": "<p>Everything in the portal was configurable per retailer, and the settings interacted, so there were far more combinations than anyone could test by hand.</p><p>I kept it manageable three ways: defaults plus overrides, so a retailer only set what differed; LaunchDarkly flags to roll changes out retailer by retailer; and Jest tests on the risky combinations.</p>"
+    },
+    {
+      "key": "outcome",
+      "label": "Outcome",
+      "html": "<p>In 2026 a major reverse-logistics competitor acquired ReturnLogic.</p><ul class=\"study__metrics\" aria-label=\"Outcomes\"><li class=\"tile-sage\"><span class=\"metric-value metric-value--lg\">2M+</span><span class=\"mono metric-label\">Returns processed</span></li></ul>"
+    }
+  ]
+}

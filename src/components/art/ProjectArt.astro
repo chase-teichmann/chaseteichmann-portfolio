@@ -1,0 +1,9 @@
+---
+import CoverArt from './CoverArt.astro';
+import StoredFigure from './StoredFigure.astro';
+import type { Shot } from '../../lib/projects';
+
+interface Props { art: Shot; idBase: string; compact?: boolean }
+const { art, idBase, compact } = Astro.props;
+---
+{art.kind === 'cover' ? <CoverArt art={art} idBase={idBase} compact={compact} /> : <StoredFigure art={art} idBase={idBase} compact={compact} />}

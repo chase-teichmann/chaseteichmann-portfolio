@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PrivacySection from '../../components/PrivacySection.astro';
+import privacy from '../../data/privacy.json';
+import { site, spacedJson } from '../../lib/site';
+
+const jsonLd = spacedJson({ '@context': 'https://schema.org', '@type': 'WebPage', name: privacy.title, url: `${site.url}/privacy/` });
+---
+<BaseLayout depth={1} title={privacy.seoTitle} description={privacy.description} path="/privacy/" ogType="article" jsonLd={jsonLd} styles={['base', 'page', 'headerSafeArea', 'coverArt', 'navPhone', 'body', 'theme']} scripts={['gallery', 'theme']} requestHref="../index.html#request"><PrivacySection /> </BaseLayout>{' '}

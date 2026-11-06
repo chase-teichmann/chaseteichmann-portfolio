@@ -1,0 +1,15 @@
+---
+// A project's own page at /work/<slug>/.
+import ProjectGallery from './ProjectGallery.astro';
+import ProjectBuyBox from './ProjectBuyBox.astro';
+import ProseSection from './ProseSection.astro';
+import RelatedProjects from './RelatedProjects.astro';
+import Webring from './Webring.astro';
+import { linksFor } from '../../lib/site';
+import type { Project } from '../../lib/projects';
+
+interface Props { project: Project }
+const { project: p } = Astro.props;
+const l = linksFor(2);
+---
+<main id="main" data-astro-cid-by4zwojz> <article class="section ground-beige project" aria-labelledby="project-title" data-astro-cid-by4zwojz> <div class="container" data-astro-cid-by4zwojz> <nav class="crumbs project__crumbs" aria-label="Breadcrumb" data-astro-cid-by4zwojz> <ol data-astro-cid-by4zwojz> <li data-astro-cid-by4zwojz><a class="crumbs__link" href={l.section('work')} data-astro-cid-by4zwojz>Work</a></li> <li class="mono" data-astro-cid-by4zwojz>{p.category}</li> <li aria-current="page" data-astro-cid-by4zwojz>{p.name}</li> </ol> </nav> <div class="project__sheet" data-astro-cid-by4zwojz> <div class="pdp__top" data-astro-cid-by4zwojz> <ProjectGallery project={p} variant="page" /> <ProjectBuyBox project={p} /> </div> <div class="project__body" data-astro-cid-by4zwojz> {p.sections.map((s, i) => <>{i > 0 ? ' ' : ''}<ProseSection id={s.key} label={s.label} html={s.html} retroEgg={s.retroEgg} /></>)} </div> </div> <RelatedProjects project={p} /> </div> </article> </main> <Webring project={p} />

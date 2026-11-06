@@ -1,0 +1,1 @@
+(()=>{const e=document.currentScript.previousElementSibling;let seen=false;try{seen=!!localStorage.getItem("ct-theme")}catch(x){}if(seen||document.documentElement.dataset.theme==="retro")return;e.hidden=false;e.querySelector("[data-egg-go]").addEventListener("click",()=>{const t=document.querySelector("[data-theme-toggle]");if(t)t.click();e.hidden=true})})()

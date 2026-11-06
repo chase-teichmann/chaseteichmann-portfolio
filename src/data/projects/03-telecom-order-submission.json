@@ -1,0 +1,78 @@
+{
+  "id": "order-integration",
+  "slug": "telecom-order-submission",
+  "number": "03",
+  "name": "Order submission and exceptions queue",
+  "bookmark": "Order submission and exceptions queue",
+  "summary": "Actifai builds the online shops where telecom customers order service, for about a third of North America’s 25 largest telecom companies. I built the integration that submits those orders into each provider’s billing system, and I work with each provider through go-live.",
+  "cardSummary": "I built the integration that submits telecom orders into each provider’s billing system, and I work with each provider through go-live.",
+  "category": "Integrations",
+  "period": "2026",
+  "sortYear": 2026,
+  "addOn": false,
+  "tile": "coral",
+  "company": "actifai",
+  "companyLabel": "Actifai",
+  "role": "Built the billing integration and exceptions queue, and worked with each provider and its integration partners through go-live",
+  "stack": [
+    "TypeScript",
+    "Node.js",
+    "NestJS",
+    "PostgreSQL",
+    "Datadog",
+    "Bun",
+    "Vue 3",
+    "Nuxt",
+    "REST"
+  ],
+  "metric": {
+    "value": "3",
+    "unit": null,
+    "label": "Telecom providers live"
+  },
+  "seo": {
+    "title": "Telecom order submission and exceptions queue · Chase Teichmann",
+    "description": "Actifai builds the online shops where telecom customers order service, for about a third of North America’s 25 largest telecom companies. I built the integration that submits those orders into each provider’s billing system, and I work with each provider through go-live.",
+    "about": [
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "Datadog",
+      "Bun",
+      "Vue 3",
+      "Nuxt",
+      "REST"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "Orders go into the billing provider, and rejects go to a queue where staff fix and resend them.",
+      "desc": "Illustration: a split-flap order board with five orders, four marked accepted with checks and one highlighted for a fix, and a 3 live sticker.",
+      "caption": "Orders go into the billing provider, and rejects go to a queue where staff fix and resend them.",
+      "file": "telecom-order-submission-cover.svg",
+      "thumbColor": "coral"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "telecom-order-submission-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "hard",
+      "label": "What made it hard",
+      "html": "<ul class=\"cards\"><li><span class=\"cards__t\">Two sources of truth</span><span class=\"cards__d\">One of the first external APIs on Actifai’s order framework where state lives on both sides: an order lives in Actifai and in the provider’s billing system, and the two have to agree. The provider calls back with each order’s status, which is how we catch a mismatch.</span></li><li><span class=\"cards__t\">Plan mapping</span><span class=\"cards__d\">Single, double, and triple play orders (internet, TV, and phone, alone or bundled) have to map onto each provider’s billing products.</span></li><li><span class=\"cards__t\">Go-live coordination</span><span class=\"cards__d\">Each launch lines up the provider and its integration partners, and I gather the requirements with them. A runbook covers each new provider’s credentials and config, plan mapping, and go-live checklist.</span></li></ul>"
+    },
+    {
+      "key": "fails",
+      "label": "When an order fails",
+      "html": "<p>A failed submission goes into an exceptions queue in Actifai’s manager portal, where staff fix and resend it, and the provider gets an email when one of its orders is flagged.</p><p>A correlation ID on every submission ties logs, Datadog monitors, and the queue to one order, with personal data redacted first.</p>"
+    }
+  ]
+}

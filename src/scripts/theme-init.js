@@ -1,0 +1,1 @@
+(()=>{let t=null;try{const e=new URLSearchParams(location.search).get("theme");if(e==="retro"||e==="modern"){t=e;try{localStorage.setItem("ct-theme",e)}catch{}}else t=localStorage.getItem("ct-theme")}catch{}t==="retro"&&(document.documentElement.dataset.theme="retro")})();

@@ -1,0 +1,38 @@
+---
+// The in-store product view of a project (opened from its card). Without JavaScript the studies
+// show as a plain stacked list.
+import ProjectGallery from '../project/ProjectGallery.astro';
+import CompanyLockup from '../ui/CompanyLockup.astro';
+import ProjectNumber from '../ui/ProjectNumber.astro';
+import store from '../../data/store.json';
+import { linksFor } from '../../lib/site';
+import { sectionHtml } from '../../lib/retro-egg';
+import { studyRelated, metaLine, type Project } from '../../lib/projects';
+
+interface Props { project: Project }
+const { project: p } = Astro.props;
+const l = linksFor(0);
+const titleId = `study-${p.id}-title`;
+const specs = [
+  ['Company', p.companyLabel],
+  ['Role', p.role],
+  ['Period', p.period],
+  ['Stack', p.stack.join(' · ')],
+  ['Category', p.category],
+];
+const gap = p.compactBrand ? ' ' : '  ';
+const c = (text: string) => `<!-- ${text} -->`;
+---
+<article class={`study pdp${p.addOn ? ' study--addon' : ''}`} id={`project-${p.id}`} data-study={p.id} data-addon={p.addOn ? '' : undefined} aria-labelledby={titleId}> <div class="pdp__top"> <Fragment set:html={c('Gallery')} /> <ProjectGallery project={p} variant="study" /> <Fragment set:html={c('Buy box')} /> <div class="pdp__buy"> <p class="pdp__eyebrow"> {p.company && <CompanyLockup company={p.company} height={24} />}{p.company ? gap : '  '}<span class="chip">{p.category}</span> {!p.addOn && <span class="mono">Project {p.number}</span>} </p> <h3 class="study__title display" id={titleId} tabindex="-1">{p.name}</h3> <p class="study__summary">{p.summary}</p> {p.metric && <p class="pdp__price"> <span class="metric-value metric-value--lg" data-countup>{p.metric.value}{p.metric.unit && <span class="metric-unit">{p.metric.unit}</span>}</span> <span class="mono metric-label">{p.metric.label}</span> </p>} <dl class="pdp__specs"> {specs.map(([dt, dd], i) => <>{i > 0 ? ' ' : ''}<div><dt class="mono">{dt}</dt><dd>{dd}</dd></div></>)} </dl>  <div class="pdp__actions js-only"> {
+  p.addOn
+    ? <Fragment><button class="btn btn--primary btn--block" type="button" data-action="protect" aria-pressed="true"> <span class="toggle-face"><span class="toggle-check" aria-hidden="true"></span><span data-protect-label>Protection on · $0.00</span></span> </button> <button class="btn btn--block" type="button" data-action="open-cart">View cart</button></Fragment>
+    : <button class="btn btn--primary btn--block" type="button" data-action="toggle" data-id={p.id} aria-pressed="false"> <span class="toggle-face"><span class="toggle-check" aria-hidden="true"></span><span data-toggle-label>Add to cart</span></span><span class="visually-hidden">: {p.name}</span> </button>
+} </div> {p.addOn && <Fragment><p class="pdp__note js-only" set:html={store.projectPage.addOnNoteHtml}></p> </Fragment>} <p class="pdp__permalink mono"> <a href={l.project(p.slug)}>Open as its own page<span aria-hidden="true"> →</span></a> </p> </div> </div> <Fragment set:html={c('Details: native disclosure, so it works without JavaScript and with every screen reader.')} /> <div class="pdp__details">{
+  p.sections.map((s, i) => (
+    <details open={i === 0}><summary>{s.label}</summary><div class="pdp__panel" set:html={sectionHtml(s)}></div></details>
+  ))
+}</div> <Fragment set:html={c('Cross-sell')} /> <section class="pdp__related js-only" aria-labelledby={`${titleId}-more`}> <h4 class="pdp__related-title display" id={`${titleId}-more`}>{store.projectPage.moreTitle}</h4> <ul class="related"> {
+  studyRelated(p).map((r) => (
+    <li class="related__item"> <ProjectNumber project={r} class="related__thumb" /> <span class="related__text"> <a href={l.project(r.slug)} data-action="read" data-id={r.id} class="related__name">{r.name}</a> <span class="mono">{metaLine(r)}</span> </span> <button class="btn related__add" type="button" data-action="toggle" data-id={r.id} aria-pressed="false"> <span data-toggle-label>Add</span><span class="visually-hidden">: {r.name}</span> </button> </li>
+  ))
+} </ul> </section> </article>

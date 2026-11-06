@@ -1,0 +1,74 @@
+{
+  "id": "returnguard",
+  "slug": "returnguard-shipping-protection",
+  "number": "11",
+  "name": "ReturnGuard: return shipping protection",
+  "bookmark": "ReturnGuard",
+  "summary": "I built nearly all of ReturnGuard, the feature ReturnLogic pivoted its business model around in 2025. Shoppers add return shipping protection at checkout for a small fee, and if they return the item, the label is already paid for.",
+  "category": "Cart add-on",
+  "period": "2025",
+  "sortYear": 2025,
+  "addOn": true,
+  "tile": "butter",
+  "numberTile": "coral",
+  "company": "returnlogic",
+  "companyLabel": "ReturnLogic",
+  "role": "Built nearly all of it: the research spike, the Shopify checkout build, and its monitoring",
+  "stack": [
+    "Shopify",
+    "TypeScript",
+    "Node.js",
+    "AngularJS",
+    "LaunchDarkly",
+    "Jest",
+    "Docker",
+    "ECS",
+    "Fargate"
+  ],
+  "metric": null,
+  "seo": {
+    "title": "ReturnGuard: return shipping protection · Chase Teichmann",
+    "description": "I built nearly all of ReturnGuard, the feature ReturnLogic pivoted its business model around in 2025: a small checkout fee covers the return label.",
+    "about": [
+      "Shopify",
+      "TypeScript",
+      "Node.js"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": false,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "Shoppers add protection at checkout and their return label is covered later, which made the returns product free for retailers.",
+      "desc": "Illustration: a checkout window with an item, a return shipping protection line switched on, the total and a place order button. A dashed arrow runs from the protection line to a parcel whose return label is stamped paid, and a sticker reads free for retailers.",
+      "caption": "Shoppers add protection at checkout and their return label is covered later, which made the returns product free for retailers.",
+      "file": "returnguard-shipping-protection-cover.svg",
+      "thumbColor": "butter"
+    },
+    {
+      "shot": "flow",
+      "primary": true,
+      "kind": "flow",
+      "file": "returnguard-shipping-protection-flow.html"
+    }
+  ],
+  "sections": [
+    {
+      "key": "pivot",
+      "label": "The pivot",
+      "html": "<p>Retailers paid for returns on both ends: a monthly subscription to ReturnLogic, and the cost of every return label. With ReturnGuard, ReturnLogic earned a share of every protected order instead, and the returns product became free for retailers. Adoption figures aren’t public.</p>"
+    },
+    {
+      "key": "spike",
+      "label": "Offer, track, redeem",
+      "html": "<p>My research spike settled three questions before the build.</p><table class=\"vs\"><thead><tr><th scope=\"col\">Question</th><th scope=\"col\">What I built</th></tr></thead><tbody><tr><th scope=\"row\">Offer it</th><td>A Shopify checkout UI extension that adds a protection product, at a fee each retailer sets</td></tr><tr><th scope=\"row\">Track it</th><td>A Shopify pixel script that records who added protection</td></tr><tr><th scope=\"row\">Redeem it</th><td>Protection comes into ReturnLogic with the order, and when the shopper starts a return, the handoff into their return session covers the label</td></tr></tbody></table>"
+    },
+    {
+      "key": "watch",
+      "label": "Keeping it earning",
+      "html": "<p>Revenue depended on it, so I built health checks and monitoring for the three ways it could break.</p><ul class=\"cards\"><li><span class=\"cards__t\">Protection missing</span><span class=\"cards__d\">A retailer’s checkout stops offering it.</span></li><li><span class=\"cards__t\">Pixel not firing</span><span class=\"cards__d\">Tracking events stop arriving.</span></li><li><span class=\"cards__t\">Orders not syncing</span><span class=\"cards__d\">Protected orders don’t reach ReturnLogic.</span></li></ul>"
+    }
+  ]
+}
