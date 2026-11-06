@@ -1,0 +1,19 @@
+# Weekly update PRs for the site, the booking Worker and the GitHub Actions they use.
+# Security fixes are proposed as soon as they're published, whatever the schedule.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly }
+    groups:
+      site:
+        patterns: ['*']
+  - package-ecosystem: npm
+    directory: /booking
+    schedule: { interval: weekly }
+    groups:
+      booking:
+        patterns: ['*']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }

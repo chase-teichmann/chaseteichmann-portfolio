@@ -5,9 +5,9 @@
     "emphasis": "Checking out books a free intro call with me."
   },
   "call": {
-    "baseMinutes": 15,
-    "perProjectMinutes": 10,
-    "maxMinutes": 60
+    "baseMinutes": 30,
+    "perProjectMinutes": 0,
+    "maxMinutes": 30
   },
   "projectPage": {
     "addNote": "“Add to cart” takes you to the store with this project in your cart.",
