@@ -4,6 +4,8 @@
 #
 #   scripts/verify-cloudflare.sh
 #   FISH_HOST=<FishLog hostname> scripts/verify-cloudflare.sh   # also check FishLog
+#   GOOGLE_SITE_VERIFICATION=google-site-verification=<token> scripts/verify-cloudflare.sh
+#     # match the exact Search Console token (without it, any google-site-verification TXT passes)
 #
 # FishLog's hostname is passed in, not written here: the subdomain never appears in this repo's site.
 # Exits non-zero if any check fails.
@@ -15,6 +17,7 @@ BOOKING=https://chaseteichmann-booking.chaseteichmann-business.workers.dev
 ACM_NAME=_944239638e3e43bd741c64d42fdd8f75.$APEX
 ACM_TARGET=_107b6573ed3035bdb058e5534380948f.jkddzztszm.acm-validations.aws.
 FISH_HOST=${FISH_HOST:-}
+GOOGLE_SITE_VERIFICATION=${GOOGLE_SITE_VERIFICATION:-}
 FISH_TARGET=d1qv3dxqb9he73.cloudfront.net.
 
 fails=0
@@ -70,6 +73,17 @@ else
   esac
   expiry=$(echo | openssl s_client -connect "$FISH_HOST:443" -servername "$FISH_HOST" 2>/dev/null | openssl x509 -noout -issuer -enddate 2>/dev/null | tr '\n' ' ')
   [ -n "$expiry" ] && pass "certificate: $expiry" || fail "could not read $FISH_HOST certificate"
+fi
+
+echo "Google Search Console"
+txt=$(dig +short TXT "$APEX" @1.1.1.1 | tr -d '"')
+gsv=$(echo "$txt" | grep '^google-site-verification=')
+if [ -z "$gsv" ]; then
+  fail "no google-site-verification TXT on $APEX (Search Console will lose verification)"
+elif [ -n "$GOOGLE_SITE_VERIFICATION" ] && ! echo "$gsv" | grep -qxF "$GOOGLE_SITE_VERIFICATION"; then
+  fail "google-site-verification TXT is '$(echo $gsv)', want '$GOOGLE_SITE_VERIFICATION'"
+else
+  pass "TXT $(echo $gsv)${GOOGLE_SITE_VERIFICATION:+ (matches)}"
 fi
 
 echo "Booking (CORS from the site)"
