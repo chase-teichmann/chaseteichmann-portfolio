@@ -8,7 +8,7 @@ import CartDrawer from '../components/cart/CartDrawer.astro';
 import home from '../data/home.json';
 import { personJsonLd } from '../lib/person';
 
-const styles = ['base', 'home', 'headerSafeArea', 'coverArt', 'protectOff', 'xpPoints', 'stackLab', 'checkout', 'ship', 'hero', 'navPhone', 'polish', 'body', 'theme'] as const;
+const styles = ['base', 'home', 'headerSafeArea', 'coverArt', 'protectOff', 'xpPoints', 'stackLab', 'checkout', 'ship', 'hero', 'navPhone', 'polish', 'body', 'storeNote', 'theme'] as const;
 const scripts = ['gallery', 'requestHash', 'stackLab', 'checkout', 'ship', 'hero', 'theme'] as const;
 ---
 <BaseLayout depth={0} title={home.seo.title} description={home.seo.description} path="/" ogType="profile" jsonLd={personJsonLd()} styles={[...styles]} scripts={[...scripts]}><main id="main"> <Hero />    <WorkSection /> <Experience />  <StackSection />  </main><CartDrawer slot="overlays" /></BaseLayout>

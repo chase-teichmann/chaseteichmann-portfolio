@@ -1,0 +1,17 @@
+---
+// A short, plain-spoken note that explains what the store really does (it books an intro call;
+// nothing is sold). Used under "Selected work" (with a cart icon) and at the top of checkout
+// (with a "Free" tag).
+interface Props {
+  /** Small label before the text. Without one, a cart icon is shown instead. */
+  tag?: string;
+  tone?: 'butter' | 'sage';
+  class?: string;
+}
+const { tag, tone = 'butter', class: extra } = Astro.props;
+---
+<p class:list={['store-note', `store-note--${tone}`, !tag && 'store-note--icon', extra]}>{
+  tag
+    ? <span class="store-note__tag mono" aria-hidden="true">{tag}</span>
+    : <span class="store-note__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4.5 8h15l-1.2 13H5.7L4.5 8Z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter"></path><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8" fill="none" stroke="currentColor" stroke-width="2.2"></path></svg></span>
+}<span class="store-note__text"><slot /></span></p>

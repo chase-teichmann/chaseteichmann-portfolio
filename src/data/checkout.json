@@ -1,16 +1,54 @@
 {
   "title": "Checkout",
-  "lede": "Pick a time, then add your details.",
+  "lede": "Checkout books a 30-minute intro call on Google Meet.",
   "slotLegend": "Delivery slot",
   "detailsHeading": "Your details",
   "fields": [
-    { "id": "name", "label": "Name", "input": { "autocomplete": "name", "required": true } },
-    { "id": "company", "label": "Company", "input": { "autocomplete": "organization", "required": true } },
-    { "id": "role", "label": "Role you're hiring for", "optional": true, "input": {} },
-    { "id": "email", "label": "Email", "input": { "type": "email", "autocomplete": "email", "inputmode": "email", "required": true } },
-    { "id": "note", "label": "Note", "optional": true, "textarea": { "rows": 4 } }
+    {
+      "id": "name",
+      "label": "Name",
+      "input": {
+        "autocomplete": "name",
+        "required": true
+      }
+    },
+    {
+      "id": "company",
+      "label": "Company",
+      "input": {
+        "autocomplete": "organization",
+        "required": true
+      }
+    },
+    {
+      "id": "role",
+      "label": "Role you're hiring for",
+      "optional": true,
+      "input": {}
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "input": {
+        "type": "email",
+        "autocomplete": "email",
+        "inputmode": "email",
+        "required": true
+      }
+    },
+    {
+      "id": "note",
+      "label": "Note",
+      "optional": true,
+      "textarea": {
+        "rows": 4
+      }
+    }
   ],
-  "honeypot": { "label": "Leave this empty", "name": "_gotcha" },
+  "honeypot": {
+    "label": "Leave this empty",
+    "name": "_gotcha"
+  },
   "errorMessage": "Couldn't send that.",
   "submitLabel": "Place order · $0.00",
   "fineprint": "Your details go only into the calendar invite.",
@@ -23,11 +61,27 @@
     "preview": "Preview build: no booking server is configured, so nothing was booked.",
     "nextHeading": "What happens next",
     "next": [
-      { "title": "Order placed", "text": "On my calendar, with your cart in the event.", "data": "data-next-received", "step": "received" },
-      { "title": "Confirmation email", "text": "A Google Calendar invite with the Meet link.", "data": "data-next-invite" },
-      { "title": "Delivery", "text": "30 minutes on Google Meet.", "data": "data-next-call" }
+      {
+        "title": "Order placed",
+        "text": "On my calendar, with your cart in the event.",
+        "data": "data-next-received",
+        "step": "received"
+      },
+      {
+        "title": "Confirmation email",
+        "text": "A Google Calendar invite with the Meet link.",
+        "data": "data-next-invite"
+      },
+      {
+        "title": "Delivery",
+        "text": "30 minutes on Google Meet.",
+        "data": "data-next-call"
+      }
     ],
     "itemsHeading": "Items",
     "protect": "Return shipping protection: active. If the call isn’t a fit, the return label’s on me."
-  }
+  },
+  "ledeEmphasis": "Nothing is charged.",
+  "ledeMore": "Pick a time, add your details, and you’ll get a calendar invite.",
+  "ledeTag": "Free"
 }

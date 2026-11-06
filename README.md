@@ -25,7 +25,7 @@ npm run preview   # serves dist/
 - **Content** is data, not markup: `src/data/`.
   - `projects/NN-slug.json`: one file per project (the `NN` prefix sets the store order). Card, product view, project page, cart and stack lists all read from here.
   - `art/`: each project's cover drawing (SVG) and its map or "how it works" figure.
-  - `site.json` (name, links, booking endpoint), `home.json`, `hero.json`, `experience.json`, `stack.json`, `stack-lab.json`, `store.json`, `checkout.json`, `privacy.json`.
+  - `site.json` (name, links, booking endpoint, and `careerStart`, the date "Years in production" counts from; the browser works the number out, so it never needs a yearly edit), `home.json`, `hero.json`, `experience.json`, `stack.json`, `stack-lab.json`, `store.json`, `checkout.json`, `privacy.json`.
 - **Components**: `src/components/`.
   - `layout/`: header, footer, theme toggle, the Retro theme's window chrome.
   - `home/`: hero, project card, product view (study), work, experience and stack sections.
