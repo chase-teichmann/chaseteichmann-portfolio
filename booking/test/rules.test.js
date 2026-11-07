@@ -12,14 +12,24 @@ describe('slots', () => {
   const now = et('2026-11-09T08:00:00-05:00'); // Monday morning
   const all = slots({ now });
 
-  it('starts at least 48 hours out', () => {
+  it('starts two business days out', () => {
     expect(Math.min(...all)).toBeGreaterThanOrEqual(now + 48 * 3_600_000);
     expect(Math.min(...all)).toBeGreaterThanOrEqual(earliest(now));
-    expect(fmt(all[0])).toBe('Thu 09:30'); // Monday 8am + 48h is Wednesday, which is closed
+    expect(fmt(all[0])).toBe('Thu 09:30'); // Monday 8am → Wednesday 8am, and Wednesday is closed
   });
-  it('counts weekend hours toward the notice', () => {
-    const fri = et('2026-11-13T15:00:00-05:00'); // Friday 3pm → Sunday 3pm → Monday
-    expect(fmt(slots({ now: fri })[0])).toBe('Mon 09:30');
+  it("doesn't count weekends toward the notice", () => {
+    const friAfternoon = et('2026-11-13T15:00:00-05:00'); // → Monday 3pm, Tuesday 3pm
+    expect(fmt(slots({ now: friAfternoon })[0])).toBe('Tue 15:00');
+    const friEvening = et('2026-11-13T20:00:00-05:00'); // → Tuesday 8pm, so Thursday
+    expect(fmt(slots({ now: friEvening })[0])).toBe('Thu 09:30');
+    const sat = et('2026-11-14T10:00:00-05:00'); // → Monday 10am, Tuesday 10am
+    expect(fmt(slots({ now: sat })[0])).toBe('Tue 10:00');
+  });
+  it('always gives at least 48 hours', () => {
+    for (let h = 0; h < 24 * 7; h += 1) {
+      const t = et('2026-11-09T00:00:00-05:00') + h * 3_600_000;
+      expect(slots({ now: t })[0] - t).toBeGreaterThanOrEqual(48 * 3_600_000);
+    }
   });
   it('never offers Wednesdays or weekends', () => {
     expect(all.some((s) => /^(Wed|Sat|Sun)/.test(fmt(s)))).toBe(false);
