@@ -67,6 +67,13 @@ describe('worker', () => {
     expect(sent.description).not.toContain('nope');
     expect(Date.parse(sent.end.dateTime) - Date.parse(sent.start.dateTime)).toBe(30 * 60_000);
     expect(sent.extendedProperties.private.source).toBe('chaseteichmann.com');
+    expect(sent.reminders.useDefault).toBe(false);
+    const mins = sent.reminders.overrides.map((o) => o.minutes);
+    expect(sent.reminders.overrides.every((o) => o.method === 'popup')).toBe(true);
+    const untilStart = (Date.parse(slots[0]) - Date.now()) / 60_000;
+    expect(mins[0]).toBeGreaterThan(untilStart - 4); // goes off a couple of minutes after booking
+    expect(mins[0]).toBeLessThan(untilStart);
+    expect(mins.slice(1)).toEqual([60, 10]);
     expect(calls.some((c) => c.url.includes('gmail'))).toBe(false); // no NOTIFY_EMAIL, no email
   });
   it('rejects a slot that is no longer open', async () => {
@@ -134,3 +141,17 @@ describe('worker', () => {
     expect(r.status).toBe(200);
   });
 });
+
+describe('reminderMinutes', () => {
+  const H = 3_600_000;
+  it('alerts just after booking, then an hour and ten minutes before', () => {
+    expect(_internal.reminderMinutes(48 * H, 0)).toEqual([48 * 60 - 2, 60, 10]);
+  });
+  it('stays within Google\'s four-week limit', () => {
+    expect(_internal.reminderMinutes(30 * 24 * H, 0)).toEqual([60, 10]);
+  });
+  it('drops reminders that would already be in the past', () => {
+    expect(_internal.reminderMinutes(30 * 60_000, 0)).toEqual([28, 10]);
+  });
+});
+

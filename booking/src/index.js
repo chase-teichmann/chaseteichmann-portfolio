@@ -180,6 +180,18 @@ async function freeBusy(env, from, until) {
   return busy;
 }
 
+// Popup reminders on Chase's copy of the event (a visitor's own calendar keeps its own settings).
+// Google Calendar's phone alerts are reliable where Gmail's aren't, so the first one goes off about
+// two minutes after the booking as a "someone just booked" alert; the others come before the call.
+// Google allows at most 5 reminders, each from 0 to 40320 minutes (4 weeks) before the start.
+const JUST_BOOKED_DELAY = 2;
+const BEFORE_CALL = [60, 10];
+export function reminderMinutes(start, now) {
+  const untilStart = Math.floor((start - now) / 60_000);
+  const all = [untilStart - JUST_BOOKED_DELAY, ...BEFORE_CALL].filter((m) => m >= 0 && m <= 40_320 && m < untilStart);
+  return [...new Set(all)].sort((a, b) => b - a);
+}
+
 async function createEvent(env, b) {
   const end = b.start + RULES.callMinutes * 60_000;
   const agenda = b.agenda.length ? b.agenda.map((id) => `• ${PROJECTS[id]}`).join('\n') : '• No projects picked. General intro.';
@@ -205,10 +217,10 @@ async function createEvent(env, b) {
       conferenceData: { createRequest: { requestId: crypto.randomUUID(), conferenceSolutionKey: { type: 'hangoutsMeet' } } },
       guestsCanModify: false,
       extendedProperties: { private: { source: SOURCE } },
-      reminders: { useDefault: true },
+      reminders: { useDefault: false, overrides: reminderMinutes(b.start, Date.now()).map((minutes) => ({ method: 'popup', minutes })) },
     }),
   });
 }
 
 // Exposed for tests.
-export const _internal = { readBooking, notifyChase, resetToken: () => { cachedToken = null; } };
+export const _internal = { readBooking, notifyChase, reminderMinutes, resetToken: () => { cachedToken = null; } };
