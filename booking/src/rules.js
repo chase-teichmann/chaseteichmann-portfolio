@@ -10,7 +10,7 @@ export const RULES = {
   },
   stepMinutes: 30,
   callMinutes: 30, // every intro call is 30 minutes
-  noticeBusinessDays: 1, // earliest slot is one business day out
+  noticeHours: 48, // earliest slot is at least 48 hours out
   horizonDays: 21, // latest slot is three weeks out
 };
 
@@ -46,14 +46,9 @@ export function instant(year, month, day, hour, minute, timeZone) {
   return guess - offset(guess - offset(guess, timeZone), timeZone);
 }
 
-/** First moment a call may start: `noticeBusinessDays` weekdays after now. */
+/** First moment a call may start: `noticeHours` after now. */
 export function earliest(now, rules = RULES) {
-  let t = now;
-  for (let n = 0; n < rules.noticeBusinessDays; ) {
-    t += DAY;
-    if (zoned(t, rules.timeZone).weekday <= 5) n++;
-  }
-  return t;
+  return now + rules.noticeHours * 60 * MIN;
 }
 
 /**
