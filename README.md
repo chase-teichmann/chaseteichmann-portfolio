@@ -38,8 +38,11 @@ Every pull request runs `.github/workflows/ci.yml`: the site must build, its Wor
   - `home/`: hero, project card, product view (study), work, experience and stack sections.
   - `project/`: project page sections (gallery, buy box, prose sections, related projects, webring).
   - `cart/`: cart button, cart drawer, checkout and confirmation.
+  - `booking/`: the "Your booking" page.
   - `PrivacySection.astro`: the privacy page.
 - **Static files** in `public/`: `CNAME`, `robots.txt`, `og.png` (the link-preview image; its source and render script are in `scripts/og/`), and `sw.js`, which removes the old site's leftover service worker from returning visitors' browsers.
 - **Styles and scripts** are inlined into each page, unchanged: `src/styles/`, `src/scripts/`, wired up in `src/lib/assets.ts`.
 
 The site sets no cookies and loads no third-party scripts. The theme choice (Modern or Retro) is kept in the visitor's browser under the `ct-theme` localStorage key.
+
+After a real booking, checkout saves it under the `ct-booking` localStorage key and sends the visitor to `/booking/` ("Your booking", `src/pages/booking/`, `src/components/booking/`, `src/scripts/booking.js`). While a booking is saved, a "Your booking" button shows in the header on every page. The booking clears itself when the call ends, or when the visitor removes it. `/booking/` is not in the sitemap and is marked `noindex`.

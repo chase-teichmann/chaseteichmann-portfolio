@@ -1,0 +1,51 @@
+/* "Your booking": the header button and the /booking/ page. Loaded on every page, after the
+   theme layer, so its Retro rules win. */
+
+/* ---------- header button (shown while this browser has an upcoming booking) ---------- */
+.booking-btn{display:none;align-items:center;gap:var(--s-2);min-height:2.75rem;padding:0 var(--s-3);border:var(--b) solid var(--ink);background:var(--sage);color:var(--ink);box-shadow:var(--sh-sm);font-family:var(--font-mono);font-size:var(--t-12);font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:transform var(--d-fast) var(--ease-pop),box-shadow var(--d-fast) var(--ease-pop)}
+html.has-booking .booking-btn{display:inline-flex}
+.booking-btn:hover{transform:translate(-2px,-2px);box-shadow:var(--sh)}
+.booking-btn:active{transform:translate(4px,4px);box-shadow:none}
+.booking-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.booking-btn[aria-current=page]{box-shadow:none;transform:none;background:var(--paper)}
+.booking-btn__icon{width:1.375rem;height:1.375rem;flex:none}
+@media (max-width:30rem){
+  .booking-btn{padding:0 var(--s-2)}
+  .booking-btn__label{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+@media print{.booking-btn{display:none!important}}
+
+/* While checkout hands over to the booking page, only the shipping animation shows. */
+html.is-leaving-for-booking body>:not(.ship){visibility:hidden}
+
+/* ---------- the booking page ---------- */
+.booking [hidden]{display:none!important}
+.booking__crumbs{margin-bottom:var(--s-5)}
+.booking__sheet{padding:var(--s-6);background:var(--paper);border:var(--b) solid var(--ink);box-shadow:var(--sh-lg)}
+.booking__sheet h1.sent__title{margin:0}
+.booking__when{display:grid;gap:var(--s-1);margin:0}
+.booking__rel{justify-self:start;padding:2px var(--s-2);border:var(--b-sm) solid var(--ink);background:var(--butter);font-size:var(--t-12);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.booking__time{font-size:var(--t-24);font-weight:800;line-height:var(--lh-snug)}
+.booking__join{margin:0}
+.booking .co-details h2.co-h,.booking .co-summary h2.co-h{margin-top:0}
+.booking .co-summary .line__name{color:inherit;font-weight:700;text-decoration:underline;text-decoration-thickness:var(--b-sm);text-underline-offset:.18em}
+.booking__actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3) var(--s-5);margin:0}
+.booking__forget{min-height:var(--tap);padding:0;border:0;background:none;color:var(--ink);font:inherit;font-size:var(--t-14);font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.booking__forget:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.booking__fine{margin:0;color:var(--ink-2);font-size:var(--t-14)}
+.booking__none{display:grid;gap:var(--s-4);max-width:44rem}
+.booking__none p{margin:0}
+@media (max-width:47.99rem){
+  .booking__sheet{padding:var(--s-4)}
+  .js .booking .reader__bar{position:static;margin-inline:0;padding:0 0 var(--s-3);background:none}
+  .booking__sheet h1.sent__title{font-size:var(--t-32)}
+}
+
+/* ---------- Retro theme ---------- */
+html[data-theme=retro] body .booking-btn{border:0;border-radius:0;background:#c0c0c0;color:#000;box-shadow:var(--out);font-family:var(--ui);font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;transform:none;transition:none}
+html[data-theme=retro] body .booking-btn,html[data-theme=retro] body .booking-btn:visited{color:#000!important;text-decoration:none!important}
+html[data-theme=retro] body .booking-btn:hover{background:#c0c0c0;transform:none;box-shadow:var(--out)}
+html[data-theme=retro] body .booking-btn:active,html[data-theme=retro] body .booking-btn[aria-current=page]{box-shadow:var(--in);transform:none}
+html[data-theme=retro] body .booking-btn:focus-visible{outline:1px dotted #000;outline-offset:-5px}
+html[data-theme=retro] body .booking__sheet{border:0;border-radius:0;background:#c0c0c0;box-shadow:var(--out)}
+html[data-theme=retro] body .booking__rel{border:1px solid #000;background:#ffffe1;font-family:var(--ui);font-size:12px;letter-spacing:0;text-transform:none}
