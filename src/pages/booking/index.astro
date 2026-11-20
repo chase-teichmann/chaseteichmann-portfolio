@@ -1,0 +1,10 @@
+---
+// "Your booking": the confirmation page a visitor lands on after checkout, and can come back to
+// from the header until the call ends. Not in the sitemap, and kept out of search results.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BookingDetails from '../../components/booking/BookingDetails.astro';
+import { site, spacedJson } from '../../lib/site';
+
+const jsonLd = spacedJson({ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Your booking', url: `${site.url}/booking/` });
+---
+<BaseLayout depth={1} title="Your booking · Chase Teichmann" description="Your intro call with Chase Teichmann: when it is, and what’s on the agenda." path="/booking/" ogType="article" jsonLd={jsonLd} styles={['base', 'page', 'headerSafeArea', 'coverArt', 'checkout', 'navPhone', 'body', 'theme']} scripts={['gallery', 'theme']} requestHref="../index.html#request" noindex bookingPage><BookingDetails /> </BaseLayout>

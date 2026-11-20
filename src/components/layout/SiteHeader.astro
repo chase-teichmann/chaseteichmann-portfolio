@@ -1,14 +1,17 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 import CartButton from '../cart/CartButton.astro';
+import BookingLink from './BookingLink.astro';
 import { site, linksFor, type Depth } from '../../lib/site';
 
 interface Props {
   depth: Depth;
   /** Where "Request an intro" goes on sub-pages (the home page sends it to LinkedIn). */
   requestHref?: string;
+  /** This is the "Your booking" page. */
+  bookingPage?: boolean;
 }
-const { depth, requestHref } = Astro.props;
+const { depth, requestHref, bookingPage = false } = Astro.props;
 const l = linksFor(depth);
 const homeHref = depth === 0 ? '#top' : l.home;
 ---
@@ -22,6 +25,6 @@ const homeHref = depth === 0 ? '#top' : l.home;
   ))
 } <ThemeToggle /></ul> </nav>{
   depth === 0
-    ? <Fragment>{'  '}<a class="btn header__cta" target="_blank" href={site.linkedin} data-action="request" data-astro-cid-3ef6ksr2 rel="noopener">Request an intro</a> <CartButton /> </Fragment>
-    : <Fragment>{' '}<a class="btn header__cta" href={requestHref} data-action="request" data-astro-cid-3ef6ksr2>Request an intro</a>{'  '}</Fragment>
+    ? <Fragment>{'  '}<a class="btn header__cta" target="_blank" href={site.linkedin} data-action="request" data-astro-cid-3ef6ksr2 rel="noopener">Request an intro</a> <BookingLink depth={depth} /> <CartButton /> </Fragment>
+    : <Fragment>{' '}<a class="btn header__cta" href={requestHref} data-action="request" data-astro-cid-3ef6ksr2>Request an intro</a> <BookingLink depth={depth} current={bookingPage} />{'  '}</Fragment>
 }</div> <span class="header__progress" aria-hidden="true" data-astro-cid-3ef6ksr2></span> </header>

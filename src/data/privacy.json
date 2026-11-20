@@ -2,7 +2,7 @@
   "title": "Privacy",
   "seoTitle": "Privacy · Chase Teichmann",
   "description": "What chaseteichmann.com collects when you book a call, and what it doesn’t.",
-  "updated": "November 5, 2026",
+  "updated": "November 6, 2026",
   "sections": [
     {
       "key": "short",
@@ -22,7 +22,7 @@
     {
       "key": "browser",
       "label": "Your browser",
-      "html": "<p>Your cart is kept in the page address, so you can share it as a link. If you switch between the Modern and Retro designs, your choice is saved in your own browser and never sent anywhere.</p>"
+      "html": "<p>Your cart is kept in the page address, so you can share it as a link. If you switch between the Modern and Retro designs, your choice is saved in your own browser and never sent anywhere.</p><p>After you book, your booking is saved in your own browser too: the time, your email, company and role, the projects in your cart, and the Meet link. That is how the “Your booking” page and button work. It isn’t a cookie and is never sent anywhere. It clears itself when the call ends, and you can remove it sooner on the “Your booking” page.</p>"
     },
     {
       "key": "services",

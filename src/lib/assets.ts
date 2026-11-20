@@ -16,6 +16,7 @@ import polish from '../styles/polish.css?raw';
 import bodyCss from '../styles/body.css?raw';
 import themeCss from '../styles/theme.css?raw';
 import storeNote from '../styles/store-note.css?raw';
+import bookingCss from '../styles/booking.css?raw';
 
 import themeInit from '../scripts/theme-init.js?raw';
 import jsClass from '../scripts/js-class.js?raw';
@@ -29,6 +30,8 @@ import themeJs from '../scripts/theme.js?raw';
 import store from '../scripts/store.js?raw';
 import stack from '../scripts/stack.js?raw';
 import retroEgg from '../scripts/retro-egg.js?raw';
+import bookingInit from '../scripts/booking-init.js?raw';
+import booking from '../scripts/booking.js?raw';
 
 type Inline = { id?: string; code: string };
 
@@ -49,6 +52,7 @@ export const styles = {
   body: { id: 'body-css', code: bodyCss },
   theme: { id: 'theme-css', code: themeCss },
   storeNote: { id: 'store-note-css', code: storeNote },
+  booking: { id: 'booking-css', code: bookingCss },
 } satisfies Record<string, Inline>;
 
 export const scripts = {
@@ -64,6 +68,8 @@ export const scripts = {
   store: { code: store },
   stack: { code: stack },
   retroEgg: { code: retroEgg },
+  bookingInit: { id: 'booking-init', code: bookingInit },
+  booking: { id: 'booking-js', code: booking },
 } satisfies Record<string, Inline>;
 
 export type StyleName = keyof typeof styles;

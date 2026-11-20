@@ -1,0 +1,86 @@
+---
+// The "Your booking" page: the order confirmation, on its own page. The page is the same for
+// everyone; booking.js fills it in from the booking saved in this browser, or shows the
+// "no booking" state (also what visitors without JavaScript see).
+import ProjectArt from '../art/ProjectArt.astro';
+import CheckoutSteps from '../cart/CheckoutSteps.astro';
+import checkout from '../../data/checkout.json';
+import { linksFor } from '../../lib/site';
+import { projects, metaLine } from '../../lib/projects';
+
+const l = linksFor(1);
+const r = checkout.receipt;
+const shop = `${l.home}#work`;
+---
+<main id="main" class="booking" data-booking-page>
+  <section class="section ground-beige" aria-labelledby="booking-title">
+    <div class="container">
+      <nav class="crumbs booking__crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a class="crumbs__link" href={l.home}>Home</a></li>
+          <li aria-current="page">Your booking</li>
+        </ol>
+      </nav>
+
+      <div class="sent booking__sheet js-only" data-bk-found hidden>
+        <div class="reader__bar"><span></span> <CheckoutSteps current="confirmation" /></div>
+        <div class="grid sent__layout">
+          <div class="sent__main receipt co-on">
+            <p class="mono sent__ref" data-bk-ref></p>
+            <h1 class="sent__title" id="booking-title" tabindex="-1">You’re booked.</h1>
+            <p class="booking__when">
+              <span class="mono booking__rel" data-bk-rel></span>
+              <strong class="booking__time" data-bk-when></strong>
+            </p>
+            <p class="booking__join"><a class="btn btn--primary" data-bk-join hidden target="_blank" rel="noopener">Join Google Meet<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+
+            <section class="co-card co-details" aria-labelledby="bk-details-title">
+              <h2 class="co-h" id="bk-details-title">Order details</h2>
+              <div class="co-grid">
+                <div><p class="co-k">Contact</p><p data-bk-contact></p></div>
+                <div><p class="co-k">Company</p><p><span data-bk-company></span><br><span class="co-sub" data-bk-role></span></p></div>
+                <div><p class="co-k">When</p><p data-bk-when-short></p></div>
+                <div><p class="co-k">Where</p><p data-bk-where></p></div>
+              </div>
+            </section>
+
+            <h2 class="mono sent__subhead co-track-head">Status</h2>
+            <ol class="timeline-next">
+              <li class="is-done"><strong>Booked</strong><span>{r.next[0].text}</span></li>
+              <li class="is-done"><strong>Invite sent</strong><span data-bk-invite></span></li>
+              <li class="is-next"><strong>Intro call</strong><span data-bk-call></span></li>
+            </ol>
+            <p class="co-resched">Need another time? Reply to the invite or propose a new time in Google Calendar.</p>
+
+            <div class="sent__actions booking__actions">
+              <a class="btn btn--primary" href={shop}>Back to projects</a>
+              <button class="booking__forget" type="button" data-bk-forget>Remove from this device</button>
+            </div>
+            <p class="booking__fine">This page is saved only in this browser, and it clears itself when the call ends.</p>
+          </div>
+
+          <section class="co-card co-summary" aria-labelledby="bk-summary-title">
+            <h2 class="co-h" id="bk-summary-title">Order summary</h2>
+            <ol class="lines lines--static" data-bk-lines></ol>
+            <p class="request__summary-empty" data-bk-empty hidden>{checkout.emptyCart}</p>
+            <dl class="totals co-totals">
+              <div><dt data-bk-count>Subtotal · 0 items</dt><dd>$0.00</dd></div>
+              <div data-bk-protect-line><dt>Return shipping protection</dt><dd>$0.00</dd></div>
+              <div class="totals__grand"><dt>Total</dt><dd><span class="co-cur">USD</span> $0.00</dd></div>
+            </dl>
+          </section>
+        </div>
+      </div>
+
+      <div class="sent booking__sheet booking__none" data-bk-none>
+        <h1 class="sent__title" id="booking-none-title" tabindex="-1" data-bk-none-title>No upcoming booking here.</h1>
+        <p>A booking is remembered in the browser you booked it from, until the call ends. Your calendar invite always has the details and the Meet link.</p>
+        <p class="sent__actions booking__actions"><a class="btn btn--primary" href={shop}>Shop the work</a></p>
+      </div>
+
+      {projects.filter((p) => !p.addOn).map((p) => (
+        <template data-bk-line={p.id}><li class="line co-li" data-line={p.id}><span class={`line__thumb proj-num tile-${p.tile} has-art`} aria-hidden="true"><span class="booking__art"><ProjectArt art={p.gallery[0]} idBase={`bk-${p.id}`} compact /></span><span class="line__qty">1</span></span><span class="line__text"><a class="line__name" href={l.project(p.slug)}>{p.name}</a><span class="mono line__period">{metaLine(p)}</span></span><span class="line__price mono">$0.00</span></li></template>
+      ))}
+    </div>
+  </section>
+</main>

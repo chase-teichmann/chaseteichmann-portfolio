@@ -3,7 +3,7 @@ import faviconSvg from '../assets/favicon.svg?raw';
 
 export const site = siteData;
 
-/** Where a page sits in the folder tree: 0 = home, 1 = /privacy/, 2 = /work/<slug>/. */
+/** Where a page sits in the folder tree: 0 = home, 1 = /privacy/ or /booking/, 2 = /work/<slug>/. */
 export type Depth = 0 | 1 | 2;
 
 /** The site is published with relative links (it also works when opened from disk). */
@@ -18,7 +18,9 @@ export function linksFor(depth: Depth) {
     /** Link to a project page. */
     project: (slug: string) =>
       depth === 0 ? `work/${slug}/index.html` : depth === 1 ? `../work/${slug}/index.html` : `../${slug}/index.html`,
-    privacy: depth === 0 ? 'privacy/index.html' : depth === 1 ? 'index.html' : '../../privacy/index.html',
+    privacy: depth === 0 ? 'privacy/index.html' : depth === 1 ? '../privacy/index.html' : '../../privacy/index.html',
+    /** The "Your booking" page. */
+    booking: depth === 0 ? 'booking/index.html' : depth === 1 ? '../booking/index.html' : '../../booking/index.html',
   };
 }
 
