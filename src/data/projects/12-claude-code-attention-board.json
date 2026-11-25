@@ -56,7 +56,7 @@
     {
       "key": "act",
       "label": "Acting from the card",
-      "html": "<p>Opening a session’s chat in T3 is what I do most, so it’s one click on the selected card, next to its main action and Details: the agent’s last reply, one-tap answers and a reply box. Pull requests open on T3’s Pull requests page, and snoozes sync to T3.</p><p>Actions are tiered by risk. Safe ones run on click, and anything that posts to GitHub or Linear, or merges, asks first.</p>"
+      "html": "<p>Opening a session’s chat in T3 is what I do most, so it’s one click on the selected card, next to its main action and Details: the agent’s last reply, one-tap answers and a reply box. Pull requests open on T3’s Pull requests page, and snoozes sync to T3.</p><p>Actions are tiered by risk. Safe ones run on click, and anything that changes something outside the board asks first.</p>"
     },
     {
       "key": "rules",
