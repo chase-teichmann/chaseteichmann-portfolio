@@ -31,6 +31,8 @@ describe('worker', () => {
     const r = await worker.fetch(req('/availability?minutes=30'), env);
     expect(r.status).toBe(200);
     expect(r.headers.get('Access-Control-Allow-Origin')).toBe('https://chaseteichmann.com');
+    expect(r.headers.get('X-Content-Type-Options')).toBe('nosniff');
+    expect(r.headers.get('Content-Security-Policy')).toContain("frame-ancestors 'none'");
     const { slots } = await r.json();
     expect(slots.length).toBeGreaterThan(10);
   });

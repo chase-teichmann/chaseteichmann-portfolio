@@ -58,6 +58,9 @@ export function canonicalEmail(email) {
 }
 
 let cachedToken = null; // { value, expires }
+// Every response is JSON for the site's scripts: never sniffed as anything else, never framed, never
+// allowed to load anything.
+const SECURITY_HEADERS = { 'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'", 'Referrer-Policy': 'no-referrer' };
 
 export default {
   async fetch(request, env, ctx) {
@@ -66,7 +69,7 @@ export default {
     const cors = allowed.includes(origin)
       ? { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Accept', 'Access-Control-Max-Age': '86400', Vary: 'Origin' }
       : { Vary: 'Origin' };
-    const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...cors } });
+    const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...SECURITY_HEADERS, ...cors } });
 
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response(null, { status: allowed.includes(origin) ? 204 : 403, headers: cors });
