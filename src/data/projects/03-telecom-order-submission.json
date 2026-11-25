@@ -68,7 +68,7 @@
     {
       "key": "fails",
       "label": "When an order fails",
-      "html": "<p>A failed submission goes into an exceptions queue in Actifai’s manager portal, where staff fix and resend it, and the provider gets an email when one of its orders is flagged.</p><p>A correlation ID on every submission ties logs, Datadog monitors, and the queue to one order, with personal data redacted first.</p>"
+      "html": "<p>A failed submission goes into an exceptions queue in Actifai’s manager portal, where staff fix and resend it.</p><p>A correlation ID on every submission ties logs, Datadog monitors, and the queue to one order, with personal data redacted first.</p>"
     }
   ]
 }
