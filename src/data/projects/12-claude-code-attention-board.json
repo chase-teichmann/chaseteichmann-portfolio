@@ -1,0 +1,67 @@
+{
+  "id": "attention-board",
+  "slug": "claude-code-attention-board",
+  "number": "12",
+  "name": "Attention board for Claude Code sessions",
+  "bookmark": "Attention board for Claude Code sessions",
+  "summary": "A dashboard that docks beside T3 Code and sorts my parallel Claude Code sessions by whose move it is, so anything waiting on me rises to the top.",
+  "category": "Dev tools",
+  "period": "2026",
+  "sortYear": 2026,
+  "addOn": false,
+  "tile": "butter",
+  "company": null,
+  "companyLabel": "Personal project",
+  "role": "Product, design, and engineering",
+  "stack": [
+    "T3 Code",
+    "Claude Code",
+    "GitHub",
+    "Linear"
+  ],
+  "metric": {
+    "value": "0",
+    "unit": null,
+    "label": "Model tokens the board spends on its own"
+  },
+  "seo": {
+    "title": "Attention board for Claude Code sessions · Chase Teichmann",
+    "description": "A dashboard that docks beside T3 Code and sorts my parallel Claude Code sessions by whose move it is, so anything waiting on me rises to the top.",
+    "about": [
+      "T3 Code",
+      "Claude Code",
+      "GitHub",
+      "Linear"
+    ]
+  },
+  "gallery": [
+    {
+      "shot": "cover",
+      "primary": true,
+      "kind": "cover",
+      "viewBox": "0 0 360 300",
+      "title": "Sessions sorted by whose move it is: anything waiting on me collects in Needs you.",
+      "desc": "Illustration: a board window with four columns, Needs you, My work, Reviews and Done. Two coral cards wait in Needs you, one selected with a reply bubble; My work cards show a five-step stage rail; Reviews cards carry a pull-request icon; Done cards are checked off. A sticker reads 2 need you.",
+      "caption": "Sessions sorted by whose move it is: anything waiting on me collects in Needs you.",
+      "file": "t3-attention-board-cover.svg",
+      "thumbColor": "butter"
+    }
+  ],
+  "sections": [
+    {
+      "key": "court",
+      "label": "Whose move it is",
+      "html": "<p>I run several Claude Code sessions at once in T3 Code. The board sits docked beside it and groups them by who has to act next, not by project.</p><p>Sessions waiting on me collect in Needs you. My own tickets, where I spend most of the day, get their own My work lane, with a stage rail from Plan to Merge on each card. Reviews holds pull requests that ask for my review, and once I’ve left feedback a review waits on its author without me checking. Start next, Parked and Done today round it out.</p>"
+    },
+    {
+      "key": "act",
+      "label": "Acting from the card",
+      "html": "<p>Opening a session’s chat in T3 is what I do most, so it’s one click on the selected card, next to its main action and Details: the agent’s last reply, one-tap answers and a reply box. Pull requests open on T3’s Pull requests page, and snoozes sync to T3.</p><p>Actions are tiered by risk. Safe ones run on click, and anything that posts to GitHub or Linear, or merges, asks first.</p>"
+    },
+    {
+      "key": "rules",
+      "label": "Ground rules",
+      "html": "<p>The board itself spends no model tokens, and the few buttons that start an agent are marked. It polls GitHub for review requests, refreshes whenever the window wakes, and each morning my daily-recap skill turns Done today into a recap.</p><p>Its look borrows from this site’s storefront style, and a one-click, 20-second tour shows it off.</p>"
+    }
+  ]
+}

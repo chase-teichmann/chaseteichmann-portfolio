@@ -10,4 +10,5 @@ export const PROJECTS = {
   addresses: 'Territory maps, autocomplete, and geolocation',
   fishlog: 'FishLog: a fishing journal for Maryland',
   'this-site': 'This site',
+  'attention-board': 'Attention board for Claude Code sessions',
 };
