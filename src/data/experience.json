@@ -7,11 +7,11 @@
       "period": "Jul 2026 – Present",
       "title": "Senior Full Stack Engineer",
       "progression": null,
-      "lead": "On a 12-person team at a 40-person company that builds sales tools for broadband, cable, and telecom providers, including about a third of North America’s 25 largest.",
+      "lead": "On a 12-person team at a 40-person company that builds sales tools for broadband, cable, and telecom providers, including some of North America’s largest.",
       "pointsHtml": [
-        "<strong>Integrations.</strong> Own the integration that submits telecom orders into the providers’ billing system, where order state lives on both sides. Live for 3 providers, with a runbook for the next.",
+        "<strong>Integrations.</strong> Own the integration that submits telecom orders into the providers’ billing system, where order state lives on both sides. Live with multiple providers, with a runbook for each new one.",
         "<strong>Forward-deployed.</strong> Meet with telecom providers and their integration partners through go-live, gather requirements, and work across departments to ship them.",
-        "<strong>How I work.</strong> Prompt engineering across the full stack. I orchestrate Claude Code agents in T3 Code and Warp, track tickets through Linear’s MCP server, and use an internal MCP server to search our Obsidian knowledge base and query the database safely.",
+        "<strong>How I work.</strong> Prompt engineering across the full stack. I orchestrate Claude Code agents in T3 Code and Warp, track tickets through Linear’s MCP server, and use internal tools that give AI agents safe access to team docs.",
         "<strong>Team.</strong> Review code, take on-call, and lead the weekly icebreaker at our sprint retrospective."
       ]
     },

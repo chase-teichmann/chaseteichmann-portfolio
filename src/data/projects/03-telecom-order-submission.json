@@ -4,7 +4,7 @@
   "number": "03",
   "name": "Order submission and exceptions queue",
   "bookmark": "Order submission and exceptions queue",
-  "summary": "Actifai builds the online shops where telecom customers order service, for about a third of North America’s 25 largest telecom companies. I built the integration that submits those orders into each provider’s billing system, and I work with each provider through go-live.",
+  "summary": "Actifai builds the online shops where telecom customers order service, for providers including some of North America’s largest. I built the integration that submits those orders into each provider’s billing system, and I work with each provider through go-live.",
   "cardSummary": "I built the integration that submits telecom orders into each provider’s billing system, and I work with each provider through go-live.",
   "category": "Integrations",
   "period": "2026",
@@ -25,14 +25,10 @@
     "Nuxt",
     "REST"
   ],
-  "metric": {
-    "value": "3",
-    "unit": null,
-    "label": "Telecom providers live"
-  },
+  "metric": null,
   "seo": {
     "title": "Telecom order submission and exceptions queue · Chase Teichmann",
-    "description": "Actifai builds the online shops where telecom customers order service, for about a third of North America’s 25 largest telecom companies. I built the integration that submits those orders into each provider’s billing system, and I work with each provider through go-live.",
+    "description": "Actifai builds the online shops where telecom customers order service, for providers including some of North America’s largest. I built the integration that submits those orders into each provider’s billing system, and I work with each provider through go-live.",
     "about": [
       "TypeScript",
       "NestJS",
@@ -51,7 +47,7 @@
       "kind": "cover",
       "viewBox": "0 0 360 300",
       "title": "Orders go into the billing provider, and rejects go to a queue where staff fix and resend them.",
-      "desc": "Illustration: a split-flap order board with five orders, four marked accepted with checks and one highlighted for a fix, and a 3 live sticker.",
+      "desc": "Illustration: a split-flap order board with five orders, four marked accepted with checks and one highlighted for a fix, and a live sticker.",
       "caption": "Orders go into the billing provider, and rejects go to a queue where staff fix and resend them.",
       "file": "telecom-order-submission-cover.svg",
       "thumbColor": "coral"
