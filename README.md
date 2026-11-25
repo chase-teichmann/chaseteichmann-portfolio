@@ -45,4 +45,6 @@ Every pull request runs `.github/workflows/ci.yml`: the site must build, its Wor
 
 The site sets no cookies and loads no third-party scripts. The theme choice (Modern or Retro) is kept in the visitor's browser under the `ct-theme` localStorage key.
 
+Security headers come from `scripts/csp.mjs`, which `npm run build` runs after `astro build`. It writes `dist/_headers`, which the Cloudflare Worker serving the site reads: a Content-Security-Policy, `X-Frame-Options: DENY`, HSTS, Referrer-Policy, Permissions-Policy and nosniff. It also puts the same Content-Security-Policy in a `<meta>` tag at the top of every page, for hosts that can't set headers. The policy allows the pages' own inline scripts by their SHA-256 hashes, computed from the build, so no extra step is needed when a script changes. Anything else, such as a third-party script or a new outside address the pages connect to, has to be added to the policy in that script.
+
 After a real booking, checkout saves it under the `ct-booking` localStorage key and sends the visitor to `/booking/` ("Your booking", `src/pages/booking/`, `src/components/booking/`, `src/scripts/booking.js`). While a booking is saved, a "Your booking" button shows in the header on every page. The booking clears itself when the call ends, or when the visitor removes it. `/booking/` is not in the sitemap and is marked `noindex`.

@@ -9,7 +9,11 @@
 // Abuse limits, because the Origin check stops other websites but not scripts:
 //   - per-IP rate limits (Cloudflare rate-limiting bindings AVAILABILITY_LIMIT and BOOK_LIMIT),
 //   - a hidden "website" field that people never fill in,
-//   - one upcoming call per email address, and at most MAX_UPCOMING_BOOKINGS upcoming site bookings.
+//   - one upcoming call per person (ignoring +tags, case, and dots in Gmail addresses), and at most
+//     MAX_UPCOMING_BOOKINGS upcoming site bookings.
+// Google emails the invite to whatever address the visitor typed, which may be someone else's, so the
+// text they type is cleaned before it goes in the event (cleanText): shorter limits, no HTML, and no
+// clickable links.
 // When NOTIFY_EMAIL is set, Chase also gets an email for each new booking (time and calendar link only).
 import { RULES, slots } from './rules.js';
 import { PROJECTS } from './projects.js';
@@ -20,8 +24,43 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const DAY = 86_400_000;
 const GMAIL_SEND = 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send';
 const SOURCE = 'chaseteichmann.com'; // tag on events this Worker creates
+const LIMITS = { name: 80, company: 80, role: 80, note: 500 };
+
+// Common top-level domains that Google Calendar and mail apps turn into links.
+const TLDS = 'com|net|org|io|co|ai|app|dev|me|info|biz|xyz|link|click|site|online|top|live|shop|store|page|us|uk|ca|de|ru|cn|tk|ly|gl|gg|sh|to|cc|ws|pw|su|in|cf|ga|ml|gq|zip|mov';
+const SCHEME = /\b(?:https?|ftp|mailto|tel|javascript|data|file):\/*/gi;
+const DOMAIN = new RegExp(`\\b(?:[a-z0-9-]+\\.)+(?:${TLDS})\\b`, 'gi');
+// Control characters (except tab and newline), soft hyphen, zero-width and text-direction characters.
+const INVISIBLE = /[\u0000-\u0008\u000B-\u001F\u007F-\u009F\u00AD\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u2069\uFEFF]/g;
+
+/**
+ * Visitor text, made safe for an invite that may go to someone else: no control, zero-width or
+ * direction-flipping characters, no HTML, and web addresses shown as plain text ("example[.]com", no
+ * "https://"), so nothing in it is clickable. One line unless `multiline`, at most `max` characters.
+ */
+export function cleanText(v, max, { multiline = false } = {}) {
+  if (typeof v !== 'string') return '';
+  let t = v.normalize('NFKC').replace(/\r\n?/g, '\n').replace(/\t/g, ' ').replace(INVISIBLE, '');
+  t = multiline ? t.replace(/[ \u00A0]+/g, ' ').replace(/ *\n */g, '\n').replace(/\n{3,}/g, '\n\n') : t.replace(/\s+/g, ' ');
+  t = t.replace(/<[^>]*>/g, '').replace(/[<>]/g, '').replace(SCHEME, '').replace(DOMAIN, (d) => d.replace(/\./g, '[.]'));
+  return t.trim().slice(0, max).trim();
+}
+
+/** The address used to spot repeat bookings: lowercase, no +tag, and no dots for Gmail. */
+export function canonicalEmail(email) {
+  const at = String(email).lastIndexOf('@');
+  if (at < 1) return String(email).toLowerCase().trim();
+  let user = String(email).slice(0, at).toLowerCase().trim().split('+')[0];
+  let domain = String(email).slice(at + 1).toLowerCase().trim();
+  if (domain === 'googlemail.com') domain = 'gmail.com';
+  if (domain === 'gmail.com') user = user.replace(/\./g, '');
+  return `${user}@${domain}`;
+}
 
 let cachedToken = null; // { value, expires }
+// Every response is JSON for the site's scripts: never sniffed as anything else, never framed, never
+// allowed to load anything.
+const SECURITY_HEADERS = { 'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'", 'Referrer-Policy': 'no-referrer' };
 
 export default {
   async fetch(request, env, ctx) {
@@ -30,7 +69,7 @@ export default {
     const cors = allowed.includes(origin)
       ? { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Accept', 'Access-Control-Max-Age': '86400', Vary: 'Origin' }
       : { Vary: 'Origin' };
-    const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...cors } });
+    const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...SECURITY_HEADERS, ...cors } });
 
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response(null, { status: allowed.includes(origin) ? 204 : 403, headers: cors });
@@ -61,7 +100,7 @@ export default {
         if (!open.includes(input.start)) return json(409, { error: 'slot_taken' });
         const event = await createEvent(env, input);
         if (env.NOTIFY_EMAIL) {
-          const note = notifyChase(env, event).catch((err) => console.error('notify failed:', err && err.message));
+          const note = notifyChase(env, event, { upcoming: upcoming.total + 1, max: maxUpcoming(env) }).catch((err) => console.error('notify failed:', err && err.message));
           if (ctx && ctx.waitUntil) ctx.waitUntil(note);
           else await note;
         }
@@ -82,18 +121,18 @@ async function readBooking(request) {
   try { body = await request.json(); } catch { return { error: 'invalid_json' }; }
   const s = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
   const out = {
-    name: s(body.name, 120),
-    company: s(body.company, 160),
-    role: s(body.role, 160),
+    name: cleanText(body.name, LIMITS.name),
+    company: cleanText(body.company, LIMITS.company),
+    role: cleanText(body.role, LIMITS.role),
     email: s(body.email, 254),
-    note: s(body.note, 2000),
+    note: cleanText(body.note, LIMITS.note, { multiline: true }),
     agenda: Array.isArray(body.agenda) ? [...new Set(body.agenda.filter((id) => typeof id === 'string' && id in PROJECTS))].slice(0, 12) : [],
     start: Date.parse(body.start),
     minutes: Number(body.minutes),
   };
   // Hidden from people; bots that fill every field fill this one too.
   if (s(body.website, 200) || s(body._gotcha, 200)) return { error: 'rejected' };
-  if (!EMAIL.test(out.email)) return { error: 'invalid_email' };
+  if (!EMAIL.test(out.email) || /[<>(),;:"[\]\\]/.test(out.email)) return { error: 'invalid_email' };
   if (!out.company) return { error: 'invalid_company' };
   if (!Number.isFinite(out.start)) return { error: 'invalid_start' };
   if (out.minutes !== RULES.callMinutes) return { error: 'invalid_minutes' };
@@ -119,8 +158,8 @@ async function siteBookings(env, email) {
   q.append('privateExtendedProperty', `source=${SOURCE}`);
   const data = await google(env, `/calendars/${cal}/events?${q}`);
   const items = data.items || [];
-  const who = email.toLowerCase();
-  const byEmail = items.filter((ev) => (ev.attendees || []).some((a) => (a.email || '').toLowerCase() === who)).length;
+  const who = canonicalEmail(email);
+  const byEmail = items.filter((ev) => (ev.attendees || []).some((a) => canonicalEmail(a.email || '') === who)).length;
   return { total: items.length, byEmail };
 }
 
@@ -128,9 +167,15 @@ async function siteBookings(env, email) {
 // (their details stay on the calendar event, as the privacy page says). Sent from his own Gmail.
 const b64 = (text) => btoa(String.fromCharCode(...new TextEncoder().encode(text)));
 
-async function notifyChase(env, event) {
+async function notifyChase(env, event, count) {
   const when = new Intl.DateTimeFormat('en-US', { timeZone: RULES.timeZone, weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(new Date(event.start.dateTime));
   const lines = [`Someone booked an intro call from chaseteichmann.com for ${when}.`, '', `Details: ${event.htmlLink || 'see your Google Calendar'}`];
+  if (count) {
+    lines.push('', `Upcoming calls booked from the site: ${count.upcoming} of ${count.max}.`);
+    if (count.upcoming >= count.max - 2) {
+      lines.push("Close to the limit. Once it's reached, the site can't take new bookings until one of these calls has passed. If any look fake, delete them from your calendar.");
+    }
+  }
   const message = [
     `To: ${env.NOTIFY_EMAIL}`,
     `Subject: =?UTF-8?B?${b64(`New intro call: ${when}`)}?=`,
@@ -223,4 +268,4 @@ async function createEvent(env, b) {
 }
 
 // Exposed for tests.
-export const _internal = { readBooking, notifyChase, reminderMinutes, resetToken: () => { cachedToken = null; } };
+export const _internal = { readBooking, notifyChase, reminderMinutes, cleanText, canonicalEmail, resetToken: () => { cachedToken = null; } };

@@ -31,6 +31,8 @@ describe('worker', () => {
     const r = await worker.fetch(req('/availability?minutes=30'), env);
     expect(r.status).toBe(200);
     expect(r.headers.get('Access-Control-Allow-Origin')).toBe('https://chaseteichmann.com');
+    expect(r.headers.get('X-Content-Type-Options')).toBe('nosniff');
+    expect(r.headers.get('Content-Security-Policy')).toContain("frame-ancestors 'none'");
     const { slots } = await r.json();
     expect(slots.length).toBeGreaterThan(10);
   });
@@ -136,6 +138,48 @@ describe('worker', () => {
     expect(text).toContain('calendar/event?eid=abc');
     expect(text).not.toMatch(/Jordan|Acme|secret note/i);
   });
+  it('counts one upcoming call per person, ignoring +tags, case and Gmail dots', async () => {
+    const r = await book({}, { email: 'Jane.Doe+site@gmail.com' }, { upcoming: [{ attendees: [{ email: 'janedoe@googlemail.com' }] }] });
+    expect(r.status).toBe(429);
+    expect((await r.json()).error).toBe('already_booked');
+  });
+  it('keeps links, HTML and hidden characters out of the invite', async () => {
+    const r = await book({}, {
+      name: 'Jordan <b>Lee</b>\u202E',
+      company: 'Win a prize at https://evil.example.com/claim',
+      role: 'CTO\u200B at www.prize.io',
+      note: 'Hi!\n\n\n\nClick <a href="https://evil.com">here</a> or mailto:x@evil.com',
+    });
+    expect(r.status).toBe(200);
+    const sent = JSON.parse(calls.find((c) => c.url.includes('/events') && c.init.method === 'POST').init.body);
+    const text = [sent.summary, sent.description.replace('Intro call booked from chaseteichmann.com.', ''), sent.attendees[0].displayName].join('\n');
+    expect(text).not.toMatch(/https?:|mailto:|www\.|\.com\b|\.io\b|[<>]|[\u200B\u202E]/);
+    expect(sent.summary).toBe('Intro call: Chase Teichmann × Win a prize at evil[.]example[.]com/claim');
+    expect(sent.description).toContain('Click here or x@evil[.]com');
+    expect(sent.description).not.toContain('\n\n\n');
+  });
+  it('shortens what visitors type', async () => {
+    const r = await book({}, { name: 'n'.repeat(300), company: 'c'.repeat(300), role: 'r'.repeat(300), note: 'x'.repeat(5000) });
+    expect(r.status).toBe(200);
+    const sent = JSON.parse(calls.find((c) => c.url.includes('/events') && c.init.method === 'POST').init.body);
+    expect(sent.attendees[0].displayName).toHaveLength(80);
+    expect(sent.summary).toBe(`Intro call: Chase Teichmann × ${'c'.repeat(80)}`);
+    expect(sent.description).toContain('x'.repeat(500));
+    expect(sent.description).not.toContain('x'.repeat(501));
+  });
+  it('rejects email addresses with header characters', async () => {
+    const r = await book({}, { email: 'a"b@x.test' });
+    expect(r.status).toBe(400);
+  });
+  it('tells Chase how close the site is to its booking limit', async () => {
+    const upcoming = Array.from({ length: 2 }, (_, i) => ({ attendees: [{ email: `p${i}@x.test` }] }));
+    const r = await book({ NOTIFY_EMAIL: 'me@example.test', MAX_UPCOMING_BOOKINGS: '4' }, {}, { upcoming });
+    expect(r.status).toBe(200);
+    const raw = JSON.parse(calls.find((c) => c.url.includes('gmail')).init.body).raw.replace(/-/g, '+').replace(/_/g, '/');
+    const text = new TextDecoder().decode(Uint8Array.from(atob(raw), (ch) => ch.charCodeAt(0)));
+    expect(text).toContain('Upcoming calls booked from the site: 3 of 4.');
+    expect(text).toContain('Close to the limit');
+  });
   it('still books when the notification email fails', async () => {
     const r = await book({ NOTIFY_EMAIL: 'me@example.test' }, {}, { gmailStatus: 403 });
     expect(r.status).toBe(200);
@@ -155,3 +199,20 @@ describe('reminderMinutes', () => {
   });
 });
 
+describe('cleanText', () => {
+  const c = (t, max = 500, o) => _internal.cleanText(t, max, o);
+  it('leaves ordinary text alone', () => {
+    expect(c('Staff Engineer, Node.js and Vue.js (e.g. Nuxt)')).toBe('Staff Engineer, Node.js and Vue.js (e.g. Nuxt)');
+  });
+  it('turns web addresses into plain text', () => {
+    expect(c('see HTTPS://Evil.COM/x and Ｅｖｉｌ．ｃｏｍ')).toBe('see Evil[.]COM/x and Evil[.]com');
+  });
+  it('keeps line breaks only when asked', () => {
+    expect(c('a\r\nb')).toBe('a b');
+    expect(c('a\r\nb', 500, { multiline: true })).toBe('a\nb');
+  });
+  it('ignores anything that is not text', () => {
+    expect(c(42)).toBe('');
+    expect(c(null)).toBe('');
+  });
+});
