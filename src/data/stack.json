@@ -458,14 +458,12 @@
           "id": "integrations-easypost",
           "name": "EasyPost",
           "projects": [
-            "returns-features",
-            "addresses"
+            "returns-features"
           ],
           "addIds": [
-            "returns-features",
-            "addresses"
+            "returns-features"
           ],
-          "addAllCount": 2
+          "addAllCount": null
         },
         {
           "id": "integrations-open-meteo",
