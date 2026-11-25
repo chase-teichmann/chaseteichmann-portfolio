@@ -12,7 +12,7 @@
   "tile": "lavender",
   "company": "actifai",
   "companyLabel": "Actifai",
-  "role": "Territory drawing, assignment, and rep view (with teammates), the location-tracking fix, and shop autocomplete",
+  "role": "Territory drawing, assignment, and rep view (with teammates), location tracking, and shop autocomplete",
   "stack": [
     "Google Places",
     "TypeScript",
@@ -41,12 +41,12 @@
     {
       "key": "territories",
       "label": "Territories",
-      "html": "<p>Actifai’s door-to-door sales app puts addresses on a map for reps to work, but managers had no way to hand an area to a team.</p><p>With teammates, I built both sides of it: the drawing tools managers use to outline clusters of addresses, assigning each territory to reps by user group, and the view where reps see their own territory. Now each team gets its own area.</p>"
+      "html": "<p>Actifai’s door-to-door sales app puts addresses on a map for reps to work, and territory management lets managers give each team its own area.</p><p>With teammates, I built both sides of it: the drawing tools managers use to outline clusters of addresses, assigning each territory to reps by user group, and the view where reps see their own territory.</p>"
     },
     {
       "key": "tracking",
       "label": "Location tracking",
-      "html": "<p>Rep positions jumped around on the map, and the app’s location permissions weren’t handled correctly. I fixed both. The app now asks for location at the right moment and handles a rep who says no.</p>"
+      "html": "<p>I made rep location tracking more accurate and permission-aware. The app asks for location at the right moment and handles a rep who says no.</p>"
     },
     {
       "key": "autocomplete",
