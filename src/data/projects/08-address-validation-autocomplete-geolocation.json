@@ -12,13 +12,17 @@
   "tile": "lavender",
   "company": "actifai",
   "companyLabel": "Actifai",
-  "role": "Territory drawing, assignment, and rep view (with teammates), location tracking, and shop autocomplete",
+  "role": "Territory drawing, assignment, and rep view (with teammates), map clustering performance, location tracking, and shop autocomplete",
   "stack": [
     "Google Places",
     "TypeScript",
     "Node.js"
   ],
-  "metric": null,
+  "metric": {
+    "value": "60",
+    "unit": "%",
+    "label": "Better map clustering performance, on average across zoom levels"
+  },
   "seo": {
     "title": "Territory maps, autocomplete, and geolocation · Chase Teichmann",
     "description": "At Actifai I helped build territory management for the door-to-door sales app, so each team gets its own area, and I work on the location and address features around it.",
@@ -42,6 +46,11 @@
       "key": "territories",
       "label": "Territories",
       "html": "<p>Actifai’s door-to-door sales app puts addresses on a map for reps to work, and territory management lets managers give each team its own area.</p><p>With teammates, I built both sides of it: the drawing tools managers use to outline clusters of addresses, assigning each territory to reps by user group, and the view where reps see their own territory.</p>"
+    },
+    {
+      "key": "clustering",
+      "label": "Map clustering",
+      "html": "<p>The address map groups nearby addresses into clusters, so reps and managers can read it at any zoom level. I improved clustering performance across zoom levels, by 60% on average.</p>"
     },
     {
       "key": "tracking",
