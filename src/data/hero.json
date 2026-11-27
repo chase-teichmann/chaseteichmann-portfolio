@@ -4,7 +4,7 @@
   "stack": "TypeScript · Node.js · PostgreSQL · AWS",
   "where": "Maryland-based, open to hybrid in the Baltimore/DC area",
   "headline": "I helped build the returns product a competitor bought.",
-  "subline": "I was one of four engineers at ReturnLogic. Now I build telecom billing integrations at Actifai, whose clients include some of North America’s largest broadband providers.",
+  "subline": "I was on the engineering team at ReturnLogic. Now I build telecom billing integrations at Actifai, whose clients include some of North America’s largest broadband providers.",
   "workedAt": [
     { "company": "returnlogic", "years": "2019 – 2026", "anchor": "xp-returnlogic" },
     { "company": "actifai", "years": "2026 – present", "anchor": "xp-actifai" }

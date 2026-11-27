@@ -4,7 +4,7 @@
   "number": "11",
   "name": "ReturnGuard: return shipping protection",
   "bookmark": "ReturnGuard",
-  "summary": "I built nearly all of ReturnGuard, the feature ReturnLogic pivoted its business model around in 2025. Shoppers add return shipping protection at checkout for a small fee, and if they return the item, the label is already paid for.",
+  "summary": "I built nearly all of ReturnGuard, ReturnLogic’s 2025 headline feature. Shoppers add return shipping protection at checkout for a small fee, and if they return the item, the label is already paid for.",
   "category": "Cart add-on",
   "period": "2025",
   "sortYear": 2025,
@@ -28,7 +28,7 @@
   "metric": null,
   "seo": {
     "title": "ReturnGuard: return shipping protection · Chase Teichmann",
-    "description": "I built nearly all of ReturnGuard, the feature ReturnLogic pivoted its business model around in 2025: a small checkout fee covers the return label.",
+    "description": "I built nearly all of ReturnGuard, ReturnLogic’s 2025 headline feature: a small checkout fee covers the return label.",
     "about": [
       "Shopify",
       "TypeScript",
@@ -57,8 +57,8 @@
   "sections": [
     {
       "key": "pivot",
-      "label": "The pivot",
-      "html": "<p>Retailers paid for returns on both ends: a monthly subscription to ReturnLogic, and the cost of every return label. With ReturnGuard, ReturnLogic earned a share of every protected order instead, and the returns product became free for retailers. Adoption figures aren’t public.</p>"
+      "label": "The idea",
+      "html": "<p>Retailers paid for returns on both ends: the returns software and the cost of every return label. ReturnGuard let shoppers cover their own return label at checkout, for a small fee each retailer sets.</p>"
     },
     {
       "key": "spike",
@@ -67,8 +67,8 @@
     },
     {
       "key": "watch",
-      "label": "Keeping it earning",
-      "html": "<p>Revenue depended on it, so I built health checks and monitoring for the three ways it could break.</p><ul class=\"cards\"><li><span class=\"cards__t\">Protection missing</span><span class=\"cards__d\">A retailer’s checkout stops offering it.</span></li><li><span class=\"cards__t\">Pixel not firing</span><span class=\"cards__d\">Tracking events stop arriving.</span></li><li><span class=\"cards__t\">Orders not syncing</span><span class=\"cards__d\">Protected orders don’t reach ReturnLogic.</span></li></ul>"
+      "label": "Keeping it working",
+      "html": "<p>Retailers’ checkouts depended on it, so I built health checks and monitoring for the three ways it could break.</p><ul class=\"cards\"><li><span class=\"cards__t\">Protection missing</span><span class=\"cards__d\">A retailer’s checkout stops offering it.</span></li><li><span class=\"cards__t\">Pixel not firing</span><span class=\"cards__d\">Tracking events stop arriving.</span></li><li><span class=\"cards__t\">Orders not syncing</span><span class=\"cards__d\">Protected orders don’t reach ReturnLogic.</span></li></ul>"
     }
   ]
 }

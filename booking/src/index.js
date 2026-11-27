@@ -25,6 +25,7 @@ const DAY = 86_400_000;
 const GMAIL_SEND = 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send';
 const SOURCE = 'chaseteichmann.com'; // tag on events this Worker creates
 const LIMITS = { name: 80, company: 80, role: 80, note: 500 };
+const NOTICE_GRACE = 60 * 60_000;
 
 // Common top-level domains that Google Calendar and mail apps turn into links.
 const TLDS = 'com|net|org|io|co|ai|app|dev|me|info|biz|xyz|link|click|site|online|top|live|shop|store|page|us|uk|ca|de|ru|cn|tk|ly|gl|gg|sh|to|cc|ws|pw|su|in|cf|ga|ml|gq|zip|mov';
@@ -45,6 +46,8 @@ export function cleanText(v, max, { multiline = false } = {}) {
   t = t.replace(/<[^>]*>/g, '').replace(/[<>]/g, '').replace(SCHEME, '').replace(DOMAIN, (d) => d.replace(/\./g, '[.]'));
   return t.trim().slice(0, max).trim();
 }
+
+const sameText = (a, b) => typeof a === 'string' && typeof b === 'string' && a.trim().toLowerCase() === b.trim().toLowerCase();
 
 /** The address used to spot repeat bookings: lowercase, no +tag, and no dots for Gmail. */
 export function canonicalEmail(email) {
@@ -96,7 +99,9 @@ export default {
         if (upcoming.total >= maxUpcoming(env)) return json(429, { error: 'booking_limit' });
         const now = Date.now();
         const busy = await freeBusy(env, now, now + (RULES.horizonDays + 1) * DAY);
-        const open = slots({ now, minutes: RULES.callMinutes, busy });
+        // The notice window moves with the clock, so a time that was open when the visitor loaded checkout
+        // can fall inside it while they fill in the form. Give them NOTICE_GRACE to finish.
+        const open = slots({ now: now - NOTICE_GRACE, minutes: RULES.callMinutes, busy });
         if (!open.includes(input.start)) return json(409, { error: 'slot_taken' });
         const event = await createEvent(env, input);
         if (env.NOTIFY_EMAIL) {
@@ -121,7 +126,8 @@ async function readBooking(request) {
   try { body = await request.json(); } catch { return { error: 'invalid_json' }; }
   const s = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
   const out = {
-    name: cleanText(body.name, LIMITS.name),
+    // The site fills the hidden name field with the email; don't show the email twice as a name.
+    name: sameText(body.name, body.email) ? '' : cleanText(body.name, LIMITS.name),
     company: cleanText(body.company, LIMITS.company),
     role: cleanText(body.role, LIMITS.role),
     email: s(body.email, 254),

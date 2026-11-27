@@ -1,0 +1,25 @@
+/* Accessibility fixes from the November 27, 2026 audit. Loaded on every page, after the theme layer. */
+
+/* Short screens (a phone turned sideways, or 400% zoom): let the whole cart drawer scroll, so the
+   Checkout button can always be reached. Only the list of items scrolled before. */
+@media (max-height: 40rem) {
+  .drawer { overflow-y: auto; }
+  .drawer__body { flex: none; overflow: visible; }
+  /* The project page's sticky gallery is taller than a short window, so its buttons fell below the fold. */
+  .pdp__gallery { position: static; }
+}
+
+/* Phones: the header is two rows (about 88px, 98px in Retro), so panels and fields scrolled into view
+   must clear it, not the one-row 64px. */
+@media (max-width: 47.99rem) {
+  :root { --header-h: 5.5rem; }
+  html[data-theme=retro] { --header-h: 6.25rem; }
+  .js .work[data-view=product] .reader,
+  .js .work[data-view=request] .request,
+  .js .work[data-view=sent] .sent { scroll-padding-top: 5rem; }
+}
+
+/* Retro: contrast in the stack section, and a selected checkout day that stands out like the selected time. */
+html[data-theme=retro] #stack-lab .nf__row[aria-expanded=true] { color: #fff; }
+html[data-theme=retro] #stack-lab .lab-num { color: #000; }
+html[data-theme=retro] body .co .slot-day input:checked + .slot-day__face { background: #000080; color: #fff; }

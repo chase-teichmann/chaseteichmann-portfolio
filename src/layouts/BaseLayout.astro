@@ -35,8 +35,9 @@ const meta = { title, description, ogType, jsonLd, canonical: `${site.url}${path
 const viewport = 'width=device-width, initial-scale=1';
 // The first (base) stylesheet is followed by a line break.
 const [firstStyle, ...restStyles] = styles;
-// Every page also gets the "Your booking" button's styles and scripts (lib/assets.ts: booking*).
-const headAssets = scriptTag('jsClass') + styleTag(firstStyle) + '\n' + [...restStyles, 'booking' as const].map(styleTag).join('');
+// Every page also gets the "Your booking" button's styles and scripts (lib/assets.ts: booking*) and the
+// accessibility fixes (styles/a11y.css).
+const headAssets = scriptTag('jsClass') + styleTag(firstStyle) + '\n' + [...restStyles, 'booking' as const, 'a11y' as const].map(styleTag).join('');
 const bodyScripts = [...scripts, 'booking' as const].map(scriptTag).join('');
 const headInit = scriptTag('themeInit') + scriptTag('bookingInit');
 ---

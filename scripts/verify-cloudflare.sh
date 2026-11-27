@@ -14,11 +14,13 @@ set -u
 APEX=chaseteichmann.com
 SITE="https://$APEX"
 BOOKING=https://chaseteichmann-booking.chaseteichmann-business.workers.dev
-ACM_NAME=_944239638e3e43bd741c64d42fdd8f75.$APEX
-ACM_TARGET=_107b6573ed3035bdb058e5534380948f.jkddzztszm.acm-validations.aws.
+# FishLog's values come from the environment so they stay out of this public repo (copy them from Route 53):
+#   ACM_NAME=_<id>.chaseteichmann.com ACM_TARGET=_<id>.<id>.acm-validations.aws. FISH_TARGET=<id>.cloudfront.net.
+ACM_NAME=${ACM_NAME:-}
+ACM_TARGET=${ACM_TARGET:-}
 FISH_HOST=${FISH_HOST:-}
 GOOGLE_SITE_VERIFICATION=${GOOGLE_SITE_VERIFICATION:-}
-FISH_TARGET=d1qv3dxqb9he73.cloudfront.net.
+FISH_TARGET=${FISH_TARGET:-}
 
 fails=0
 pass() { printf '  ok    %s\n' "$1"; }
@@ -61,7 +63,11 @@ else
 fi
 
 echo "FishLog"
-check "ACM validation CNAME" "$(dig +short CNAME "$ACM_NAME" @1.1.1.1)" "$ACM_TARGET"
+if [ -n "$ACM_NAME" ]; then
+  check "ACM validation CNAME" "$(dig +short CNAME "$ACM_NAME" @1.1.1.1)" "$ACM_TARGET"
+else
+  echo "  skip  set ACM_NAME and ACM_TARGET to check FishLog's certificate record"
+fi
 if [ -z "$FISH_HOST" ]; then
   echo "  skip  set FISH_HOST to check FishLog itself"
 else
