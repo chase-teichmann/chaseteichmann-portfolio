@@ -12,7 +12,7 @@
   "tile": "sage",
   "company": "returnlogic",
   "companyLabel": "ReturnLogic",
-  "role": "Built with one other engineer: half of engineering",
+  "role": "Built with one other engineer on a small engineering team",
   "stack": [
     "AWS Lambda",
     "SQS",

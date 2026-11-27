@@ -20,9 +20,9 @@
     "Linear"
   ],
   "metric": {
-    "value": "0",
+    "value": "5",
     "unit": null,
-    "label": "Model tokens the board spends on its own"
+    "label": "Stages on each ticket card, from Plan to Merge"
   },
   "seo": {
     "title": "Attention board for Claude Code sessions · Chase Teichmann",
