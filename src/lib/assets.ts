@@ -17,6 +17,7 @@ import bodyCss from '../styles/body.css?raw';
 import themeCss from '../styles/theme.css?raw';
 import storeNote from '../styles/store-note.css?raw';
 import bookingCss from '../styles/booking.css?raw';
+import a11yCss from '../styles/a11y.css?raw';
 
 import themeInit from '../scripts/theme-init.js?raw';
 import jsClass from '../scripts/js-class.js?raw';
@@ -53,6 +54,7 @@ export const styles = {
   theme: { id: 'theme-css', code: themeCss },
   storeNote: { id: 'store-note-css', code: storeNote },
   booking: { id: 'booking-css', code: bookingCss },
+  a11y: { id: 'a11y-css', code: a11yCss },
 } satisfies Record<string, Inline>;
 
 export const scripts = {

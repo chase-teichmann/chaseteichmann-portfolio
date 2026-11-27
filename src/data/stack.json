@@ -17,17 +17,18 @@
             "exchanges",
             "warranties",
             "addresses",
-            "this-site"
+            "this-site",
+            "returnguard"
           ],
           "addIds": [
-            "ingestion",
             "returns-features",
-            "billing",
-            "exchanges",
+            "ingestion",
             "order-integration",
+            "billing",
             "fraud",
-            "addresses",
+            "exchanges",
             "warranties",
+            "addresses",
             "this-site"
           ],
           "addAllCount": 9
@@ -43,7 +44,8 @@
             "fraud",
             "exchanges",
             "warranties",
-            "addresses"
+            "addresses",
+            "returnguard"
           ],
           "addIds": [
             "returns-features",
@@ -55,7 +57,7 @@
             "warranties",
             "addresses"
           ],
-          "addAllCount": 7
+          "addAllCount": 8
         },
         {
           "id": "core-postgresql",
@@ -76,7 +78,7 @@
             "fraud",
             "warranties"
           ],
-          "addAllCount": 5
+          "addAllCount": 6
         },
         {
           "id": "core-aws",
@@ -88,7 +90,8 @@
             "fraud",
             "exchanges",
             "warranties",
-            "fishlog"
+            "fishlog",
+            "returnguard"
           ],
           "addIds": [
             "returns-features",
@@ -99,7 +102,7 @@
             "warranties",
             "fishlog"
           ],
-          "addAllCount": 3
+          "addAllCount": 7
         }
       ]
     },
@@ -174,7 +177,7 @@
             "ingestion",
             "order-integration"
           ],
-          "addAllCount": 2
+          "addAllCount": 3
         }
       ]
     },
@@ -213,7 +216,8 @@
             "billing",
             "fraud",
             "exchanges",
-            "warranties"
+            "warranties",
+            "returnguard"
           ],
           "addIds": [
             "returns-features",
@@ -222,7 +226,7 @@
             "exchanges",
             "warranties"
           ],
-          "addAllCount": null
+          "addAllCount": 5
         },
         {
           "id": "aws-fargate",
@@ -232,7 +236,8 @@
             "billing",
             "fraud",
             "exchanges",
-            "warranties"
+            "warranties",
+            "returnguard"
           ],
           "addIds": [
             "returns-features",
@@ -241,7 +246,7 @@
             "exchanges",
             "warranties"
           ],
-          "addAllCount": null
+          "addAllCount": 5
         },
         {
           "id": "aws-s3",
@@ -348,14 +353,15 @@
           "projects": [
             "returns-features",
             "billing",
-            "fraud"
+            "fraud",
+            "returnguard"
           ],
           "addIds": [
             "returns-features",
             "billing",
             "fraud"
           ],
-          "addAllCount": null
+          "addAllCount": 3
         },
         {
           "id": "front-end-react",
@@ -390,11 +396,12 @@
           "projects": [
             "returns-features",
             "ingestion",
-            "exchanges"
+            "exchanges",
+            "returnguard"
           ],
           "addIds": [
-            "ingestion",
             "returns-features",
+            "ingestion",
             "exchanges"
           ],
           "addAllCount": 3
@@ -491,7 +498,8 @@
           "id": "integrations-launchdarkly",
           "name": "LaunchDarkly",
           "projects": [
-            "returns-features"
+            "returns-features",
+            "returnguard"
           ],
           "addIds": [
             "returns-features"
@@ -511,7 +519,8 @@
             "billing",
             "fraud",
             "exchanges",
-            "warranties"
+            "warranties",
+            "returnguard"
           ],
           "addIds": [
             "returns-features",
@@ -520,7 +529,7 @@
             "exchanges",
             "warranties"
           ],
-          "addAllCount": null
+          "addAllCount": 5
         },
         {
           "id": "tooling-jest",
@@ -530,7 +539,8 @@
             "billing",
             "fraud",
             "exchanges",
-            "warranties"
+            "warranties",
+            "returnguard"
           ],
           "addIds": [
             "returns-features",
@@ -539,7 +549,7 @@
             "exchanges",
             "warranties"
           ],
-          "addAllCount": null
+          "addAllCount": 5
         },
         {
           "id": "tooling-playwright",
@@ -569,7 +579,7 @@
             "exchanges",
             "warranties"
           ],
-          "addAllCount": null
+          "addAllCount": 5
         },
         {
           "id": "tooling-kong",
@@ -581,6 +591,28 @@
             "returns-features"
           ],
           "addAllCount": null
+        },
+        {
+          "name": "Astro",
+          "projects": [
+            "this-site"
+          ],
+          "addIds": [
+            "this-site"
+          ],
+          "addAllCount": null,
+          "id": "tooling-astro"
+        },
+        {
+          "name": "Cloudflare Workers",
+          "projects": [
+            "this-site"
+          ],
+          "addIds": [
+            "this-site"
+          ],
+          "addAllCount": null,
+          "id": "tooling-cloudflare-workers"
         }
       ]
     }

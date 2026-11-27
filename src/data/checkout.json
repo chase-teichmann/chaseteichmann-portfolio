@@ -51,7 +51,7 @@
   },
   "errorMessage": "Couldn't send that.",
   "submitLabel": "Place order · $0.00",
-  "fineprint": "Your details go only into the calendar invite.",
+  "fineprint": "Your details are used only for the calendar invite, and kept in this browser until the call.",
   "summaryTitle": "Order summary",
   "emptyCart": "No projects added.",
   "receipt": {

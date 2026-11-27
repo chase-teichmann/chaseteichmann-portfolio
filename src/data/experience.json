@@ -23,9 +23,9 @@
       "progression": "Intern from summer 2019 until I graduated in 2020, then Full-Stack Software Engineer. Senior from 2024.",
       "lead": "One of four engineers at a 30-person company, from 7 retailers to more than 250 served over the years, through its 2026 acquisition by a reverse-logistics competitor.",
       "pointsHtml": [
-        "<strong>Product.</strong> Designed and built the returns product’s shopper portal, return calculations, bundles, auto authorization, and automated processing, plus exchanges and warranties.",
-        "<strong>Revenue.</strong> Built nearly all of <a href=\"work/returnguard-shipping-protection/index.html\">ReturnGuard</a>, the feature the company pivoted its business model around in 2025, and automated billing on Recurly in 2020.",
-        "<strong>Reliability.</strong> With one other engineer, moved 130+ Shopify stores from webhooks to polling within a week over Christmas 2022, and built an AI fraud evaluator that keeps a person in the loop.",
+        "<strong>Product.</strong> Designed and built the returns product’s shopper portal, return calculations, bundles, and automated processing. Built auto authorization, plus exchanges and warranties end to end.",
+        "<strong>Revenue.</strong> Built nearly all of <a href=\"work/returnguard-shipping-protection/index.html\">ReturnGuard</a>, the company’s 2025 headline feature, and automated billing on Recurly in 2020.",
+        "<strong>Reliability.</strong> With one other engineer, moved 130+ Shopify stores from webhooks to polling within a week over Christmas 2022. Built an AI fraud evaluator that keeps a person in the loop.",
         "<strong>Data.</strong> Planned table relationships and built indexes across the product, and was a major contributor to the 2020 move from raw SQL to Sequelize.",
         "<strong>Team.</strong> Collaborated with a small team of principal and senior engineers, reviewed code, took on-call, and was the daily bridge between product, customer support, and engineering."
       ]

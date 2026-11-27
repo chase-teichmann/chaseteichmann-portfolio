@@ -8,17 +8,17 @@ The site moves from GitHub Pages to a Cloudflare Worker that only serves static 
 
 ## DNS records
 
-These are the Route 53 records today (zone `Z04338202J25JULOHTZFV`). Cloudflare must end up with the ones marked keep; the A, AAAA and CNAME ones all set to **DNS only** (grey cloud).
+These are the Route 53 records today (see the hosted zone in the Route 53 console for the exact values). Cloudflare must end up with the ones marked keep; the A, AAAA and CNAME ones all set to **DNS only** (grey cloud).
 
 | Name | Type | Value | Plan |
 |---|---|---|---|
 | `chaseteichmann.com` | A | `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` | GitHub Pages. Keep (DNS only) until step 6, then the Worker custom domain replaces it |
 | `chaseteichmann.com` | AAAA | `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153` | Same as the A records |
 | `www` | CNAME | `chase-teichmann.github.io` | Same as the A records |
-| FishLog's subdomain | CNAME | `d1qv3dxqb9he73.cloudfront.net` | **Keep, DNS only, forever.** FishLog |
-| `_944239638e3e43bd741c64d42fdd8f75` | CNAME | `_107b6573ed3035bdb058e5534380948f.jkddzztszm.acm-validations.aws.` | **Keep, DNS only, forever.** FishLog's certificate renewal (current certificate expires 2027-03-10; AWS renews it from about January 2027 and needs this record then) |
+| FishLog's subdomain | CNAME | FishLog’s CloudFront distribution (copy from Route 53) | **Keep, DNS only, forever.** FishLog |
+| FishLog’s ACM validation record (`_…` name, copy from Route 53) | CNAME | its `…acm-validations.aws.` target (copy from Route 53) | **Keep, DNS only, forever.** FishLog's certificate renewal (current certificate expires 2027-03-10; AWS renews it from about January 2027 and needs this record then) |
 | `chaseteichmann.com` | TXT | `"google-site-verification=…"` (copy the exact value from Route 53) | **Keep, forever.** Google Search Console verification: Google rechecks it, and the site loses verification if it disappears. (TXT records have no proxy setting.) |
-| `_github-pages-challenge-chase-teichmann` | TXT | `5717f3b1c1d988e5a8332bc5de1e70` | Delete in step 11 |
+| `_github-pages-challenge-chase-teichmann` | TXT | the GitHub Pages verification value (copy from Route 53) | Delete in step 11 |
 
 There are no MX records, so email isn't affected. DNSSEC is off for the domain (`whois` shows `unsigned`), so the nameserver switch needs no DS-record step.
 
@@ -29,7 +29,7 @@ Do these in order. Nothing in steps 1 to 4 changes what visitors see.
 1. **Merge the PR that adds `wrangler.toml`.**
 2. **Add the zone.** Cloudflare dashboard (the account that already runs `chaseteichmann-booking`) → *Add a domain* → `chaseteichmann.com` → **Free** plan. Turn off *Proxy imported records* / any "proxy by default" option if offered.
 3. **Check the imported records against the table above.** The quick scan guesses common names, so it often misses the `_944239…` ACM record and can miss FishLog's record: add any missing ones by hand, with the exact names and values above. Then:
-   - **Confirm the Google verification TXT was imported** before going on: *DNS* → *Records* must show a TXT record named `chaseteichmann.com` (shown as `@` or the domain) whose content is exactly the `google-site-verification=…` value in Route 53. Check Route 53's value with `aws route53 list-resource-record-sets --hosted-zone-id Z04338202J25JULOHTZFV --query "ResourceRecordSets[?Type=='TXT']"`. If it's missing, add it by hand (type TXT, name `@`, the value without the surrounding quotes). Don't do step 5 until it's there.
+   - **Confirm the Google verification TXT was imported** before going on: *DNS* → *Records* must show a TXT record named `chaseteichmann.com` (shown as `@` or the domain) whose content is exactly the `google-site-verification=…` value in Route 53. Check Route 53's value with `aws route53 list-resource-record-sets --hosted-zone-id <your zone ID> --query "ResourceRecordSets[?Type=='TXT']"`. If it's missing, add it by hand (type TXT, name `@`, the value without the surrounding quotes). Don't do step 5 until it's there.
    - Set **every** record to **DNS only** (grey cloud), including the apex and `www` for now. The site keeps being served by GitHub Pages until step 6.
    - Make sure FishLog's CNAME and the ACM `_944239…` CNAME are grey. If either is proxied (orange), FishLog's traffic would go through Cloudflare and the ACM record would be hidden by CNAME flattening, so the certificate renewal would fail.
    - Don't add any CAA records (AWS's certificate authority would then need its own entry).
@@ -62,7 +62,7 @@ Do these in order. Nothing in steps 1 to 4 changes what visitors see.
 10. **Merge the follow-up PR** that removes `.github/workflows/pages.yml`, `public/CNAME` and the CI check for it.
 11. **Clean up**, at least 48 hours after step 5 so every cached nameserver has expired:
     - Cloudflare *DNS*: delete the `_github-pages-challenge-chase-teichmann` TXT record.
-    - Route 53: delete the hosted zone `Z04338202J25JULOHTZFV` (delete its records except NS and SOA first; AWS requires it). This saves about $0.50 a month. Before deleting, confirm `whois chaseteichmann.com` lists only Cloudflare nameservers.
+    - Route 53: delete the site’s hosted zone (delete its records except NS and SOA first; AWS requires it). This saves about $0.50 a month. Before deleting, confirm `whois chaseteichmann.com` lists only Cloudflare nameservers.
 12. **Make the repo private:** GitHub → repo *Settings* → *General* → *Danger Zone* → *Change visibility* → *Private*. Then *Settings* → *Pages*: make sure the site is unpublished and remove the custom domain. Workers Builds keeps working on a private repo as long as the Cloudflare GitHub app has access to it (check under GitHub *Settings* → *Applications* → *Cloudflare Workers and Pages*). GitHub Actions on a private repo uses the free 2,000 minutes a month; the PR checks use a few minutes each.
 
 ## If something goes wrong

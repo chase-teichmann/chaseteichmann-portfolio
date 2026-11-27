@@ -4,7 +4,7 @@
   "number": "04",
   "name": "Automated billing on Recurly",
   "bookmark": "Automated billing on Recurly",
-  "summary": "I automated retailer billing on Recurly, taking about ten minutes per retailer, per cycle, off our VP of Operations’ desk.",
+  "summary": "I automated retailer billing on Recurly, taking about ten minutes per retailer, per cycle, of manual work off our operations team.",
   "category": "Billing",
   "period": "2020",
   "sortYear": 2020,
@@ -32,7 +32,7 @@
   },
   "seo": {
     "title": "Automated billing on Recurly · Chase Teichmann",
-    "description": "I automated ReturnLogic’s billing on Recurly. It had cost our VP of Operations about ten minutes per retailer every cycle; after it, adding retailers stopped adding work.",
+    "description": "I automated ReturnLogic’s billing on Recurly. It had cost our operations team about ten minutes per retailer every cycle; after it, adding retailers stopped adding work.",
     "about": [
       "TypeScript",
       "Node.js",
@@ -63,12 +63,12 @@
     {
       "key": "swap",
       "label": "By hand vs. automated",
-      "html": "<div class=\"compare\"><div><span class=\"compare__h\">By hand, every weekly and monthly cycle</span><ol><li>Run the usage queries</li><li>Enter each retailer’s charges into Recurly</li><li>Download the invoice</li><li>Email it with the usage report</li></ol><span class=\"compare__f\">Nearly 7 hours a month at 40 retailers.</span></div><div class=\"compare--after\"><span class=\"compare__h\">Automated</span><ol><li>A scheduled job compiles each retailer’s usage report</li><li>Posts the charges to Recurly</li><li>Emails the invoice</li><li>Retailers find every report and invoice in the app</li></ol><span class=\"compare__f\">No manual work, however many retailers.</span></div></div>"
+      "html": "<div class=\"compare\"><div><span class=\"compare__h\">By hand, every weekly and monthly cycle</span><ol><li>Run the usage queries</li><li>Enter each retailer’s charges into Recurly</li><li>Download the invoice</li><li>Email it with the usage report</li></ol><span class=\"compare__f\">Manual work every cycle, growing with each retailer.</span></div><div class=\"compare--after\"><span class=\"compare__h\">Automated</span><ol><li>A scheduled job compiles each retailer’s usage report</li><li>Posts the charges to Recurly</li><li>Emails the invoice</li><li>Retailers find every report and invoice in the app</li></ol><span class=\"compare__f\">No manual work, however many retailers.</span></div></div>"
     },
     {
       "key": "bill",
       "label": "What a bill covered",
-      "html": "<p>Each return (RMA) at that retailer’s own price, shipping labels for retailers on our managed shipping integration, and any add-on features they used.</p>"
+      "html": "<p>Per-return usage, shipping labels, and any add-on features a retailer used, all from its usage report.</p>"
     },
     {
       "key": "rerun",

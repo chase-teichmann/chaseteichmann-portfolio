@@ -12,7 +12,7 @@
   "tile": "periwinkle",
   "company": "returnlogic",
   "companyLabel": "ReturnLogic",
-  "role": "Designed and built the portal, calculations, bundles, auto authorization, and processing",
+  "role": "Designed and built the portal, calculations, bundles, and processing; built auto authorization",
   "stack": [
     "TypeScript",
     "Node.js",

@@ -86,6 +86,26 @@ describe('worker', () => {
     const r = await worker.fetch(req('/book', { method: 'POST', body: JSON.stringify(body) }), env);
     expect(r.status).toBe(409);
   });
+  it('still books the first open time if the visitor takes a while to fill in the form', async () => {
+    mockGoogle();
+    vi.useFakeTimers({ toFake: ['Date'], now: Date.parse('2026-12-01T14:20:00Z') }); // Tue 9:20 in New York
+    try {
+      const { slots } = await (await worker.fetch(req('/availability?minutes=30'), env)).json();
+      vi.setSystemTime(Date.parse('2026-12-01T14:51:00Z')); // 31 minutes later, past the first slot's notice
+      const body = { company: 'Acme', email: 'jordan@acme.test', start: slots[0], minutes: 30 };
+      const r = await worker.fetch(req('/book', { method: 'POST', body: JSON.stringify(body) }), env);
+      expect(r.status).toBe(200);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it('does not use the email as the guest name', async () => {
+    const r = await book({}, { name: 'Jordan@Acme.test' });
+    expect(r.status).toBe(200);
+    const sent = JSON.parse(calls.find((c) => c.url.includes('/events') && c.init.method === 'POST').init.body);
+    expect(sent.attendees[0].displayName).toBeUndefined();
+    expect(sent.description).toContain('Who: Jordan@Acme.test (Acme)');
+  });
   it('validates input', async () => {
     mockGoogle();
     const bad = await worker.fetch(req('/book', { method: 'POST', body: JSON.stringify({ company: 'Acme', email: 'not-an-email', start: new Date().toISOString(), minutes: 30 }) }), env);

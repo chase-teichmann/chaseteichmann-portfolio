@@ -4,7 +4,7 @@
   "number": "02",
   "name": "Shopify webhooks to polling, Christmas week",
   "bookmark": "Shopify webhooks to polling",
-  "summary": "Shopify warned our merchants that our webhooks would stop working, and its support gave conflicting answers. Another engineer and I moved 130+ stores to polling without waiting for an answer. No data lost.",
+  "summary": "When a Shopify deprecation put our webhooks at risk at the start of peak returns season, another engineer and I moved 130+ stores to polling in under a week. No data lost.",
   "category": "Data",
   "period": "2022",
   "sortYear": 2022,
@@ -28,7 +28,7 @@
   },
   "seo": {
     "title": "Shopify webhooks to polling, Christmas week · Chase Teichmann",
-    "description": "Christmas week 2022: Shopify warned our webhooks would stop working and support gave conflicting answers. Another engineer and I moved 130+ stores to polling.",
+    "description": "Christmas week 2022: a Shopify deprecation put our webhooks at risk. Another engineer and I moved 130+ stores to polling in under a week.",
     "about": [
       "AWS Lambda",
       "SQS",
@@ -60,7 +60,7 @@
     {
       "key": "happened",
       "label": "What happened",
-      "html": "<p>ReturnLogic ran as a private Shopify app and took in each merchant’s data through webhooks. We had registered them without a version, which Shopify’s docs said meant “latest.”</p><p>In Christmas week 2022, right as peak returns season began, Shopify flagged that version as deprecated.</p>"
+      "html": "<p>ReturnLogic ran as a Shopify app and took in each merchant’s data through webhooks.</p><p>In Christmas week 2022, right as peak returns season began, a Shopify deprecation notice put those webhooks at risk, with no firm answer on timing.</p>"
     },
     {
       "key": "built",
@@ -70,7 +70,7 @@
     {
       "key": "outcome",
       "label": "Outcome",
-      "html": "<p>No outage, and record counts matched Shopify’s through the peak returns week. The deprecation turned out to be a non-issue.</p><ul class=\"study__metrics\" aria-label=\"Outcomes\"><li class=\"tile-periwinkle\"><span class=\"metric-value metric-value--lg\">&lt;1<span class=\"metric-unit\">wk</span></span><span class=\"mono metric-label\">From Shopify’s email to all stores polling</span></li></ul>"
+      "html": "<p>No outage, and record counts matched Shopify’s through the peak returns week.</p><ul class=\"study__metrics\" aria-label=\"Outcomes\"><li class=\"tile-periwinkle\"><span class=\"metric-value metric-value--lg\">&lt;1<span class=\"metric-unit\">wk</span></span><span class=\"mono metric-label\">From Shopify’s email to all stores polling</span></li></ul>"
     }
   ]
 }

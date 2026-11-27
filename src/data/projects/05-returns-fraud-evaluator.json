@@ -69,7 +69,7 @@
     {
       "key": "caught",
       "label": "What testing caught",
-      "html": "<p>A provider abstraction let us A/B test prompts and swap providers without a rewrite. The test picked the prompt we shipped and exposed three guardrail gaps, which we closed.</p><ul class=\"cards\"><li><span class=\"cards__t\">Flagging on thin evidence</span><span class=\"cards__d\">The model flagged returns the rule scores didn’t support.</span></li><li><span class=\"cards__t\">Inconsistent verdicts</span><span class=\"cards__d\">The same return history could get different answers.</span></li><li><span class=\"cards__t\">Shopper text steering the model</span><span class=\"cards__d\">Return reasons and notes that shoppers write could sway the verdict.</span></li></ul>"
+      "html": "<p>A provider abstraction let us A/B test prompts and swap providers without a rewrite. The test picked the prompt we shipped and surfaced guardrail gaps in how consistently the model judged and how it weighed evidence, which we closed before launch.</p>"
     },
     {
       "key": "cost",

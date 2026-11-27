@@ -20,9 +20,9 @@
     "Playwright"
   ],
   "metric": {
-    "value": "~19",
+    "value": "~22",
     "unit": "KB",
-    "label": "JavaScript, gzipped"
+    "label": "JavaScript on the home page, gzipped"
   },
   "seo": {
     "title": "This site: a portfolio built as a store · Chase Teichmann",

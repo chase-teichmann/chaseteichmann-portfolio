@@ -14,7 +14,7 @@ import { projects, shelfProjects } from '../../lib/projects';
 const regular = projects.filter((p) => !p.addOn);
 const addOns = projects.filter((p) => p.addOn);
 const cartData = spacedJson({
-  projects: projects.map(({ id, name, tile, period, category, sortYear, addOn }) => ({ id, name, tile, period, category, sortYear, addOn })),
+  projects: projects.map(({ id, number, name, tile, period, category, sortYear, addOn }) => ({ id, number, name, tile, period, category, sortYear, addOn })),
   call: store.call,
 });
 const c = (text: string) => `<!-- ${text} -->`;
